@@ -54,9 +54,8 @@ i2c_read_byte(uint8_t slave_addr, uint8_t register_addr) {
   return data;
 }
 
-void i2c_burst_read(uint8_t slave_addr, uint8_t register_addr, int bytes, uint8_t * buf) {
+void i2c_read_bytes(uint8_t slave_addr, uint8_t register_addr, uint8_t length, uint8_t * data) {
   
-  unsigned data; // holds the byte we have read 
   int i=0;
 
   // Send start
@@ -85,17 +84,72 @@ void i2c_burst_read(uint8_t slave_addr, uint8_t register_addr, int bytes, uint8_
   }
 
   // Read data
-  for(i=0;i<(bytes-1);i++){
-    *buf = i2c_read(1);
-    buf++;
+  for(i=0;i<(length-1);i++){
+    *data = i2c_read(1);
+    data++;
   }
-  *buf = i2c_read(0); // only reading one byte so don't ack
+  *data = i2c_read(0); // only reading one byte so don't ack
 
   // Send stop 
   i2c_stop();
   
   return;
 }
+
+void i2c_write_byte(uint8_t slave_addr, uint8_t register_addr, uint8_t data) {
+  //////////////////
+  //Inputs:     uint8_t slave_addr      -       slave address
+  //            uint8_t register_addr   -       register address
+  //            uint8_t data            -       data to be written
+  //
+  //Outputs:    N/A
+  //
+  //Description: Given the slave_addr and register_addr, this function writes data to
+  //             the register address.
+  //////////////////
+
+  
+  // Send start
+  if (i2c_start() < 0) {
+    printf("Error with start\n");
+  }
+  
+  // Send slave write address
+  if (i2c_write((slave_addr & 0x7f) << 1) != 1) {
+    printf("Did not get an ack for slave write address\n");
+  }
+  
+  // Send register address
+  if (i2c_write(register_addr) != 1) {
+    printf("Did not get an ack for write register address\n");
+  }
+
+  //Read Data
+  if (i2c_write(data) != 1){
+    printf("Did not get ack for writing data");
+  }
+
+  // Send stop 
+  i2c_stop();
+  
+}
+
+void turn_sensor_on(){
+  //////////////////
+  //Inputs:     N/A
+  //
+  //Outputs:    N/A
+  //
+  //Description: Turns on the MPU6050 sensor.
+  //////////////////
+
+  uint8_t data;
+
+  data = i2c_read_byte(MPU6050_ADDRESS, MPU6050_SLEEP);
+  data = data || 0x20;
+  i2c_write_byte(MPU6050_ADDRESS, MPU6050_SLEEP, data);
+}
+
 
 /* We declare the process */
 PROCESS(mpu6050_process, "Mpu6050 process");
@@ -109,14 +163,15 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   // Variables are declared static to ensure their values are kept
   // between kernel calls.
   static struct etimer timer;  // this is an event timer
-  static uint8_t buffer[5];
-  static int i=0;
+  static uint8_t accel_dat[6],gyro_dat[6],temp_dat[2];
+  static int i=0,j=0;
 
   // any process must start wtih this
   PROCESS_BEGIN();
   
   // start the i2c module; must be called once before using
   i2c_enable();
+  turn_sensor_on();
 
   while (1) { 
     // we set the timer from here every time
@@ -125,11 +180,37 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     // and wait until the vent we receive is the one we're waiting for
     PROCESS_WAIT_EVENT_UNTIL(ev == PROCESS_EVENT_TIMER);
     
-    //`printf("Data is %X\n", i2c_read_byte(MPU6050_ADDRESS, MPU6050_RA_WHO_AM_I));  
-    i2c_burst_read(MPU6050_ADDRESS, MPU6050_RA_WHO_AM_I,5,buffer);
-    for(i=0;i<sizeof(buffer);i++){
-      printf("Buffer[%d] is %X\n", i, buffer[i]);
+    //`printf("Data is %X\n", i2c_read_byte(MPU6050_ADDRESS, MPU6050_RA_WHO_AM_I));
+    
+    //Read data from the accelerometer
+    i2c_read_bytes(MPU6050_ADDRESS,MPU6050_ACCEL,6,accel_dat);
+
+    //Read data from the gyroscope
+    i2c_read_bytes(MPU6050_ADDRESS, MPU6050_GYRO,6,gyro_dat);
+
+    //Read data from the temperature sensor
+    i2c_read_bytes(MPU6050_ADDRESS, MPU6050_TEMP,2,temp_dat);
+    
+
+    printf("Accelerometer Readings:");
+    for(i=0;i<sizeof(accel_dat);i++){
+      printf(" %d",accel_dat[i]);
     }
+    printf("\n");
+
+    printf("Gyroscope Readings:");
+    for(i=0;i<sizeof(gyro_dat);i++){
+      printf(" %d",gyro_dat[i]);
+    }
+    printf("\n");
+
+    printf("Temperature Readings:");
+    for(i=0;i<sizeof(temp_dat);i++){
+      printf(" %d",temp_dat[i]);
+    }
+    printf("\n\n");
+
+
   }
   PROCESS_END();
 }
