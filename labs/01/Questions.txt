@@ -1,0 +1,16 @@
+Your Name:
+Partner Name: 
+
+Please answer the following questions: 
+
+1. How is the event handling in blink program different from the event handling in the hello_world program?
+
+
+
+
+
+2. Explain why LEDs blink in the pattern that they do in the blink program. 
+
+
+
+
