@@ -4,7 +4,7 @@
 #include "i2c.h"
 #include "situp.h"
 
-#define CYCLES 5 //Number of readings per second.
+#define CYCLES 10 //Number of readings per second.
 #define BUF_SIZE 1 //Number of readings to average.
 #define AXIS_NUM 3
 
@@ -160,8 +160,8 @@ void turn_sensor_on(){
   i2c_write_byte(MPU6050_ADDRESS, MPU6050_SLEEP, data);
 }
 
-int16_t convert(uint8_t lsb, uint8_t rsb){
-  int16_t bits = (lsb << 8) | (rsb);
+int16_t convert(uint8_t msb, uint8_t lsb){
+  int16_t bits = (msb << 8) | (lsb);
   return bits;
 }
 
@@ -256,9 +256,20 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     gyro_z[count] = gyro[2];
 
 
+    printf("AGDATA\n");
+    printf("%d,",accel[0]);
+    printf("%d,",accel[1]);
+    printf("%d:",accel[2]);
+    printf("%d,",gyro[0]);
+    printf("%d,",gyro[1]);
+    printf("%d:",gyro[2]);
+    accel_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_ACCEL_FS);
+    printf("%d,", ( (accel_fs & 0x18) >> 3));
+    gyro_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_GYRO_FS);
+    printf("%d\n", ( (gyro_fs & 0x18) >> 3));
+    
+    /*
     if ( count == BUF_SIZE ){
-
-      printf("%d,", getAverage(&accel_x,BUF_SIZE));
       printf("%d,", getAverage(&accel_y,BUF_SIZE));
       printf("%d, ", getAverage(&accel_z,BUF_SIZE));
       printf("%d, ", getAverage(&gyro_x,BUF_SIZE));
@@ -268,6 +279,7 @@ PROCESS_THREAD(mpu6050_process, ev, data)
       count = 0;
       continue;
     }
+    */
     count++;
   }
   PROCESS_END();
