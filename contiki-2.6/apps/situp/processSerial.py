@@ -11,7 +11,10 @@
                 to files easily.
 """
 from pylab import *
-from time import sleep,gmtime,strftime
+from numpy import *
+import math     
+import datetime as dt
+from time import sleep,gmtime,strftime,time,mktime
 from position import Position
 import serial
 
@@ -51,10 +54,36 @@ def getAccelSensitivity(sens):
   else:
     return 2048.0
 
+def parseSerialReading(s):
+  """
+        Description: This function parses data taken from the Serial Port
+  """
+  data = s.split(":")
+  accel = data[0].split(",") #Accelerometer
+  gyro = data[1].split(",") #Gyroscope
+  sens = data[2].split(",") #Sensitivity Reading
+
+  #convert string arrays to float arrays
+  str_to_float(accel)
+  str_to_float(gyro)
+
+  #convert to g's
+  convert_to_AG(accel,sens[0])
+
+  #convert to degrees/seconds
+  convert_to_GG(gyro,sens[1])
+
+  return accel,gyro,sens
+
+
 def main():
-  time = strftime("%b-%d-%Y-%H-%M-%S", gmtime())
-  fname = 'logs/%s.txt'%(time)
-  file = open(fname,'w')
+
+  #Get the time of creation for this 
+  log_time = strftime("%b-%d-%Y-%H-%M-%S", gmtime())
+  time_array = []
+  readings_cnt = 0
+  fname = 'logs/%s.txt'%(log_time)
+  f = open(fname,'w')
   pos = Position(0,0,0)
   cycle_time = .10 #This is a tenth of a second.  Which means 10 hz.
 
@@ -67,60 +96,101 @@ def main():
   cnt = 0
   
   new_accel_z = 0
+  
+  #Initialize a reading counter
+  r_cnt = 0
+
+  #Initialize plotter
+  ion()
+  x_graph=arange(0,100,1)
+  y_graph=array([0]*100)
+  fig=figure()
+  ax=fig.add_subplot(111)
+  ax.axis([0,100,-180,180])
+  line1 = ax.plot(x_graph,y_graph,'r-')
+  line2 = ax.plot(x_graph,y_graph,'bo')
+
+  comp_array = [0]*100
+  local_min = [0]*100
+
+  print("Finish plotter")
+  
   while(1):
+    
     s = ser.readline()
     old_accel_z = new_accel_z
-    #data[0] = accel_x
-    #data[1] = accel_y
-    #data[2] = accel_z
-    
-    if s == "AGDATA\n":
+
+    """
+    while (s == ""):
+      print "READING..."
       s = ser.readline()
+      print "READING DONE"
+    """
+
+    if s == "AGDATA\n":
       while (s == "AGDATA\n"):
         s = ser.readline()
-      s = s.strip("\n")
-      data = s.split(":")
-
-      accel = data[0].split(",") #Accelerometer
-      gyro = data[1].split(",") #Gyroscope
-      sens = data[2].split(",") #Sensitivity Reading
-
-      #convert string arrays to float arrays
-      str_to_float(accel)
-      str_to_float(gyro)
-
-      #convert to g's
-      convert_to_AG(accel,sens[0])
-      convert_to_GG(gyro,sens[1])
+        now = dt.datetime.now()
+        timestamp = round(float(now.strftime('%s.%f')),3)
+        t = timestamp#This is the time since the epoch in milliseconds.
       
+      
+      #Strip the newline before starting
+      s = s.strip("\n")
+      accel,gyro,sens = parseSerialReading(s)
+
+            
       #Print out data
       #print "Accel: ", accel, "Gyro: ", gyro
-      new_accel_z = accel[2]
+      accel_z = accel[2]
+      gyro_z = gyro[2]
+      
+      time_array.append(t)
+      if len(time_array) > 1:
+        R = math.sqrt( (accel[0]**2)+(accel[1]**2)+(accel[2]**2) )
+        #roll = math.degrees(math.acos(accel[0]/R))
+        #pitch = math.degrees(math.acos(accel[1]/R))
+        #yaw = math.degrees(math.acos(accel[2]/R))
+        roll = math.degrees(math.atan2(accel[0],accel[2]) + math.pi)
+        pitch = math.degrees(math.atan2(accel[1],accel[2]) + math.pi)
+
+        #gyro_z*dt/1000 converts the gyro data into degrees.
+        comp_part = gyro_z*(time_array[r_cnt]-time_array[r_cnt-1])/1000
+        
+        comp_filt = ( (0.98)*(roll+comp_part) ) + ( (.02)*(accel[0]) ) - 180
+        print "Comp Filter: %f" % (comp_filt)
+        comp_array.append(comp_filt)
+        
+        #Write data to log file for future usage.
+        txt = "%f,%f,%f\n" % (t-time_array[0],roll,pitch)
+        f.write(txt)
+        
+        #plot complementary filter results!
+        CurrentXAxis=arange(len(comp_array)-100,len(comp_array),1)
+        line1[0].set_data(CurrentXAxis,array(comp_array[-100:]))
+        ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),min(comp_array),max(comp_array)])
+
+        #find local minimum
+        now = len(comp_array) - 1
+        if r_cnt > 10:
+          if comp_array[now-1] < comp_array[now] and comp_array[now-1] < comp_array[now-2]:
+            local_min.append(comp_array[now-1])
+            line2[0].set_data(CurrentXAxis,array(local_min[-100:]))
+
+        #line1.set_ydata(comp_array)
+        fig.canvas.draw()
+        
+
+        #print "Roll: %f\tPitch: %f\tYaw: %f\tCOMP_FILT: %f" %(roll,pitch,yaw,comp_filt)
+      print "ACCEL_Z: %f\tGYRO_Z: %f" % (accel_z, gyro_z)
+      r_cnt += 1
     else:
       print s
     
 
-
     
-    if cnt != 0 and cnt != 120:
-      accel_z_rate = new_accel_z - old_accel_z
-      print "[%d]Z: %f" % (cnt,accel_z_rate)
-      z_rate_array.append(accel_z_rate)
-    elif cnt == 120:
-      print "PLOTTING!"
-      plot(array(arange(0,len(z_rate_array))),array(z_rate_array), marker='o', linestyle='--',color='r')
-
-      xlabel("Time")
-      ylabel("Z")
-      title("Accelerometer Z")
-      show()
-      ser.close()
-      break
-    else:
-      print
-
     cnt += 1
-    sleep(cycle_time)
+    #sleep(cycle_time)
+    
 
-  print "DONE."
 main()

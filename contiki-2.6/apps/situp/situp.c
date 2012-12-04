@@ -4,7 +4,7 @@
 #include "i2c.h"
 #include "situp.h"
 
-#define CYCLES 10 //Number of readings per second.
+#define CYCLES 20 //Number of readings per second.
 #define BUF_SIZE 1 //Number of readings to average.
 #define AXIS_NUM 3
 
