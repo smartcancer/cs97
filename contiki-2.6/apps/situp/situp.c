@@ -3,6 +3,7 @@
 #include <stdio.h> //for printf.
 #include "i2c.h"
 #include "situp.h"
+//#include "sens_helper.h"
 
 #define CYCLES 20 //Number of readings per second.
 #define BUF_SIZE 1 //Number of readings to average.
@@ -165,18 +166,6 @@ int16_t convert(uint8_t msb, uint8_t lsb){
   return bits;
 }
 
-int16_t getAverage(int16_t * buffer, int size){
-  int32_t total = 0;
-  int i;
-
-  for (i=0;i<size;i++){
-    total += buffer[i];
-  }
-
-  return (int16_t) (total/size);
-}
-
-
 /* We declare the process */
 PROCESS(mpu6050_process, "Situp process");
 
@@ -247,15 +236,6 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     
 
     //DETECTION PHASE
-    
-    accel_x[count] = accel[0]; //X
-    accel_y[count] = accel[1]; //Y
-    accel_z[count] = accel[2]; //Z
-    gyro_x[count] = gyro[0];
-    gyro_y[count] = gyro[1];
-    gyro_z[count] = gyro[2];
-
-
     printf("AGDATA\n");
     printf("%d,",accel[0]);
     printf("%d,",accel[1]);
@@ -265,9 +245,21 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     printf("%d:",gyro[2]);
     accel_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_ACCEL_FS);
     printf("%d,", ( (accel_fs & 0x18) >> 3));
+    accel_fs = (accel_fs & 0x18) >> 3;
     gyro_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_GYRO_FS);
     printf("%d\n", ( (gyro_fs & 0x18) >> 3));
+    gyro_fs = (gyro_fs & 0x18) >> 3;
+
+    //accel_x[count] = convert_to_AG(accel[0],accel_fs); //X
+    accel_y[count] = accel[1]; //Y
+    accel_z[count] = accel[2]; //Z
+    gyro_x[count] = gyro[0];
+    gyro_y[count] = gyro[1];
+    gyro_z[count] = gyro[2];
+
+
     
+        
     /*
     if ( count == BUF_SIZE ){
       printf("%d,", getAverage(&accel_y,BUF_SIZE));
