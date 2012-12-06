@@ -25,14 +25,16 @@ float getAccelSensitivity(int sens){
   }
 }
 
-float convert_to_GG(int16_t data, int sens);{
+float convert_to_GG(int16_t data, int sens){
   float sensitivity = getGyroSensitivity(sens);
 
   return ((float) data)/sensitivity;
 }
 
-float convert_to_AG(int16_t data, int sens);{
+float convert_to_AG(int16_t data, int sens){
   float sensitivity = getAccelSensitivity(sens);
 
   return ((float) data)/sensitivity;
 }
+
+
