@@ -187,6 +187,14 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   static int state = WAITING;
 
 
+  /* measurement variables */
+  static float roll;
+  static float pitch;
+
+
+
+  /************************/
+
   // any process must start wtih this
   PROCESS_BEGIN();
   SENSORS_ACTIVATE(button_sensor);
@@ -236,21 +244,8 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     
 
     //DETECTION PHASE
-    printf("AGDATA\n");
-    printf("%d,",accel[0]);
-    printf("%d,",accel[1]);
-    printf("%d:",accel[2]);
-    printf("%d,",gyro[0]);
-    printf("%d,",gyro[1]);
-    printf("%d:",gyro[2]);
-    accel_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_ACCEL_FS);
-    printf("%d,", ( (accel_fs & 0x18) >> 3));
-    accel_fs = (accel_fs & 0x18) >> 3;
-    gyro_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_GYRO_FS);
-    printf("%d\n", ( (gyro_fs & 0x18) >> 3));
-    gyro_fs = (gyro_fs & 0x18) >> 3;
-
-    //accel_x[count] = convert_to_AG(accel[0],accel_fs); //X
+    
+    accel_x[count] = accel[0]; //X
     accel_y[count] = accel[1]; //Y
     accel_z[count] = accel[2]; //Z
     gyro_x[count] = gyro[0];
@@ -258,20 +253,10 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     gyro_z[count] = gyro[2];
 
 
+    roll = (360.0/3.14159) * (    math.atan2( accel[0] , accel[2] )   + 3.14159 )
+
+    gyro_fs = (gyro_fs & 0x18) >> 3;
     
-        
-    /*
-    if ( count == BUF_SIZE ){
-      printf("%d,", getAverage(&accel_y,BUF_SIZE));
-      printf("%d, ", getAverage(&accel_z,BUF_SIZE));
-      printf("%d, ", getAverage(&gyro_x,BUF_SIZE));
-      printf("%d, ", getAverage(&gyro_y,BUF_SIZE));
-      printf("%d\n ", getAverage(&gyro_z,BUF_SIZE));
-        
-      count = 0;
-      continue;
-    }
-    */
     count++;
   }
   PROCESS_END();
