@@ -98,15 +98,15 @@ def peakDetection(array,tlookback):
 def validPeak(data,comp_filt):
   peak_thres = 50.0
   rest_thres = 10.0
-  gyro_x_thres = 6.0
+  gyro_x_thres = 2.0
 
    
   if data < gyro_x_thres and data > -gyro_x_thres:
     if comp_filt > peak_thres:
-      print "PEAK:",comp_filt
+      #print "PEAK:",comp_filt
       return 1
     elif comp_filt < rest_thres:
-      print "REST:",comp_filt
+      #print "REST:",comp_filt
       return 2
   
   #print "NOT SATISFY"
@@ -155,6 +155,13 @@ def main():
   gyro_x_array = [0]*100
   gyro_x_peaks = [0]*100
   gyro_x_rests = [0]*100
+  
+  local_peak_count = 0
+  local_rest_count = 0
+  PEAK = 0
+  REST = 0
+  situp_cnt = 0
+  max_readings = 10
 
   print("Finish plotter")
   
@@ -234,16 +241,43 @@ def main():
         #if r_cnt % 50 == 0 and r_cnt > 0:
         result = validPeak(gyro_x,comp_filt)
         if (result == 1):
+
           gyro_x_peaks.append(comp_filt)
           gyro_x_rests.append(-800) #This will represent a null number that is impossible 
           line2[0].set_data(CurrentXAxis,array(gyro_x_peaks[-100:]))
+
+          if REST == 1:
+            local_peak_count += 1
         elif (result == 2):
+
           gyro_x_rests.append(comp_filt)
           gyro_x_peaks.append(-800) #This will represent a null number that is impossible 
           line3[0].set_data(CurrentXAxis,array(gyro_x_rests[-100:]))
+          local_rest_count += 1
         else:
           gyro_x_peaks.append(-800) #This will represent a null number that is impossible 
-          gyro_x_rests.append(-800) #This will represent a null number that is impossible 
+          gyro_x_rests.append(-800) #This will represent a null number that is impossible
+
+
+        if PEAK == 1 and REST == 1:
+          situp_cnt += 1
+          local_rest_count = 0 #We should see any counts while in the peak threshold zoen
+          local_peak_count = 0
+          print "You have done %d situps!" % (situp_cnt)
+          PEAK = 0
+          REST = 0
+
+        if PEAK == 0 and local_peak_count >= max_readings and REST == 1:
+          PEAK = 1
+          print "ITS A PEAK!", local_peak_count
+        
+        if REST == 0 and local_rest_count >= max_readings:
+          REST = 1
+          print "ITS A REST!", local_rest_count
+
+        
+
+
 
           
 
