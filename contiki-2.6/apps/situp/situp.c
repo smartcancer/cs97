@@ -8,6 +8,7 @@
 #define CYCLES 20 //Number of readings per second.
 #define BUF_SIZE 1 //Number of readings to average.
 #define AXIS_NUM 3
+#define PI 3.14159f
 
 #define WAITING 0
 #define RECORDING 1
@@ -16,6 +17,44 @@ const int DATA_SIZE = 3;
 
 // Datasheet: http://invensense.com/mems/gyro/documents/RM-MPU-6000A.pdf
 //            http://invensense.com/mems/gyro/documents/PS-MPU-6000A.pdf
+
+/*************/
+//
+//  atan2
+// directly copied from website: 
+//    http://lists.apple.com/archives/perfoptimization-dev/2005/Jan/msg00051.html
+/*************/
+
+
+// max |error| > 0.01
+float arctan2( float y, float x )
+{
+   const float ONEQTR_PI = PI / 4.0;
+   const float THRQTR_PI = 3.0 * PI / 4.0;
+   float r, angle;
+   float abs_y = ((y > 0.0f) ? y : -y) + 0.0000001f;      // kludge to prevent 0/0 condition
+   if ( x < 0.0f )
+   {
+     r = (x + abs_y) / (abs_y - x);
+     angle = THRQTR_PI;
+   }
+   else
+   {
+     r = (x - abs_y) / (x + abs_y);
+     angle = ONEQTR_PI;
+   }
+   angle += (0.1963f * r * r - 0.9817f) * r;
+   if ( y < 0.0f )
+     return( -angle );     // negate if in quad III or IV
+   else
+     return( angle );
+}
+
+
+
+
+
+
 
 
 ///////
@@ -190,7 +229,24 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   /* measurement variables */
   static float roll;
   static float pitch;
-
+  static float comp_filt_prev,comp_part, comp_filt;
+  static int time_array[10];
+  static float comp_array[100];
+  static float local_min[100];
+  static float graph_time_array[100];
+  static float gyro_x_array[100];
+  static float gyro_x_peaks[100];
+  static float gyro_x_rests[100];
+  
+  static int local_peak_count = 0;
+  static int local_rest_count = 0;
+  static int PEAK = 0;
+  static int REST = 0;
+  static int situp_cnt = 0;
+  static int max_readings = 10;
+  static int result = 0;
+  static int r_cnt = 0;
+  static bool gotOrigin = false;
 
 
   /************************/
@@ -252,11 +308,86 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     gyro_y[count] = gyro[1];
     gyro_z[count] = gyro[2];
 
+    //Euclidean directions
+    roll = (360.0f/PI) * ( arctan2( accel[0] , accel[2] )   + PI );
+    pitch = (360.0f/PI) * ( arctan2( accel[1],accel[2]) + PI);
 
-    roll = (360.0/3.14159) * (    math.atan2( accel[0] , accel[2] )   + 3.14159 )
+    //gyro_z*dt/1000 converts the gyro data into degrees.
+    comp_part = (gyro_x)*(time_array[r_cnt]-time_array[r_cnt-1])/1000;
 
-    gyro_fs = (gyro_fs & 0x18) >> 3;
+    comp_filt = ( (0.92)*(roll+comp_part) ) + ( (.08)*(accel[0]) );
+
+    if (gotOrigin == False) {
+       origin = comp_filt;
+       gotOrigin = True;
+    }
     
+    //comp filter!
+    comp_filt = comp_filt - origin;
+
+    //TO DO: make something for append stuff at end of arrays
+    comp_array.append(comp_filt);
+    
+    //not sure if this correct...
+    txt = sprintf("%f,%f,%f\n", t-time_array[0],roll,pitch);
+    f.write(txt);
+    
+    
+    result = validPeak(gyro_x,comp_filt);
+    
+    if (result == 1) {
+      //*** TO DO: make a thing for appending
+      gyro_x_peaks.append(comp_filt);
+      gyro_x_rests.append(-800); //This will represent a null number that is impossible 
+
+      if (REST == 1) {
+        local_peak_count += 1;
+      }
+    }
+    
+    else if (result == 2) {
+
+      gyro_x_rests.append(comp_filt);
+      gyro_x_peaks.append(-800); //This will represent a null number that is impossible ;
+      local_rest_count += 1;
+    }
+    
+    else{
+      gyro_x_peaks.append(-800); //This will represent a null number that is impossible 
+      gyro_x_rests.append(-800); //This will represent a null number that is impossible
+    }
+
+    if (PEAK == 1 && REST == 1){
+      situp_cnt += 1;
+      local_rest_count = 0; //We should see any counts while in the peak threshold zoen
+      local_peak_count = 0;
+      PEAK = 0;
+      REST = 0;
+    }
+    
+    if (PEAK == 0 && local_peak_count >= max_readings && REST == 1){
+      PEAK = 1;
+    } 
+    if (REST == 0 && local_rest_count >= max_readings) {
+      REST = 1;
+    }
+    comp_filt_prev = comp_filt;
+
+    /*
+    printf("AGDATA\n");
+    printf("%d,",accel[0]);
+    printf("%d,",accel[1]);
+    printf("%d:",accel[2]);
+    printf("%d,",gyro[0]);
+    printf("%d,",gyro[1]);
+    printf("%d:",gyro[2]);
+    accel_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_ACCEL_FS);
+    printf("%d,", ( (accel_fs & 0x18) >> 3));
+    gyro_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_GYRO_FS);
+    printf("%d\n", ( (gyro_fs & 0x18) >> 3)); 
+    */
+
+
     count++;
   }
   PROCESS_END();
