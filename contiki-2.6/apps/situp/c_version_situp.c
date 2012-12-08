@@ -51,12 +51,6 @@ float arctan2( float y, float x )
 }
 
 
-
-
-
-
-
-
 ///////
 // Reads one byte from a i2c register. 
 //
