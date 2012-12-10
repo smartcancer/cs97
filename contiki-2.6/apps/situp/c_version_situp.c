@@ -1,9 +1,11 @@
 #include "contiki.h"
 #include "dev/button-sensor.h"
 #include <stdio.h> //for printf.
+#include <stdlib.h>
 #include "i2c.h"
 #include "situp.h"
-//#include "sens_helper.h"
+#include <string.h>
+//#include "sys/queue.h"
 
 #define CYCLES 20 //Number of readings per second.
 #define BUF_SIZE 1 //Number of readings to average.
@@ -12,21 +14,139 @@
 
 #define WAITING 0
 #define RECORDING 1
+#define FALSE 0
+#define TRUE 1
 
 const int DATA_SIZE = 3;
 
 // Datasheet: http://invensense.com/mems/gyro/documents/RM-MPU-6000A.pdf
 //            http://invensense.com/mems/gyro/documents/PS-MPU-6000A.pdf
 
-/*************/
+
+/********************************************************/
+/********************************************************/
+/********************************************************/
+/********************************************************/
+/********************************************************/
+/********************************************************/
+/********************************************************/
+//TO DO: timestamp for the system!
+
+/********************************************************/
+/********************************************************/
+/********************************************************/
+/********************************************************/
+/********************************************************/
+
+
+
+/////////////////
+//  Queue struct implementation
+//    included pointers to head, tail and size of queue
 //
-//  atan2
+//    The queue will concatenate the elements in the list as a string in FIFO
+//    order. The MACRO append will delimit the current queue with the next 
+//    element with a '&'.
+//    
+//
+/////////////////
+
+struct light_queue{
+
+  char * queue_as_string;
+  char * head; 
+  char * tail;
+  char * prev_tail;
+  int size;
+
+} light_queue;
+
+////////////////////////////
+//
+//   Queue functions:
+//     Enqueue: This will append the "new node" to be added at end of queue 
+//              string.
+//     Dequeue: This will remove the first element from the queue string.
+//     Size: returns the value of the queue's size variable.
+//
+//
+///////////////////////////
+
+#define QUEUE_SIZE(q) q.size
+//#define ENQUEUE(q,n)  q=q##&##n
+
+void enqueue(struct light_queue*, float new_element);
+void dequeue(struct light_queue*);
+
+
+  
+void enqueue(struct light_queue * lq, float new_element){
+   
+  if (lq->size == 0){
+    
+    char new[100];
+
+    int d1 = new_element;            // Get the integer part (678).
+    float f2 = new_element - d1;     // Get fractional part (678.0123 - 678 = 0.0123).
+    int d2 = (int)(f2 * 10000);   // Turn into integer (123).
+
+    sprintf(new, "%d.%04d", d1,d2);
+
+    lq->head = new;
+    lq->tail = new;
+    lq->prev_tail = new;
+    lq->queue_as_string = new;
+  }
+  else{
+    char next[100];
+
+    int d1 = new_element;            // Get the integer part (678).
+    float f2 = new_element - d1;     // Get fractional part (678.0123 - 678 = 0.0123).
+    int d2 = (int)(f2 * 10000);   // Turn into integer (123).
+    
+    sprintf(next, "%d.%04d", d1,d2);
+    lq->prev_tail = lq->tail;
+    lq->tail = next;
+    lq->queue_as_string = strcat(lq->queue_as_string, next);
+
+  }
+  (lq->size)++;
+}
+
+  
+void dequeue(struct light_queue * lq){
+
+  if(lq->size == 0){
+    printf("No more elements");
+    exit(-1);
+  }
+  
+  else{ //hacky way to take off the first element
+    
+    char * pch;
+    pch = strtok(lq->queue_as_string, "&");
+    lq->queue_as_string = "";
+    
+    while (pch != NULL)
+    {
+      pch = strtok (NULL, "&");
+      lq->queue_as_string = strcat(lq->queue_as_string, pch);
+    }
+
+  }
+  (lq->size)--;
+
+}
+
+
+
+
+/////////////////
+// Calculates atan2 with max |error| > 0.01
+//
 // directly copied from website: 
 //    http://lists.apple.com/archives/perfoptimization-dev/2005/Jan/msg00051.html
-/*************/
-
-
-// max |error| > 0.01
+////////////////
 float arctan2( float y, float x )
 {
    const float ONEQTR_PI = PI / 4.0;
@@ -212,18 +332,22 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   // between kernel calls.
   static struct etimer timer;  // this is an event timer
   static uint8_t accel_dat[6],gyro_dat[6];
-  static uint8_t accel_fs,gyro_fs;
+  //static uint8_t accel_fs,gyro_fs;
   static int16_t accel[AXIS_NUM],gyro[AXIS_NUM];
   static int16_t accel_x[BUF_SIZE], accel_y[BUF_SIZE], accel_z[BUF_SIZE];
   static int16_t gyro_x[BUF_SIZE], gyro_y[BUF_SIZE], gyro_z[BUF_SIZE];
-  static int i=0,j=0,z=1, count=0;
+  static int i=0,j=0, count=0;
+  //static int z = 0;
   static int state = WAITING;
+  static clock_time_t current_time = 0;
 
 
   /* measurement variables */
   static float roll;
   static float pitch;
   static float comp_filt_prev,comp_part, comp_filt;
+  static int local_peak_count = 0;
+  /*
   static int time_array[10];
   static float comp_array[100];
   static float local_min[100];
@@ -231,8 +355,16 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   static float gyro_x_array[100];
   static float gyro_x_peaks[100];
   static float gyro_x_rests[100];
+  */
   
-  static int local_peak_count = 0;
+  static struct light_queue time_array;
+  static struct light_queue comp_array;
+  //static struct light_queue local_min;
+  //static struct light_queue graph_time_array;
+  //static struct light_queue gyro_x_array;
+  static struct light_queue gyro_x_peaks;
+  static struct light_queue gyro_x_rests;
+  
   static int local_rest_count = 0;
   static int PEAK = 0;
   static int REST = 0;
@@ -240,7 +372,7 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   static int max_readings = 10;
   static int result = 0;
   static int r_cnt = 0;
-  static bool gotOrigin = false;
+  static int gotOrigin = FALSE;  //FALSE stands for int value 0.
 
 
   /************************/
@@ -252,7 +384,7 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   // start the i2c module; must be called once before using
   i2c_enable();
   turn_sensor_on();
-  
+  clock_init(); 
   
   while (1) {
     //TODO: Make this if statement work.
@@ -292,6 +424,10 @@ PROCESS_THREAD(mpu6050_process, ev, data)
       j++;
     }
     
+    // get clock time
+    current_time = clock_time();
+    enqueue(&time_array, current_time);
+
 
     //DETECTION PHASE
     
@@ -307,32 +443,33 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     pitch = (360.0f/PI) * ( arctan2( accel[1],accel[2]) + PI);
 
     //gyro_z*dt/1000 converts the gyro data into degrees.
-    comp_part = (gyro_x)*(time_array[r_cnt]-time_array[r_cnt-1])/1000;
+
+    comp_part = (gyro_x)*( (float)(time_array.tail) - (float)(time_array.prev_tail)  )/1000;
 
     comp_filt = ( (0.92)*(roll+comp_part) ) + ( (.08)*(accel[0]) );
 
-    if (gotOrigin == False) {
+    if (gotOrigin == FALSE) {
        origin = comp_filt;
-       gotOrigin = True;
+       gotOrigin = TRUE;
     }
     
     //comp filter!
     comp_filt = comp_filt - origin;
 
     //TO DO: make something for append stuff at end of arrays
-    comp_array.append(comp_filt);
+    enqueue(&comp_array ,comp_filt);
     
-    //not sure if this correct...
-    txt = sprintf("%f,%f,%f\n", t-time_array[0],roll,pitch);
-    f.write(txt);
+    //log files
+    //txt = sprintf("%f,%f,%f\n", t-time_array[0],roll,pitch);
+    //f.write(txt);
     
     
     result = validPeak(gyro_x,comp_filt);
     
     if (result == 1) {
       //*** TO DO: make a thing for appending
-      gyro_x_peaks.append(comp_filt);
-      gyro_x_rests.append(-800); //This will represent a null number that is impossible 
+      enqueue(&gyro_x_peaks, comp_filt);
+      enqueue(&gyro_x_rests, -800); //This will represent a null number that is impossible 
 
       if (REST == 1) {
         local_peak_count += 1;
@@ -341,14 +478,14 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     
     else if (result == 2) {
 
-      gyro_x_rests.append(comp_filt);
-      gyro_x_peaks.append(-800); //This will represent a null number that is impossible ;
+      enqueue(&gyro_x_rests, comp_filt);
+      enqueue(&gyro_x_peaks, -800); //This will represent a null number that is impossible ;
       local_rest_count += 1;
     }
     
     else{
-      gyro_x_peaks.append(-800); //This will represent a null number that is impossible 
-      gyro_x_rests.append(-800); //This will represent a null number that is impossible
+      enqueue(&gyro_x_peaks, -800); //This will represent a null number that is impossible 
+      enqueue(&gyro_x_rests, -800); //This will represent a null number that is impossible
     }
 
     if (PEAK == 1 && REST == 1){
