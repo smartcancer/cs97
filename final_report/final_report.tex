@@ -244,7 +244,7 @@ of the citation command, using \texttt{{\char'134}cite}.
 This is what is stipulated in the SIGS style specifications.
 No other citation format is endorsed.
 
-\subsection{Tables}
+\subsection{Filtering Data}
 Because tables cannot be split across pages, the best
 placement for them is typically the top of the page
 nearest their initial cite.  To
@@ -357,25 +357,18 @@ unique number which has
 logarithm $z$: \begin{displaymath}{\log e^z = z}\end{displaymath}
 \end{definition}
 
-\begin{figure}
-\centering
-\includegraphics[width=1.0in,width=1in]{./figs/rosette.pdf}
-\caption{A sample black and white graphic (.pdf format) that has
-been resized with the \texttt{includegraphics} command.}
-\end{figure}
-
 Two lists of constructs that use one of these
 forms is given in the
 \textit{Author's  Guidelines}.
 
-\begin{figure*}
-\centering
-\includegraphics[height=2in]{./figs/flies.png}
-\caption{A sample black and white graphic (.png format)
-that needs to span two columns of text.}
-\end{figure*}
-and don't forget to end the environment with
-{figure*}, not {figure}!
+%\begin{figure*}
+%\centering
+%\includegraphics[height=2in]{./figs/flies.png}
+%\caption{A sample black and white graphic (.png format)
+%that needs to span two columns of text.}
+%\end{figure*}
+%and don't forget to end the environment with
+%{figure*}, not {figure}!
  
 There is one other similar construct environment, which is
 already set up
@@ -421,6 +414,58 @@ to create camera-ready copy, but may be converted
 to other forms -- e.g. HTML. If you inadvertently omit
 some or all of the \texttt{{\char'134}def}s recompilation will
 be, to say the least, problematic.
+
+\section{Evaluations}
+In order to estimate how well our uF!t system is working, it
+will require the evaluation of two things: Data Validation
+and Proper Sensor Placement.  Data Validation measures how
+accurately we have measured a given position. It is a test to 
+see whether or not that our system counts the correct amount 
+of reps that were completed in a single trial.  Without good
+recognition of exercises, we are unable to trust our system.
+Proper Sensor Placement is important for making sure that
+the data we record is consistent.  By placing uFit in neg-
+lible areas, the data may suffer from additional unwanted 
+noise, which would make it more difficult to detect good
+exercises.
+
+\subsection{Data Validation}
+Poo.
+
+\subsection{Proper Sensor Placement}
+For testing proper sensor placement, we proposed several
+areas where the sensor could be placed on a user's body.
+As stated earlier, it is important to choose a good loca-
+tion for the system since it may affect the overall qual-
+ity of the data.  Additionally, we must consider whether
+or not if the placement of the sensor is comfortable for
+the user.  In our prelimenary tests, it seems that it was
+acceptable to place the device on the following three
+places: {\secit the arm, center of chest, and the side 
+of the chest.} Looking at the graphs depicted in Fig 5,
+the results of
+
+\begin{figure}
+\centering
+\includegraphics[width=3.0in,width=3in]{./figs/chestTestcenter.png}
+\caption{The results of the complimentary filter with sensor placed
+on the center of the chest.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=3.0in,width=3in]{./figs/chestTestside.png}
+\caption{The results of the complimentary filter with sensor placed
+on the center of the chest.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=3.0in,width=3in]{./figs/armTest.png}
+\caption{The results of the complimentary filter with sensor placed
+on the center of the chest.}
+\end{figure}
+
 
 \section{Conclusions}
 This paragraph will end the body of this sample document.
