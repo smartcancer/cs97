@@ -1,11 +1,10 @@
 #include "contiki.h"
 #include "dev/button-sensor.h"
-#include <stdio.h> //for printf.
-#include <stdlib.h>
+#include "stdio.h" //for printf.
+#include "stdlib.h"
 #include "i2c.h"
 #include "situp.h"
 #include <string.h>
-//#include "sys/queue.h"
 
 #define CYCLES 20 //Number of readings per second.
 #define BUF_SIZE 1 //Number of readings to average.
@@ -23,22 +22,6 @@ const int DATA_SIZE = 3;
 //            http://invensense.com/mems/gyro/documents/PS-MPU-6000A.pdf
 
 
-/********************************************************/
-/********************************************************/
-/********************************************************/
-/********************************************************/
-/********************************************************/
-/********************************************************/
-/********************************************************/
-//TO DO: timestamp for the system!
-
-/********************************************************/
-/********************************************************/
-/********************************************************/
-/********************************************************/
-/********************************************************/
-
-
 
 /////////////////
 //  Queue struct implementation
@@ -50,7 +33,7 @@ const int DATA_SIZE = 3;
 //    
 //
 /////////////////
-
+/*
 struct light_queue{
 
   char * queue_as_string;
@@ -60,6 +43,18 @@ struct light_queue{
   int size;
 
 } light_queue;
+*/
+
+//////////////////////////
+//  Function declarations
+//
+//
+//
+//////////////////////////
+
+//void enqueue(struct light_queue*, float new_element);
+//void dequeue(struct light_queue*);
+int validPeak(float data, float comp_filt);
 
 ////////////////////////////
 //
@@ -75,11 +70,7 @@ struct light_queue{
 #define QUEUE_SIZE(q) q.size
 //#define ENQUEUE(q,n)  q=q##&##n
 
-void enqueue(struct light_queue*, float new_element);
-void dequeue(struct light_queue*);
-
-
-  
+/*  
 void enqueue(struct light_queue * lq, float new_element){
    
   if (lq->size == 0){
@@ -112,8 +103,8 @@ void enqueue(struct light_queue * lq, float new_element){
   }
   (lq->size)++;
 }
-
-  
+*/
+/*
 void dequeue(struct light_queue * lq){
 
   if(lq->size == 0){
@@ -137,9 +128,45 @@ void dequeue(struct light_queue * lq){
   (lq->size)--;
 
 }
+*/
+////////////////////////////
+// arrshift
+//   shift all array elements over 
+//
+//
+//
+////////////////////////////
 
 
 
+
+
+////////////////////////////
+//  ValidPeak checks that a given gyro value is a peak
+//  given a threshold
+//
+//
+///////////////////////////
+
+int validPeak(float data, float comp_filt){
+  float peak_thres = 50.0;
+  float rest_thres = 10.0;
+  float gyro_x_thres = 2.0;
+
+   
+  if (data < gyro_x_thres && data > -gyro_x_thres){
+    if (comp_filt > peak_thres){
+      //print "PEAK:",comp_filt
+      return 1;
+    }
+    else if (comp_filt < rest_thres){
+      //print "REST:",comp_filt
+      return 2;
+    }
+  }
+  //#print "NOT SATISFY"
+  return 0;
+}
 
 /////////////////
 // Calculates atan2 with max |error| > 0.01
@@ -334,18 +361,23 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   static uint8_t accel_dat[6],gyro_dat[6];
   //static uint8_t accel_fs,gyro_fs;
   static int16_t accel[AXIS_NUM],gyro[AXIS_NUM];
-  static int16_t accel_x[BUF_SIZE], accel_y[BUF_SIZE], accel_z[BUF_SIZE];
-  static int16_t gyro_x[BUF_SIZE], gyro_y[BUF_SIZE], gyro_z[BUF_SIZE];
+  //static int16_t accel_x[BUF_SIZE], accel_y[BUF_SIZE], accel_z[BUF_SIZE];
+  //static int16_t gyro_x[BUF_SIZE], gyro_y[BUF_SIZE], gyro_z[BUF_SIZE];
+  static int16_t accel_x, accel_y, accel_z;
+  static int16_t gyro_x, gyro_y, gyro_z;
+ 
   static int i=0,j=0, count=0;
   //static int z = 0;
   static int state = WAITING;
-  static clock_time_t current_time = 0;
+  static clock_time_t current_time_step = 0;
+  static clock_time_t prev_time_step = 0;
 
 
   /* measurement variables */
   static float roll;
   static float pitch;
   static float comp_filt_prev,comp_part, comp_filt;
+  static float origin;
   static int local_peak_count = 0;
   /*
   static int time_array[10];
@@ -356,7 +388,7 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   static float gyro_x_peaks[100];
   static float gyro_x_rests[100];
   */
-  
+  /*
   static struct light_queue time_array;
   static struct light_queue comp_array;
   //static struct light_queue local_min;
@@ -364,14 +396,15 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   //static struct light_queue gyro_x_array;
   static struct light_queue gyro_x_peaks;
   static struct light_queue gyro_x_rests;
-  
+  */
+
   static int local_rest_count = 0;
   static int PEAK = 0;
   static int REST = 0;
   static int situp_cnt = 0;
   static int max_readings = 10;
   static int result = 0;
-  static int r_cnt = 0;
+  //static int r_cnt = 0;
   static int gotOrigin = FALSE;  //FALSE stands for int value 0.
 
 
@@ -425,27 +458,42 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     }
     
     // get clock time
-    current_time = clock_time();
-    enqueue(&time_array, current_time);
+    prev_time_step = current_time_step;
+    current_time_step = clock_time();
+    //enqueue(&time_array, current_time);
 
 
     //DETECTION PHASE
-    
+
+    /* 
     accel_x[count] = accel[0]; //X
     accel_y[count] = accel[1]; //Y
     accel_z[count] = accel[2]; //Z
     gyro_x[count] = gyro[0];
     gyro_y[count] = gyro[1];
     gyro_z[count] = gyro[2];
-
+    */
+    
+    
+    accel_x = accel[0]; //X
+    accel_y = accel[1]; //Y
+    accel_z = accel[2]; //Z
+    gyro_x = gyro[0];
+    gyro_y = gyro[1];
+    gyro_z = gyro[2];
+    
+    
     //Euclidean directions
     roll = (360.0f/PI) * ( arctan2( accel[0] , accel[2] )   + PI );
     pitch = (360.0f/PI) * ( arctan2( accel[1],accel[2]) + PI);
 
     //gyro_z*dt/1000 converts the gyro data into degrees.
+    //static float t1 = strtod(time_array.tail); 
+    //static float t2 = strtod(time_array.prev_tail); 
 
-    comp_part = (gyro_x)*( (float)(time_array.tail) - (float)(time_array.prev_tail)  )/1000;
-
+    comp_part = (gyro_x)*( current_time_step - prev_time_step)/1000;
+    
+    comp_part = 0.0;
     comp_filt = ( (0.92)*(roll+comp_part) ) + ( (.08)*(accel[0]) );
 
     if (gotOrigin == FALSE) {
@@ -457,7 +505,7 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     comp_filt = comp_filt - origin;
 
     //TO DO: make something for append stuff at end of arrays
-    enqueue(&comp_array ,comp_filt);
+    //enqueue(&comp_array ,comp_filt);
     
     //log files
     //txt = sprintf("%f,%f,%f\n", t-time_array[0],roll,pitch);
@@ -468,8 +516,8 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     
     if (result == 1) {
       //*** TO DO: make a thing for appending
-      enqueue(&gyro_x_peaks, comp_filt);
-      enqueue(&gyro_x_rests, -800); //This will represent a null number that is impossible 
+      //enqueue(&gyro_x_peaks, comp_filt);
+      //enqueue(&gyro_x_rests, -800); //This will represent a null number that is impossible 
 
       if (REST == 1) {
         local_peak_count += 1;
@@ -478,14 +526,14 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     
     else if (result == 2) {
 
-      enqueue(&gyro_x_rests, comp_filt);
-      enqueue(&gyro_x_peaks, -800); //This will represent a null number that is impossible ;
+      //enqueue(&gyro_x_rests, comp_filt);
+      //enqueue(&gyro_x_peaks, -800); //This will represent a null number that is impossible ;
       local_rest_count += 1;
     }
     
     else{
-      enqueue(&gyro_x_peaks, -800); //This will represent a null number that is impossible 
-      enqueue(&gyro_x_rests, -800); //This will represent a null number that is impossible
+      //enqueue(&gyro_x_peaks, -800); //This will represent a null number that is impossible 
+      //enqueue(&gyro_x_rests, -800); //This will represent a null number that is impossible
     }
 
     if (PEAK == 1 && REST == 1){
