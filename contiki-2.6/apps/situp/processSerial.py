@@ -216,7 +216,7 @@ def main():
         comp_part = (gyro_x)*(time_array[r_cnt]-time_array[r_cnt-1])/1000
         
         comp_filt = ( (0.92)*(roll+comp_part) ) + ( (.08)*(accel[0]) )
-
+        #comp_filt = ( (0.85)*(roll+comp_part) ) + ( (.15)*(roll))
         if gotOrigin == False:
           origin = comp_filt
           gotOrigin = True
