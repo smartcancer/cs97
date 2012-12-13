@@ -125,8 +125,8 @@ This amounts to 147 million dollars a year. While exercise is a
 the main solution to help reducing obesity, the increase in 
 fast-paced lifestyles and lack of motivation has caused going to
 the gym to be cut from most schedules. Many mobile application 
-developers have sought to provide creative solutions that comple-
-ment a packed schedule and low interest in exercising. Mobile 
+developers have sought to provide creative solutions that complement 
+a packed schedule and low interest in exercising. Mobile 
 devices such as smartphones, ipods, and chips built-in shoes now
 are equipped with considerable computational power and are very
 portable. Furthermore, work with wireless sensor networks has 
@@ -135,7 +135,7 @@ examples of mobile devices are as follows: Nike fit (an ipod
 application that is available on most ipod devices) is available
 on many Ipod devices as an application that encourages users to
 run by logging the distance run, calories burned and time of an
-individual¿s runs. Another application is Zombierun which has 
+individual's runs. Another application is Zombierun which has 
 sought to encourage individuals to exercise by introduce a gaming
 aspect to the routine as well as the ability to share results via
 social media. The Zombierun application has shown to be successful
@@ -152,6 +152,9 @@ individuals who are inclined to exercise at the gym.
 \caption{Some of the many reasons for not exercising.}
 \end{figure}
 
+\subsection{Why don't people exercise?}
+Researchers claim that the general decrease in exercise in the US population is is mainly a consequence of technology replacing usual forms of exercising. At one point traveling certain distances involved walking or riding a bicycle, whereas now such distances are covered by either driving or use of public transportation (which generally involve an individual to be sitting). As you can see in Figure 1, most of the reasons can be attributed to issues of convenience and the lack of a support from a workout partner or support group. We believe that the uF!t systems would address these reasons.  
+
 \section{SYSTEM ARCHITECTURE}
 Our system will consist of the following components: Workout 
 classifier, exercise counter, wireless data transfer protocol 
@@ -166,9 +169,7 @@ ments would include rotational velocity around each axis and
 acceleration along each axis and be stored in a 6-tuple. The
 k-means classification algorithm would be used to group sets 
 of sensor measurements into clusters where we assume each 
-cluster would represent an exercise. (Describe store the 
-exercise measurement values in a file for describing the 
-exercises....).
+cluster would represent an exercise.
 
 Therefore, successive measurements that obtain values that are
 similar in value to a cluster would be grouped with it. 
@@ -202,10 +203,9 @@ features of the exercises in order to keep track of the number
 of repetitions that have been completed. We note that many exer-cises
 are characterized by a repeated movement and can therefore be 
 partitioned based off peaks that may occur during the exercise.
-(other ways of partitioning ?.....).  Therefore, by counting the 
-number of peaks that occur in during the exercise, would be able
-to achieve an accurate account of the number of repetitions that 
-were completed.
+Therefore, by counting the number of peaks that occur in during the 
+exercise, would be able to achieve an accurate account of the number 
+of repetitions that were completed.
 
 \subsection{Peak detection}
 In order to recognize a peak in the measurement data, we would
@@ -241,16 +241,16 @@ reduce the usage of the motes radio for needless transmissions.
 According to this architecture, a base station will constantly be
 transmitting queries for information. Once a mote is within range
 of a base station, the mote will attempt to establish stable 
-connection and transmit the user¿s exercise information.
+connection and transmit the user's exercise information.
 
 The wireless protocol of this framework would also implement 
 synchronous communication that would reduce the amount of time 
-needed to listen for a response [123123].
+needed to listen for a response [13].
 
 Both features of the protocol are will increase the lifespan of
-the mote¿s battery. In order to reduce extraneous use of radio given
+the mote's battery. In order to reduce extraneous use of radio given
 that the use of radio has been known to be a component that would
-drain a mote¿s battery the most rapidly [].
+drain a mote's battery the most rapidly.
 
 \begin{figure}
 \centering
@@ -277,8 +277,7 @@ the user improves their form when engaging in exercises or if default
 threshold values are too high or too low). Therefore, each time the base
 station communicates with the mote and receives feedback on improving the
 threshold values, the Facebook application would store these new threshold
-values. (What about updating the threshold values in the mote????)
-
+values. 
 \begin{figure}
 \centering
 \includegraphics[width=2.0in,width=2in]{./figs/tmotesky.png}
@@ -299,7 +298,7 @@ rocking carelessly.
 
 \subsection{Hardware: mpu6050}
 We have connected the 3-axis Gyro/Accelerometer mpu6050.  The gyroscope
-has sensitivity up to \(131 LSB/^\circ/s\), which can be easily
+has sensitivity up to \(131 LSB^\circ/s\), which can be easily
 modified with Contiki functions that we have created. The mpu6050 sensor
 also contained a temperature gauge; for the time being, we did not 
 incorporate the temperature gauge into our project, but we believe it may
@@ -524,6 +523,7 @@ on the arm.}
 \end{figure}
 
 \section{Related Works}
+<<<<<<< HEAD
 In \cite{seeger:healthass}, they rely on the raw measurements
 received from using only 3-axis accelerometers.  However, unlike
 our design, they use multiple accelerometers.  This allows their
@@ -572,7 +572,6 @@ actions (they provide 4 labels: stillness, typing, walking, fall).
 %of the citation command, using \texttt{{\char'134}cite}.
 %This is what is stipulated in the SIGS style specifications.
 %No other citation format is endorsed.
-
 
 \section{Future Works}
 We note that we note that k-means is a naïve solution that
