@@ -102,7 +102,7 @@ regular exercise routine. Furthermore, the modern evolution of
 social networking sites has allowed for support groups to form
 online.
 
-It should be noted that there are a multide of engaging
+It should be noted that there are a multitude of engaging
 exercises that can be done with minimal gym equipment 
 (i.e. pushups, situps, yoga); however, it is often a hassle to
 mentally keep track of all these exercises. We present uF!T, as
@@ -120,48 +120,52 @@ include tests on classification accuracy.
 Currently, America's healthcare costs have been rising more 
 and more each year. One of the most influencing factors in this
 phenomenal increase is due to obesity. In 2008, obesity healthcare
-costs account for at least 10 of total medical expenditures.
-This amounts to 147 million dollars a year. While exercise is a
-the main solution to help reducing obesity, the increase in 
-fast-paced lifestyles and lack of motivation has caused going to
-the gym to be cut from most schedules. Many mobile application 
-developers have sought to provide creative solutions that complement 
-a packed schedule and low interest in exercising. Mobile 
-devices such as smartphones, ipods, and chips built-in shoes now
-are equipped with considerable computational power and are very
-portable. Furthermore, work with wireless sensor networks has 
-been done to classify exercises done in the gym \cite{seeger:healthass}. Some notable
-examples of mobile devices are as follows: Nike fit (an ipod 
-application that is available on most ipod devices) is available
-on many Ipod devices as an application that encourages users to
-run by logging the distance run, calories burned and time of an
-individual's runs. Another application is Zombierun which has 
-sought to encourage individuals to exercise by introduce a gaming
-aspect to the routine as well as the ability to share results via
-social media. The Zombierun application has shown to be successful
-by popular account and has therefore involved encouraged many people
-to exercise more. The Zombierun application
-however, is limited to running. We present uF!t as a wireless
-sensor network that would extend tracking exercise to gym and
-incorporate the gaming and social media aspects to motivate 
-individuals who are inclined to exercise at the gym.
+costs account for at least 10 of total medical expenditures \cite{jeffords:obesity}.
+This amounts to 147 million dollars a year. Currently, in addition to
+experiencing trouble with sticking to drug regiments, doctors also have
+trouble making their patients still to their exercise schedule.  In a
+case study involving 20 patients, on the first day all patients agreed
+that they would stick to their regiment, but after three months, only
+seven patients were still doing their exercise regiment.  In eight months,
+only five were still doing their regiment \cite{campbell:noncompliance}. This is
+the same for regular citizens joining exercise programs in America.  Current
+studies show that 50\% of Americans that join an exercise program, will drop
+out within the first six months \cite{kravitz:eMotivation}.
 
 \begin{figure}
 \centering
 \includegraphics[width=3.0in,width=3in]{./figs/dontexercise.png}
 \caption{Some of the many reasons for not exercising.}
+\label{fig:noexercise}
 \end{figure}
 
 \subsection{Why don't people exercise?}
+While exercise is the main solution to help reducing obesity, people still
+choose to not exercise despite the health benefits that it imposes.  Some
+researchers believe that this is due to the increase in fast-paced lifestyles.
+In many cases, people just simply state that they do not have the time to stick
+to an exercise schedule, either due to long work hours or other schedules (\textit{picking
+up kids, attending city meetings, taking care of family, etc.}) that
+makes people generally unavailable.
+
 Researchers claim that the general decrease in exercise in
 the US population is is mainly a consequence of technology
-replacing usual forms of exercising. At one point traveling certain
-distances involved walking or riding a bicycle, whereas now such 
+replacing usual forms of exercising. Earlier in America history, traversing long
+distances were completed by either walking or riding a bicycle, whereas now such 
 distances are covered by either driving or use of public transportation
-(which generally involve an individual to be sitting). As you can see in Figure 1,
-most of the reasons can be attributed to issues of convenience and the lack of a
-support from a workout partner or support group. We believe that the uF!t systems
-would address these reasons.  
+(which generally involve an individual to be sitting). As technology has advanced,
+more and more activites that required physical activity are now being phased out.  Even
+the household vaccuuming can be replaced by purchasing a Roomba robot.
+In addition to fast-paced lifestyles and unavailable schedules, researchers attribute
+people's lack of motivation to workout to several different reasons as seen in figure
+\ref{fig:noexercise} . Looking at the figure, we can see that lack of motivation is 
+due to inability to obtain moral support from apartner or support group.  
+It has been proven that people are more inclined to stick to an exercise regiment
+if they have a friend or family member that can assist them \cite{plante:exercisewithanother}.
+By merely having an exercise partner, it improves the amount of stress relieved
+during a regular exercise routine.  Admittedly, we do not believe that uF!t is capable
+of solving every problem listed in the figure.  However, we believe that uF!t has the
+possibility to solve two problems: \textit{no exercise partner} and \textit{lack of time}.
 
 \section{SYSTEM ARCHITECTURE}
 Our system will consist of the following components: Workout 
@@ -206,20 +210,24 @@ Nevertheless, the user would be given the option of specifying a
 name for this exercise so that it could be tracked in the future.
 
 \subsection{Exercise Counter}
-After an exercise has been classified we would begin counting 
-features of the exercises in order to keep track of the number 
-of repetitions that have been completed. We note that many exer-cises
-are characterized by a repeated movement and can therefore be 
-partitioned based off peaks that may occur during the exercise.
-Therefore, by counting the number of peaks that occur in during the 
-exercise, would be able to achieve an accurate account of the number 
-of repetitions that were completed.
+After an exercise has been classified, we would begin counting 
+noticable features of the exercises in order to keep track of the number 
+of repetitions that have been completed. For example, in our current
+iteration we have completed the situp detector.  When a user is doing
+a situp, their body oscillates between two varying angles: the rest
+and the peak.  We currently can count the amount of rest-peak pairs that
+have been completed, thus representing the amount of situps completed.
+We believe we can use this same strategy to detect other exercises, such
+as push-ups, which also have a similar oscillation, but it is represented
+vertically and not angular like a situp.  With exercises having this similar
+repeated motion, we believe that we will be able to count a wide range of
+calisthenics.
 
 \subsection{Peak detection}
-In order to recognize a peak in the measurement data, we would
-set threshold values that would represent the minimum value to
-be considered a peak and the maximum value to be considered a 
-pause or rest between repetitions. Each peak in the measurement
+In order to recognize a peak in the measurement data, such as the angles
+found from our situp detector, we would like to set threshold values that
+would represent the minimum value to be considered a rest
+and the maximum value to be considered a peak.  Each peak in the measurement
 readings would consist of data points that are above the peak 
 threshold value. It is common to have multiple data points 
 classify to be a peak value. The number of successive peak values
@@ -569,7 +577,9 @@ amount of situps being done for each subject.
 
 For our sampling speed, we chose 20hz for our measurements.  As seen in some related
 works, there have been tests using higher sampling speeds to
-record data \cite{farringdon:sensorbadge}.  In accordance with our
+record data \cite{farringdon:sensorbadge}.  However, when reading
+about the SATIRE device, their group was able to achieve decent
+readings with using only 25hz \cite{ganti:satire}.  In accordance with our
 future works for uF!t, we wish our device to be usable on the go.
 We will not be able to accomplish this goal if our device consumes
 too much energy. Higher sampling speeds means that our device will
@@ -632,10 +642,6 @@ it is important to gauge the comfortability of doing the situps with the device,
 since its placement can provide unneccessary noise into our data sets.
 
 
-
-
-
-
 \section{Related Works}
 Unlike uF!t's use of the accelerometer and gyroscope, one of our
 main competitors rely on the raw measurements received from using only 3-axis accelerometers 
@@ -656,41 +662,47 @@ uF!t's battery life.  For these reasons, we make note of myHealthAssistant's
 lack of battery life discussion because it is important reminder for a device
 that is marketed to be used by people that are on the go.
 
-In \cite{ganti:satire}, they create a body sensor network that is
-integrated into a simple winter coat.  Their work is related to
+SATIRE is another system that rivals some of the functionalities
+that uF!t provides. In SATIRE, they create a body sensor network that is
+integrated into a simple winter coat \cite{ganti:satire}.  Their work is related to
 uF!t since the system they create involves determing the activity
 being performed by the wearer.  They use simple actions such as
 walking, sitting, climbing stairs, typing, and reading.  To monitor
 these actions they use an \textit{exponential weighted moving average}
-(EWMA) filter, which essentially is k-means.  We find this paper very
+(EWMA) filter.  We find this paper very
 interesting, since they use it as a way to figure out basic repetitive
-actions (they provide 4 labels: stillness, typing, walking, fall). 
+actions (they provide 4 labels: stillness, typing, walking, fall).  With
+the uF!t device, instead of monitoring day to day activities like SATIRE,
+we wish to focus on calisthenic exercises.  Even though SATIRE is only 
+for tracking normal activities, it allows them to maintain records on
+the wearer's health.  uF!t provides flexibility, considering that it is
+not only good for maintaining the user's health, but useful for improving
+one's health as well.  Our uF!t device, once fully completed, can be
+used for people and patients who wish to be healthier through doing
+simple calisthenics.  As stated before, uF!t will be able to track
+your progress by storing results from daily workouts, whereas SATIRE
+is not neccesarily an exercise device, but only a device that
+monitors your current health and activity.
 
-%\subsection{Citations}
-%conference
-%proceedings \cite{clark:pct} or books \cite{salas:calculus, Lamport:LaTeX} listed
-%in the Bibliography section of your
-%article will occur throughout the text of your article.
-%You should use BibTeX to automatically produce this bibliography;
-%you simply need to insert one of several citation commands with
-%a key of the item cited in the proper location in
-%the \texttt{.tex} file \cite{Lamport:LaTeX}.
-%The key is a short reference you invent to uniquely
-%identify each work; in this sample document, the key is
-%the first author's surname and a
-%word from the title.  This identifying key is included
-%with each item in the \texttt{.bib} file for your article.
-
-%The details of the construction of the \texttt{.bib} file
-%are beyond the scope of this sample document, but more
-%information can be found in the \textit{Author's Guide},
-%and exhaustive details in the \textit{\LaTeX\ User's
-%Guide}\cite{Lamport:LaTeX}.
-
-%This article shows only the plainest form
-%of the citation command, using \texttt{{\char'134}cite}.
-%This is what is stipulated in the SIGS style specifications.
-%No other citation format is endorsed.
+Many mobile application developers have sought to provide creative solutions that complement 
+a packed schedule and low interest in exercising. Mobile 
+devices such as smartphones, ipods, and chips built-in shoes now
+are equipped with considerable computational power and are very
+portable. Some notable examples of mobile devices are as follows: Nike fit (an ipod 
+application that is available on most ipod devices) is available
+on many Ipod devices as an application that encourages users to
+run by logging the distance run, calories burned and time of an
+individual's runs. Another application is Zombierun which has 
+sought to encourage individuals to exercise by introduce a gaming
+aspect to the routine as well as the ability to share results via
+social media. The Zombierun application has shown to be successful
+by popular account and has therefore involved encouraged many people
+to exercise more. Unfortunately, the Zombierun application is extremely
+limited in its variety exercises.  Currently, Zombierun is only capable
+of encouraging a user to run.  UF!t offers a vareity exercises, so that
+a user will not have to stick to the same routine.  Being able to change
+your routine has been proven to provide better health benefits, than
+a routine that is always the same.
 
 \section{Future Works}
 In our current design of uF!t, we unfortunately are unable to
@@ -761,24 +773,6 @@ Citations not mentioned in article yet \cite{seeger:healthass, park:dancers, zha
 %
 % ACM needs 'a single self-contained file'!
 %
-%APPENDICES are optional
-%\balancecolumns
-\appendix
-%Appendix
-\section{Appendix}
-\subsection{Introduction}
-\subsection{System Architecture}
-\subsection{Hardware and Software}
-\subsection{Implementation}
-\subsection{Evaluations}
-\subsection{Related Work}
-\subsection{Future Works}
-\subsection{Conclusions}
-\subsection{Acknowledgments}
-\subsection{Additional Authors}
-\subsection{References}
-% This next section command marks the start of
-% Appendix B, and does not continue the present hierarchy
 \balancecolumns
 % That's all folks!
 \end{document}
