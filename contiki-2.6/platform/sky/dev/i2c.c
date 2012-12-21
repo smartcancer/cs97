@@ -58,16 +58,16 @@ unsigned i2c_read(int send_ack);
 int      i2c_write(unsigned);
 void     i2c_stop(void);
 
-#define I2C_PxDIR   P3DIR
-#define I2C_PxIN    P3IN
-#define I2C_PxOUT   P3OUT
-#define I2C_PxSEL   P3SEL
+#define I2C_PxDIR   P6DIR
+#define I2C_PxIN    P6IN
+#define I2C_PxOUT   P6OUT
+#define I2C_PxSEL   P6SEL
 /*
- * SDA == P3.1
- * SCL == P3.3
+ * SDA == P6.1
+ * SCL == P6.0
  */
 #define SDA       1
-#define SCL       3
+#define SCL       0
 
 #define SDA_0()   (I2C_PxDIR |=  BV(SDA))		/* SDA Output */
 #define SDA_1()   (I2C_PxDIR &= ~BV(SDA))		/* SDA Input */
