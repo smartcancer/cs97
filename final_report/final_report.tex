@@ -250,23 +250,7 @@ We hope to gain this information by dynamically updating these
 threshold values and store these in a user profile on the social
 media application.
 
-\subsection{Wireless Protocol}
-The motes will communicate with a base station based on a passive
-architecture. Passive communication architecture has shown to 
-reduce the usage of the motes radio for needless transmissions.
-According to this architecture, a base station will constantly be
-transmitting queries for information. Once a mote is within range
-of a base station, the mote will attempt to establish stable 
-connection and transmit the user's exercise information.
 
-The wireless protocol of this framework would also implement 
-synchronous communication that would reduce the amount of time 
-needed to listen for a response [13].
-
-Both features of the protocol are will increase the lifespan of
-the mote's battery. In order to reduce extraneous use of radio given
-that the use of radio has been known to be a component that would
-drain a mote's battery the most rapidly.
 
 \begin{figure}
 \centering
@@ -740,6 +724,7 @@ detection that would search for inflection points in the data
 We also take into account the fact that threshold values could be
 driven to values too low that noise would cause mis-classification.
 
+In order to upload data to a social networking application the motes will communicate with a base station and transmit the exercise counts when ever the opportunity arises. Once a mote has transmitted its data, it will idle its radio for a idling time period that is configurable by the user, given then it is unlikely that there will be much more data to transmit soon after a transmission. After the specified period of time, the radio will return to its original state of listening. A default value that the mote's idling time period would be 15 minutes (which is arbitrarily chosen as a reasonable time period that is short enough that a user is not likely to do a significant number of exercises before the mote attempts to transmit again). It is noted that much of the lifetime of the mote is dependent on efficient use of the radio since much of the radio will be used to constantly listen for a beacon. It would then be advantageous to transmit data as rapidly as possible and return to a idle state in order to reduce the use of radio as much as possible. It is possible to obtain energy savings by implementing X-MAC which provides a solution to the excess latency of the long preamble that prefaces data transmissions \cite{buettner:xmac}. Therefore, by avoiding the use of long preambles X-MAC's approach the mote can complete its transmission of data rapidly. In order to initiate data transmission the beacon must discover the presence of the mote and establish a connection. We will attempt to implement an active architecture for mote discovery. This architecture calls for the beacon to periodically transmit its location such that motes that are within in range can query the beacon with a transmission request. Consequently, the beacon can send an ack and begin receiving data. Our wireless protocol will likely increase the lifespan of the mote given that the radio is guaranteed to remain idle for the sum of the configured idle times.
 
 
 \section{Conclusions}
