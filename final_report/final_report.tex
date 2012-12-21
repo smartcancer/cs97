@@ -91,11 +91,11 @@ Steven Hwang\\
 \maketitle
 \begin{abstract}
 Common reasons for the low motivation to exercise include
-the absence of an exercise partner and the large time invest-
-ment required in traveling to the gym. Some responses to this
+the absence of an exercise partner and the large time investment
+required in traveling to the gym. Some responses to this
 issue have divulged possible solutions: joining an exercise
-support groups or focusing on exercises that can be done with-
-out gym equipment. While both suggestions are practical, 
+support groups or focusing on exercises that can be done without
+gym equipment. While both suggestions are practical, 
 studies show support groups are notable in that they have 
 been known to be effective at keeping individuals adhere to a
 regular exercise routine. Furthermore, the modern evolution of
@@ -119,8 +119,8 @@ include tests on classification accuracy.
 \section{Introduction}
 Currently, America's healthcare costs have been rising more 
 and more each year. One of the most influencing factors in this
-phenomenal increase is due to obesity. In 2008, obesity health-
-care costs account for at least 10 of total medical expenditures.
+phenomenal increase is due to obesity. In 2008, obesity healthcare
+costs account for at least 10 of total medical expenditures.
 This amounts to 147 million dollars a year. While exercise is a
 the main solution to help reducing obesity, the increase in 
 fast-paced lifestyles and lack of motivation has caused going to
@@ -139,8 +139,8 @@ individual's runs. Another application is Zombierun which has
 sought to encourage individuals to exercise by introduce a gaming
 aspect to the routine as well as the ability to share results via
 social media. The Zombierun application has shown to be successful
-by popular account and has therefore involved 
-encouraged many people to exercise more. The Zombierun application
+by popular account and has therefore involved encouraged many people
+to exercise more. The Zombierun application
 however, is limited to running. We present uF!t as a wireless
 sensor network that would extend tracking exercise to gym and
 incorporate the gaming and social media aspects to motivate 
@@ -153,7 +153,15 @@ individuals who are inclined to exercise at the gym.
 \end{figure}
 
 \subsection{Why don't people exercise?}
-Researchers claim that the general decrease in exercise in the US population is is mainly a consequence of technology replacing usual forms of exercising. At one point traveling certain distances involved walking or riding a bicycle, whereas now such distances are covered by either driving or use of public transportation (which generally involve an individual to be sitting). As you can see in Figure 1, most of the reasons can be attributed to issues of convenience and the lack of a support from a workout partner or support group. We believe that the uF!t systems would address these reasons.  
+Researchers claim that the general decrease in exercise in
+the US population is is mainly a consequence of technology
+replacing usual forms of exercising. At one point traveling certain
+distances involved walking or riding a bicycle, whereas now such 
+distances are covered by either driving or use of public transportation
+(which generally involve an individual to be sitting). As you can see in Figure 1,
+most of the reasons can be attributed to issues of convenience and the lack of a
+support from a workout partner or support group. We believe that the uF!t systems
+would address these reasons.  
 
 \section{SYSTEM ARCHITECTURE}
 Our system will consist of the following components: Workout 
@@ -282,27 +290,19 @@ values.
 \centering
 \includegraphics[width=2.0in,width=2in]{./figs/tmotesky.png}
 \caption{The current casing for our uF!t device.}
+\label{fig:devicecase}
 \end{figure}
 
-\section{Hardware and Software}
-We decided to use the Tmote Sky for the basis of our project. The Tmote 
+\section{Implementation}
+We used the Tmote Sky for the basis of our project. The Tmote 
 Sky can be powered by two AA batteries, however in our current 
 implementation of uF!t, it is still wired, thus not requiring the use
 of batteries.  Besides the electrical components, we have encased our
 device using a lightweight plastic container (similar to a soap bar case).
-The housing for our device helps the sensor sit in a stablize position.
+The housing for our device helps the sensor sit in a stable position.
 The data is already noisy, so it is important that the sensors are not
 given more opportunities to be mutated by noises induced by the sensor
 rocking carelessly.
-
-
-\subsection{Hardware: mpu6050}
-We have connected the 3-axis Gyro/Accelerometer mpu6050.  The gyroscope
-has sensitivity up to \(131 LSB^\circ/s\), which can be easily
-modified with Contiki functions that we have created. The mpu6050 sensor
-also contained a temperature gauge; for the time being, we did not 
-incorporate the temperature gauge into our project, but we believe it may
-have later uses (for more info please look at future works).
 
 \subsection{Software: Contiki 2.6}
 Unlike a standard out-of-the-box Tmote Sky, we use Contiki 2.6, instead of
@@ -311,23 +311,29 @@ more familiar with C, which made it much easy for us to quickly
 understand native functions in Contiki 2.6.  Additionally, this allowed
 us to focus on understanding how to integrate the accelerometer and
 gyroscope's functionality into Contiki.
-	 	
-\section{Implementation}
+
+\subsection{Hardware: mpu6050}
+We have connected the 3-axis Gyro/Accelerometer mpu6050.  The gyroscope
+contains various degrees of sensitivity, which can be easily
+modified with Contiki functions that we have created. The mpu6050 sensor
+also contained a temperature gauge; for the time being, we did not 
+incorporate the temperature gauge into our project, but we believe it may
+have later uses (for more info please look at future works).
+
 To ensure that we could track a user's body while doing a situp,
 this required more work than just using the accelerometer and 
 gyroscope raw data to do localization.  As such, we ran through
 some equations that either used the accelerometer or the gyroscope.
-However, after some strong analysis, in the end it required that 
-we use both measurements in order to calculate the angle of user's
-body.  The mpu6050 sensor that we used consisted of a 6-axis 
-accelerometer and gyroscope.
+However, after running some tests seperately on the accelerometer and
+gyrscope, we decided that we would need to use the measurements received
+from both devices in order to calculate the angle of user's body.
 
 \subsection{Accelerometer}
 In order to track simple movements like a push-up or sit-up,
 it was easy to determine by focusing on variation in the 
 accelerometer's z (for the push-up) and the accelerometer's
 y (for a pull-up).  However, in order to calculate the angle
-of the user'ss body in respect to our sensor, it required some
+of the user's body with respect to our sensor, requires some
 trigonometry.
 
 \begin{equation}angle_{accel_x} = \arctan(accel_x,accel_z) + \pi\end{equation}
@@ -339,20 +345,24 @@ must add \(\pi\) to the results of arctan to have the range convert-
 ed to 0 to 2\(\pi\).  Having no initial knowledge in the usage
 of accelerometers or gyroscopes, we believed that the accelero-
 meter would have served its purpose for calculating the wearer's
-body angle during a situp.  However, if we look at figure 2
+body angle during a situp.  However, if we look at figure \ref{fig:accelResults}
 we can see that our initial assumption was clearly untrue.  The
 accelerometer is great at calculating angles for stationary 
 positions, but it is terrible at tracking the rapid movements 
-experienced during a situp.  In figure 2, the data that 
-we received was extremely noisy, so we were able to poorly track
-the user's angle while doing a situp.  This lead us to try some
-experiments with the gyroscope.
+experienced during a situp.  After doing a realtime comparison
+of an actual situp and the data we recorded, it turns out that
+the accelerometer reports angles exceedingly lower than what is
+actually completed.  In our initial tests, we only did situps
+up to angle of \(60^\circ\), however when we look at figure \ref{fig:accelResults},
+we can see that the highest recorded peak is about \(40^\circ\).  Additionaly,
+the data that we received was noisy, so this was unsuitable for
+accurately tracking a user's angle.
 
 \begin{figure}
 \centering
 \includegraphics[width=3.0in,width=3in]{./figs/accel_test.png}
-\caption{The results of the accelerometer, notice that
-the data is extremely noisy.}
+\caption{The results of the accelerometer.}
+\label{fig:accelResults}
 \end{figure}
 
 \subsection{Gyroscope}
@@ -365,32 +375,25 @@ this simple equation to calculate the angle.
 
 Gyro is the degrees per second (\(^\circ/s\)) recorded from the
 gyroscope, while delta t is the sample period calculated from 
-the samplespeed.  In our trials, we used a sampling speed of 
-20hz.  You can calculate the sample period from the sampling 
-rate by using the following equation:
-
-\begin{displaymath}T = 1/f\end{displaymath}
-
-So for our trials, the sample period was .05.  Multiplying 
-the gyro by sample period, it gives us the angle calculated 
+the sample speed.  
+Multiplying the gyro by sample period, gives us the angle calculated 
 within one cycle, which can be accumulated in our total angle.  
 Successfully being able to calculate the angle using the gyro, 
-we were certain that our results was going to be great.  Looking
-at figure 3, however, the gyroscope's measurments are 
+we were certain that our results would be promising.  Looking
+at figure \ref{fig:gyroResults}, however, the gyroscope's measurments are 
 constantly increasing by a fixed amount as time goes on, this
-is called \textit{drift}.  From our gryoscope analysis it seems that the
-gyro not only experiences horrible drift (about \(5^\circ/s\)),
-but it also is not centered properly.  When the gyroscope is
-placed in a stationary position, it is expected to return a 
-measurment of about 0 degrees per second.  In our studies, our
-gyroscope actually returns about \(34^\circ/s\) when it is not
+is called \textit{drift}.  From our gryoscope analysis, the
+gyro not only experiences drift (about \(5^\circ/s\)),
+but it also is not centered properly.  Currently, when the gyroscope is
+stationary, it returns an angular velocity of \(34^\circ/s\).
 in motion.
 
 \begin{figure}
 \centering
 \includegraphics[width=3.0in,width=3in]{./figs/gyro_test.png}
-\caption{The results of the accelerometer, notice that
-the data is extremely noisy.}
+\caption{The results of the gyroscope, smoother than the
+accelerometer results.}
+\label{fig:gyroResults}
 \end{figure}
 
 
@@ -418,18 +421,28 @@ the reliability of the gyroscope's data and the sample
 rate.  The time constant defines the boundary between
 trusting the gyroscope and trusting the accelerometer.
 In our time constant, we used a time constant of \textit{.5
-seconds}.  This means that for any measurement that is
+seconds}. We had chose this time constant due to our results
+from the gyroscope.  It is important to choose a time constant
+that will work with the amount of drift generated from the
+gyroscope.  This means that for any measurement that is
 lower than half a second, the algorithm will take the
 gyroscope's measurements into consideration.  However,
 for any measurements that take longer than half a second,
 the accelerometer will have more weight, allowing it to
 take precedence over the gyroscope.  Remembering that
-the gyroscope drifts over time, it is better to trust
-the accelerometer when the given time period is taking
-too long.
+the gyroscope drifts over time, so for the results that
+are recorded short periods, such as a quick rise during
+a situp, it is very reliable.  However, consider a user
+that has already risen and is waiting at the peak of their
+situp.  In this situation, the gyroscope will become
+unreliable as time continues to expire, so it is better
+to trust the accelerometer's data because it is suited
+for recording angles in stationary positions.  Using the
+complementary filter in this style, allows us believe that
+we will be able to record situps at varying speeds.
 
 
-\section{Evaluations}
+\section{Evaluation}
 In order to estimate how well our uF!t system is working, it
 will require the evaluation of two things: Peak Detection
 and Proper Sensor Placement.  Peak Detection allows us to
@@ -463,15 +476,36 @@ were doing situps. Of course, we admit that currently having
 static threshold values is not the best implementation for
 detecting situps.  However, we found threshold values provided
 us a quick and simple way to begin detecting situps without
-having to use anything that is computationally heavier. As
-seen in figure DOJIHOPDASDHSUPDHU, 
+having to use anything that is computationally heavier.  Looking
+at Figures \ref{fig:centerchest}, \ref{fig:sidechest}, and \ref{fig:sidearm}, 
+we already have results from the threshold values that we selected.
+The upper blue dots, represents detected peaks, while the lower green
+dots represent detected rests. Like our competitors, we too have provided
+in-sensor calculations, allowing us to minimize the amount of data that
+will be sent once we begin working on wireless communication support.
+
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=3.0in,width=3in]{./figs/chestTestcenter.png}
+\caption{The results of the complimentary filter with sensor placed
+on the center of the chest.}
+\label{fig:centerchest}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=3.0in,width=3in]{./figs/chestTestside.png}
+\caption{The results of the complimentary filter with sensor placed
+on the side of the chest.}
+\label{fig:sidechest}
+\end{figure}
 
 \subsection{Proper Sensor Placement}
-For testing proper sensor placement, we proposed several
+For testing proper sensor placement, we tested several
 areas where the sensor could be placed on a user's body.
-As stated earlier, it is important to choose a good loca-
-tion for the system since it may affect the overall qual-
-ity of the data.  Additionally, we must consider whether
+As stated earlier, it is important to choose a good location for the 
+system since it may affect the overall quality of the data.  Additionally, we must consider whether
 or not if the placement of the sensor is comfortable for
 the user.  In our prelimenary tests, it seems that it was
 acceptable to place the device on the following three
@@ -482,21 +516,7 @@ is centered at the body and it should not affect any of
 the data since the chest area is generally an even area
 for people of most sizes.
 
-\begin{figure}
-\centering
-\includegraphics[width=3.0in,width=3in]{./figs/chestTestcenter.png}
-\caption{The results of the complimentary filter with sensor placed
-on the center of the chest.}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=3.0in,width=3in]{./figs/chestTestside.png}
-\caption{The results of the complimentary filter with sensor placed
-on the side of the chest.}
-\end{figure}
-
-Looking at the graphs depicted in Figures 6,7,8, we can see that
+Looking at the graphs depicted in Figures \ref{fig:centerchest}, \ref{fig:sidechest}, and \ref{fig:sidearm} , we see that
 our initial assumption was actually incorrect.  It seems
 that the sensor obtained the best results when it was
 placed on the side of the chest.  Of course, we expected
@@ -515,17 +535,111 @@ tested on average-sized males, which currently is a limited
 scope of view considering that we wish this device to be
 used by many people.
 
-\begin{figure}
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=3.0in,width=3in]{./figs/armTest.png}
 \caption{The results of the complimentary filter with sensor placed
 on the arm.}
+\label{fig:sidearm}
 \end{figure}
 
+\subsection{Accuracy}
+Remembering the last section, we determined that it
+is important that we are able to detect the correct amount
+situps with indivudals of varying body types.  For our next
+tests, we used four random individuals to do situps while
+wearing our uF!t device.  Each user was properly informed
+about what our device is capable of, and they were given the
+choice to decline if neccessary.  Our test comprised of
+three different situp speeds: \textit{fast, normal,} and
+\textit{slow}.  Fast is equivalent to completing a situp every
+second, while normal is completing a situp every two seconds
+and slow is completing a situp every three seconds.  The
+objective of each testing speed was to complete ten situps.
+
+To ensure that each set of situps was completed in the same
+fashion, participants were given a 10 minute break to allow
+them to recouperate if they were feeling fatigued.  Determing
+the accuracy of each setup involving the comparison between
+the amount of situps that uF!t detected and the amount situps
+counted.  As stated earlier, the stress of workout can impact
+a person's ability to record situps.  To avoid the human error
+of our participants, we allowed third parties to count the
+amount of situps being done for each subject.
+
+For our sampling speed, we chose 20hz for our measurements.  As seen in some related
+works, there have been tests using higher sampling speeds to
+record data \cite{farringdon:sensorbadge}.  In accordance with our
+future works for uF!t, we wish our device to be usable on the go.
+We will not be able to accomplish this goal if our device consumes
+too much energy. Higher sampling speeds means that our device will
+have higher power consumption.  In our initial design of uF!t,
+we found that 20hz was the lowest sampling speed possible while
+still producing reasonable results; lower sampling speeds were unable 
+to keep up with the slowest situp speed.
+
+
+
+If we look at the table 1, it seems that our device is highly accurate
+when the user is utilizing a slow situp speed (average of .8).  Unfortunately,
+as the user completes sit-ups at a normal speed, the device's accuracy
+drops by a factor of 1.88 (average of .425).  This accuracy drops even
+further when the user is completing situps at a fast speed, dropping
+by a factor of 5.3 when compared to the slow situp speed.  
+
+
+
+\subsubsection{Participant's Comments}
+Considering that we intend uF!t to be used by different people, it is
+important to record our participants initial thoughts about our device.
+After the completion of the test, each participant was allowed to see
+the results of their situps and were asked a small questionaire with the
+following questions:
+
+\begin{table*}[!htp]
+\centering
+\caption{Accuracy of Situps}
+\begin{tabular}{|c|c|c|c|} \hline
+Participants&Accuracy (Slow)&Accuracy(Normal) & Accuracy(Fast)\\ \hline
+1 & .8 & .4 & .2\\ \hline
+2 & .9 & .7 & .1\\ \hline
+3 & .5 & .1 & .1\\ \hline
+4 & .8 & .5 & .2\\ \hline
+Average & .8 & .425 & .15 \\ \hline
+\end{tabular}
+\end{table*}
+
+\begin{enumerate}
+\item Do you consider yourself a casual or hardcore exerciser?
+\item Did you like using the uF!t device? Was it comfortable?
+\item Any additional comments?
+\end{enumerate}
+
+Out of the four test subjects, two identified
+theirselves as casual exercises saying that they enjoyed that the
+device was able to track their situps when they were completing a
+slow set.  However, the other two participants that classified as 
+hardcore did not appreciate that the device was unable to detect
+a fast set of situps.  The hardcore exercises said that they needed
+to do a larger quantity of faster situps to reap any benefits.
+Some participants commented that the important part of
+recording the situp is the rise.  This confirms some of our observations
+during the tests where a participant's situp would not be detected until
+a proper rest-peak pair was confirmed on the situp device. There were also
+comments about the device still being comfortable, despite it being
+worn by participants of vary sizes.  As we described in Proper Sensor Placement,
+it is important to gauge the comfortability of doing the situps with the device,
+since its placement can provide unneccessary noise into our data sets.
+
+
+
+
+
+
 \section{Related Works}
-<<<<<<< HEAD
-In \cite{seeger:healthass}, they rely on the raw measurements
-received from using only 3-axis accelerometers.  However, unlike
+Unlike uF!t's use of the accelerometer and gyroscope, one of our
+main competitors rely on the raw measurements received from using only 3-axis accelerometers 
+\cite{seeger:healthass} .  However, unlike
 our design, they use multiple accelerometers.  This allows their
 system to have more versatility than the amount of exercises that
 we are attempting to track.  So far, our exercises are limited to
@@ -533,9 +647,14 @@ calisthenics, whereas myHealthAssistant can do resistance and
 weight training exercises.  The ability to do more of these
 exercises come at a cost.  In their paper they do not cover the
 amount of power consumed by using multiple sensors.  This can
-honestly make or break the effectiveness of myHealthAssistant
+make or break the effectiveness of myHealthAssistant
 since it is not useful to record multiple exercises with only
-a short amount of battery life.
+a short amount of battery life.  In our current design, we admit
+that we have not provided results for uF!t's battery life, too.  However,
+we have not reached the phase where we can focus on analyzing
+uF!t's battery life.  For these reasons, we make note of myHealthAssistant's
+lack of battery life discussion because it is important reminder for a device
+that is marketed to be used by people that are on the go.
 
 In \cite{ganti:satire}, they create a body sensor network that is
 integrated into a simple winter coat.  Their work is related to
@@ -574,6 +693,27 @@ actions (they provide 4 labels: stillness, typing, walking, fall).
 %No other citation format is endorsed.
 
 \section{Future Works}
+In our current design of uF!t, we unfortunately are unable to
+communicate wirelessly.  We chose this option, so that we could
+focus on getting accurate results from our accelerometer and gyrscope.
+However, we believe that wireless communication is the next important
+step in the design of our system.  With the addition of wireless
+support, it will provide the groundwork so that we can start Social media 
+integration.
+
+As stated earlier, the mpu6050 contains a temperature sensor.  In
+future designs of uF!t, we believe that we can incorporate the
+temperature sensor to monitor the amount of heat being generated
+during a workout session.  With this data, we want to be able
+to determine if the user has been working out for too long.  This
+would be idealistic for situations where the wearer is exercising
+in undesirable conditions, such as a small stuffy room.  Given
+our initial research, we believe that by monitoring the temperature,
+we can prevent uF!t users from suffering from severe illnesses such
+as dehydration and hypothermia \cite{gonzalez:exerciseheat}.  This
+degree of security would be enticing for new people that are interested
+in excerciing.
+
 We note that we note that k-means is a naïve solution that
 is heavily dependent on the initial placement of the cluster
 centers as terrible initial placements could introduce 
@@ -587,6 +727,8 @@ detection that would search for inflection points in the data
 
 We also take into account the fact that threshold values could be
 driven to values too low that noise would cause mis-classification.
+
+
 
 \section{Conclusions}
 We believe that we have provided the neccessry groundwork
@@ -603,6 +745,9 @@ us with debugging the accelerometer and gyroscope.
 Also, we would like to thank Swarthmore's CS Department
 for providing the funding so that Professor Waterman
 could get sensor nodes that we can work with.
+
+Citations not mentioned in article yet \cite{seeger:healthass, park:dancers, zhang:KHMeans, vickey:fitnesstwitter, vickey:twitterstudy, mulas:race, farringdon:sensorbadge, kravitz:motivation, jovanov:wban,lin:dandelion,colton:filter,bausch:framework,jeffords:obesity,varkey:human,burchfield:accel,ganti:satire,zeng:micro}
+
 %
 % The following two commands are all you need in the
 % initial runs of your .tex file to
@@ -620,19 +765,7 @@ could get sensor nodes that we can work with.
 %\balancecolumns
 \appendix
 %Appendix
-Citations to articles \cite{seeger:healthass, park:dancers, zhang:KHMeans, vickey:fitnesstwitter, vickey:twitterstudy, mulas:race, farringdon:sensorbadge, kravitz:motivation, jovanov:wban,lin:dandelion,colton:filter,bausch:framework,jeffords:obesity,varkey:human,burchfield:accel,ganti:satire,zeng:micro },
-\section{Headings in Appendices}
-The rules about hierarchical headings discussed above for
-the body of the article are different in the appendices.
-In the \textbf{appendix} environment, the command
-\textbf{section} is used to
-indicate the start of each Appendix, with alphabetic order
-designation (i.e. the first is A, the second B, etc.) and
-a title (if you include one).  So, if you need
-hierarchical structure
-\textit{within} an Appendix, start with \textbf{subsection} as the
-highest level. Here is an outline of the body of this
-document in Appendix-appropriate form:
+\section{Appendix}
 \subsection{Introduction}
 \subsection{System Architecture}
 \subsection{Hardware and Software}
@@ -643,23 +776,9 @@ document in Appendix-appropriate form:
 \subsection{Conclusions}
 \subsection{Acknowledgments}
 \subsection{Additional Authors}
-This section is inserted by \LaTeX; you do not insert it.
-You just add the names and information in the
-\texttt{{\char'134}additionalauthors} command at the start
-of the document.
 \subsection{References}
-Generated by bibtex from your ~.bib file.  Run latex,
-then bibtex, then latex twice (to resolve references)
-to create the ~.bbl file.  Insert that ~.bbl file into
-the .tex source file and comment out
-the command \texttt{{\char'134}thebibliography}.
 % This next section command marks the start of
 % Appendix B, and does not continue the present hierarchy
-\section{More Help for the Hardy}
-The acm\_proc\_article-sp document class file itself is chock-full of succinct
-and helpful comments.  If you consider yourself a moderately
-experienced to expert user of \LaTeX, you may find reading
-it useful but please remember not to change it.
 \balancecolumns
 % That's all folks!
 \end{document}

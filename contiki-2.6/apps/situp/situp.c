@@ -6,7 +6,7 @@
 #include "situp.h"
 #include <string.h>
 
-#define CYCLES 20 //Number of readings per second.
+#define CYCLES 50 //Number of readings per second.
 #define BUF_SIZE 1 //Number of readings to average.
 #define AXIS_NUM 3
 #define PI 3.14159f
@@ -17,6 +17,8 @@
 #define TRUE 1
 
 const int DATA_SIZE = 3;
+float REST_THRES = 0.0;
+float PEAK_THRES = 0.0;
 
 // Datasheet: http://invensense.com/mems/gyro/documents/RM-MPU-6000A.pdf
 //            http://invensense.com/mems/gyro/documents/PS-MPU-6000A.pdf
@@ -149,23 +151,52 @@ void dequeue(struct light_queue * lq){
 ///////////////////////////
 
 int validPeak(float data, float comp_filt){
-  float peak_thres = 50.0;
-  float rest_thres = 10.0;
-  float gyro_x_thres = 2.0;
+  //float peak_thres = 50.0;
+  //float rest_thres = 10.0;
+  float gyro_x_thres = 5.0;
 
-   
   if (data < gyro_x_thres && data > -gyro_x_thres){
-    if (comp_filt > peak_thres){
-      //print "PEAK:",comp_filt
+    if (comp_filt > PEAK_THRES){
+      //printf("I HAZ A PEAK\n");
       return 1;
     }
-    else if (comp_filt < rest_thres){
-      //print "REST:",comp_filt
+    else if (comp_filt < REST_THRES){
+      //printf("I HAZ A REST\n");
       return 2;
     }
   }
-  //#print "NOT SATISFY"
   return 0;
+}
+
+void printFloat(float data){
+  printf("Angle: %i.%i\n", (int)data, (int) ((data*100.0)-( ((int) data) * 100.0 ) ));
+}
+
+float getGyroSensitivity(uint8_t sens){
+  if (sens == 0){
+    return 131.0;
+  }else if (sens == 1){
+    return 65.5;
+  }else if (sens == 2){
+    return 32.8;
+  }else{
+    return 16.4;
+  }
+}
+
+float getAccelSensitivity(uint8_t sens){
+  if (sens == 0){
+    return 16384.0;
+  }
+  else if (sens == 1){
+    return 8192.0;
+  }
+  else if (sens == 2){
+    return 4096.0;
+  }
+  else{
+    return 2048.0;
+  }
 }
 
 /////////////////
@@ -359,12 +390,13 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   // between kernel calls.
   static struct etimer timer;  // this is an event timer
   static uint8_t accel_dat[6],gyro_dat[6];
-  //static uint8_t accel_fs,gyro_fs;
+  static uint8_t accel_fs,gyro_fs;
+  static float accel_sens,gyro_sens;
   static int16_t accel[AXIS_NUM],gyro[AXIS_NUM];
   //static int16_t accel_x[BUF_SIZE], accel_y[BUF_SIZE], accel_z[BUF_SIZE];
   //static int16_t gyro_x[BUF_SIZE], gyro_y[BUF_SIZE], gyro_z[BUF_SIZE];
-  static int16_t accel_x, accel_y, accel_z;
-  static int16_t gyro_x, gyro_y, gyro_z;
+  static float accel_x, accel_y, accel_z;
+  static float gyro_x, gyro_y, gyro_z;
  
   static int i=0,j=0, count=0;
   //static int z = 0;
@@ -374,8 +406,8 @@ PROCESS_THREAD(mpu6050_process, ev, data)
 
 
   /* measurement variables */
-  static float roll;
-  static float pitch;
+  static float accel_angle_y, accel_angle_x;
+  static int angle_y,angle_x;
   static float comp_filt_prev,comp_part, comp_filt;
   static float origin;
   static int local_peak_count = 0;
@@ -402,10 +434,13 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   static int PEAK = 0;
   static int REST = 0;
   static int situp_cnt = 0;
-  static int max_readings = 10;
+  static int max_readings = 2;
   static int result = 0;
   //static int r_cnt = 0;
   static int gotOrigin = FALSE;  //FALSE stands for int value 0.
+
+
+  static clock_time_t situp_time, prev_time, average_time;
 
 
   /************************/
@@ -417,7 +452,8 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   // start the i2c module; must be called once before using
   i2c_enable();
   turn_sensor_on();
-  clock_init(); 
+  clock_init();
+  prev_time = clock_time();
   
   while (1) {
     //TODO: Make this if statement work.
@@ -449,6 +485,19 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     //Read data from the gyroscope
     i2c_read_bytes(MPU6050_ADDRESS, MPU6050_GYRO,6,gyro_dat);
     
+    //Read Accelerometer Sensitivity
+    accel_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_ACCEL_FS);
+    accel_fs = ( (accel_fs & 0x18) >> 3);
+    gyro_fs = i2c_read_byte(MPU6050_ADDRESS, MPU6050_GYRO_FS);
+    gyro_fs = ( (gyro_fs & 0x18) >> 3);
+    gyro_sens = getGyroSensitivity(gyro_fs);
+    accel_sens = getAccelSensitivity(accel_fs);
+
+    //printf("gryo");
+    //printFloat(gyro_sens);
+    //printf("accel");
+    //printFloat(accel_sens);
+    
     //convert the data
     j=0;
     for (i=0;i<sizeof(accel_dat);i += 2){
@@ -464,41 +513,49 @@ PROCESS_THREAD(mpu6050_process, ev, data)
 
 
     //DETECTION PHASE
-
-    /* 
-    accel_x[count] = accel[0]; //x
-    accel_y[count] = accel[1]; //y
-    accel_z[count] = accel[2]; //z 
-    gyro_x[count] = gyro[0];
-    gyro_y[count] = gyro[1];
-    gyro_z[count] = gyro[2];
-    */
-    
-    
-    accel_x = accel[0]; //X
-    accel_y = accel[1]; //Y
-    accel_z = accel[2]; //Z
-    gyro_x = gyro[0];
-    gyro_y = gyro[1];
-    gyro_z = gyro[2];
+    //printf("Accel Reading: %i\n",accel[0]);
+    accel_x = ((float) accel[0])/accel_sens; //X
+    accel_y = ((float) accel[1])/accel_sens; //Y
+    accel_z = ((float) accel[2])/accel_sens; //Z
+    gyro_x = ((float) gyro[0])/gyro_sens;
+    gyro_y = ((float) gyro[1])/gyro_sens;
+    gyro_z = ((float) gyro[2])/gyro_sens;
+    //printFloat(accel_z);
     
     
     //Euclidean directions
-    roll = (360.0f/PI) * ( arctan2( accel[0] , accel[2] )   + PI );
-    pitch = (360.0f/PI) * ( arctan2( accel[1],accel[2]) + PI);
+    accel_angle_x = (180.0f/PI) * ( arctan2(accel_z, accel_x ) + PI);
+    accel_angle_y = ((180.0f/PI) * ( arctan2(accel_z, accel_y ) + PI)) - 270;
+    if (accel_angle_y < -90){
+      accel_angle_y += 360;
+    }
+    angle_y = ( ((int)(360-accel_angle_y)) % 360);  //Come back to this!
+    
+    //printFloat(accel_angle_y);
+    //printf("Pitch: %i.%i\n", (int)accel_angle_y, (int) ((accel_angle_y*100.0)-( ((int) accel_angle_y) * 100.0 ) ));
 
     //gyro_z*dt/1000 converts the gyro data into degrees.
     //static float t1 = strtod(time_array.tail); 
     //static float t2 = strtod(time_array.prev_tail); 
-
-    comp_part = (gyro_x)*( current_time_step - prev_time_step)/1000;
     
-    comp_part = 0.0;
-    comp_filt = ( (0.92)*(roll+comp_part) ) + ( (.08)*(accel[0]) );
+
+    //The gyro's origin is around -34 degrees unfortunately. So we must offset that amount.
+    gyro_x -= 34.0;
+    comp_part = (gyro_x)*(1.0/((float) CYCLES));
+    
+    //printFloat(gyro_x);
+    //printFloat(comp_part);
+    
+    //comp_part = 0.0;
+    //comp_filt = ( (0.92)*(accel_angle_y+comp_part) ) + ( (.08)*(accel[0]) );
+    comp_filt = ( (0.80)*(comp_filt+comp_part) ) + ( (.20)*(accel_angle_y));
+
 
     if (gotOrigin == FALSE) {
        origin = comp_filt;
        gotOrigin = TRUE;
+       PEAK_THRES = (comp_filt - origin) + 50.0;
+       REST_THRES = (comp_filt - origin) + 10.0;
     }
     
     //comp filter!
@@ -510,7 +567,9 @@ PROCESS_THREAD(mpu6050_process, ev, data)
     //log files
     //txt = sprintf("%f,%f,%f\n", t-time_array[0],roll,pitch);
     //f.write(txt);
-    
+    //printf("Angle: %i,",(int) comp_filt);
+    //printFloat(comp_filt);
+    //printf("Pitch: %i\n",angle_y);
     
     result = validPeak(gyro_x,comp_filt);
     
@@ -538,10 +597,20 @@ PROCESS_THREAD(mpu6050_process, ev, data)
 
     if (PEAK == 1 && REST == 1){
       situp_cnt += 1;
+      
+      //log the amount of time it took to get a situp.
+      situp_time = clock_time();
+      average_time += situp_time - prev_time;
+      
+
       local_rest_count = 0; //We should see any counts while in the peak threshold zoen
       local_peak_count = 0;
       PEAK = 0;
       REST = 0;
+      printf(" \n\nYou have completed: %i situps\n",situp_cnt);
+      printf("This situp took %lu seconds to complete a situp. YAY!\n", ((unsigned long) (situp_time - prev_time)/CLOCK_SECOND));
+      printf("Current situp average time: %lu", ((unsigned long) ((unsigned long)average_time)/((unsigned long)situp_cnt)/CLOCK_SECOND) );
+      prev_time = situp_time;
     }
     
     if (PEAK == 0 && local_peak_count >= max_readings && REST == 1){
