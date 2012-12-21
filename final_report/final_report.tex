@@ -150,7 +150,7 @@ makes people generally unavailable.
 
 Researchers claim that the general decrease in exercise in
 the US population is is mainly a consequence of technology
-replacing usual forms of exercising. Earlier in America history, traversing long
+replacing usual forms of exercising \cite{jeffords:obesity}. In earlier years, traversing long
 distances were completed by either walking or riding a bicycle, whereas now such 
 distances are covered by either driving or use of public transportation
 (which generally involve an individual to be sitting). As technology has advanced,
@@ -175,9 +175,9 @@ and Social Media application.
 \subsection{Workout classifier}
 uF!T will interpret accelerometer and gryoscope data in order
 to determine what exercise is being performed. Our current 
-classifier will distinguish exercises according to sensor 
-measurement values along the x, y and z axes. Sensors measure-
-ments would include rotational velocity around each axis and 
+classifier distinguishes exercises according to sensor 
+measurement values along the x, y and z axes. Sensors measurements
+would include angular velocity around each axis and 
 acceleration along each axis and be stored in a 6-tuple. The
 k-means classification algorithm would be used to group sets 
 of sensor measurements into clusters where we assume each 
@@ -185,7 +185,7 @@ cluster would represent an exercise.
 
 Therefore, successive measurements that obtain values that are
 similar in value to a cluster would be grouped with it. 
-Practically, the classifier would consider a fixed number 
+Practically, the classifier considers a fixed number 
 (100 samples) of sensor measurements at a time.
 
 The following describes the k-means algorithm:
@@ -197,7 +197,7 @@ The following describes the k-means algorithm:
 \item Repeat Steps 2 and 3 until the centroids no longer move. This produces a separation of the objects into groups from which the metric to be minimized can be calculated.
 \end{enumerate}
 
-After clusters are determined, we would classify incoming data
+After clusters are determined, we classify incoming data
 according to which cluster center they most resemble. We note
 that we have not classified the characteristics of many exercises
 besides a situp. Furthermore, it is possible to have an individual
@@ -251,7 +251,6 @@ threshold values and store these in a user profile on the social
 media application.
 
 
-
 \begin{figure}
 \centering
 \includegraphics[width=2.0in,width=2in]{./figs/situpsfbtwit.png}
@@ -264,20 +263,30 @@ Our framework plans to have a base station connect to a server for
 storage of user profiles. Users would be able to login into a Facebook
 application in order to view and share their exercise history with 
 friends. A primary feature of the Facebook application would be the 
-game component of the application. Users would rewarded for completing
+game component of the application. Users would be rewarded for completing
 exercise goals and in turn use their rewards to their advantage in an
 online game. The game would involve a system where cumulative progress
 is visible (i.e. building a fortress with upgraded turrets to defend 
-against barbarian hordes). Furthermore, the Facebook application would
+against barbarian hordes). Researchers have stated that one of the causes
+for not exercising is that the routine is very boring.  By integrating a
+video game into our uF!t Facebook application, it would provide the user
+with an incentive to continue exercising through the form of constant
+entertainment.  Furthermore, the Facebook application would
 also serve to store user-specific information that would allow for 
-dynamic exercise classification. Each user would have associated 
-threshold values for each exercise they regularly complete. It is 
-possible for these threshold values to be updated regularly (i.e. if
-the user improves their form when engaging in exercises or if default
-threshold values are too high or too low). Therefore, each time the base
-station communicates with the mote and receives feedback on improving the
-threshold values, the Facebook application would store these new threshold
-values. 
+dynamic exercise classification. Each user would have posses their own
+profile which would be able to contain unique values, such as personal
+threshold values (More information on this in future works), the highest angle
+achieved during a situp, and the average speed of a situp (more information in evaluations).
+By allowing the Facebook application to store unique information about
+a uF!t user, it will allow the user to see the more technical details of
+their exercises.  These details can be shared with other uF!t users, so that
+they may provide critique on using the device.  Even further, they could share
+the data with healthcare experts if they are concerned about the way they do specific
+exercises.  In the case of the situp detector, if a healthcare expert sees that
+the average completion time for one situp is around five seconds, they may ask
+the uF!t user if they were fatigued while doing the situps, or if there was
+any pain experienced during the workout.
+
 \begin{figure}
 \centering
 \includegraphics[width=2.0in,width=2in]{./figs/tmotesky.png}
@@ -295,6 +304,13 @@ The housing for our device helps the sensor sit in a stable position.
 The data is already noisy, so it is important that the sensors are not
 given more opportunities to be mutated by noises induced by the sensor
 rocking carelessly.
+
+To secure the device around a user's body, we have attached a neoprene
+corset to the uF!t's casing.  The elastic qualities of the neoprene
+corset allows us to secure the device around big, as well as small,
+bodies.  This versatility has allowed us to further reduce any noise
+produced from rocking the sensor and it has proven to be comfortable
+as seen in our evaluations.
 
 \subsection{Software: Contiki 2.6}
 Unlike a standard out-of-the-box Tmote Sky, we use Contiki 2.6, instead of
@@ -724,7 +740,31 @@ detection that would search for inflection points in the data
 We also take into account the fact that threshold values could be
 driven to values too low that noise would cause mis-classification.
 
-In order to upload data to a social networking application the motes will communicate with a base station and transmit the exercise counts when ever the opportunity arises. Once a mote has transmitted its data, it will idle its radio for a idling time period that is configurable by the user, given then it is unlikely that there will be much more data to transmit soon after a transmission. After the specified period of time, the radio will return to its original state of listening. A default value that the mote's idling time period would be 15 minutes (which is arbitrarily chosen as a reasonable time period that is short enough that a user is not likely to do a significant number of exercises before the mote attempts to transmit again). It is noted that much of the lifetime of the mote is dependent on efficient use of the radio since much of the radio will be used to constantly listen for a beacon. It would then be advantageous to transmit data as rapidly as possible and return to a idle state in order to reduce the use of radio as much as possible. It is possible to obtain energy savings by implementing X-MAC which provides a solution to the excess latency of the long preamble that prefaces data transmissions \cite{buettner:xmac}. Therefore, by avoiding the use of long preambles X-MAC's approach the mote can complete its transmission of data rapidly. In order to initiate data transmission the beacon must discover the presence of the mote and establish a connection. We will attempt to implement an active architecture for mote discovery. This architecture calls for the beacon to periodically transmit its location such that motes that are within in range can query the beacon with a transmission request. Consequently, the beacon can send an ack and begin receiving data. Our wireless protocol will likely increase the lifespan of the mote given that the radio is guaranteed to remain idle for the sum of the configured idle times.
+In order to upload data to a social networking application the motes will 
+communicate with a base station and transmit the exercise counts when ever 
+the opportunity arises. Once a mote has transmitted its data, it will idle 
+its radio for a idling time period that is configurable by the user, given 
+then it is unlikely that there will be much more data to transmit soon after 
+a transmission. After the specified period of time, the radio will return to 
+its original state of listening. A default value that the mote's idling time 
+period would be 15 minutes (which is arbitrarily chosen as a reasonable time 
+period that is short enough that a user is not likely to do a significant number 
+of exercises before the mote attempts to transmit again). It is noted that much 
+of the lifetime of the mote is dependent on efficient use of the radio since much 
+of the radio will be used to constantly listen for a beacon. It would then be 
+advantageous to transmit data as rapidly as possible and return to a idle state 
+in order to reduce the use of radio as much as possible. It is possible to obtain
+energy savings by implementing X-MAC which provides a solution to the excess latency 
+of the long preamble that prefaces data transmissions \cite{buettner:xmac}. Therefore, 
+by avoiding the use of long preambles X-MAC's approach the mote can complete its 
+transmission of data rapidly. In order to initiate data transmission the beacon
+must discover the presence of the mote and establish a connection. We will attempt
+to implement an active architecture for mote discovery. This architecture calls for
+the beacon to periodically transmit its location such that motes that are within in 
+range can query the beacon with a transmission request. Consequently, the beacon can
+send an ack and begin receiving data. Our wireless protocol will likely increase the 
+lifespan of the mote given that the radio is guaranteed to remain idle for the sum of 
+the configured idle times.
 
 
 \section{Conclusions}
