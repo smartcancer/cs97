@@ -1,10 +1,14 @@
 #include "contiki.h"
 #include "dev/button-sensor.h"
+#include "dev/leds.h"
 #include "stdio.h" //for printf.
 #include "stdlib.h"
 #include "i2c.h"
 #include "situp.h"
 #include <string.h>
+#include "net/rime.h"
+#include "dev/leds.h"
+#include "random.h"
 
 #define CYCLES 50 //Number of readings per second.
 #define BUF_SIZE 1 //Number of readings to average.
@@ -15,6 +19,11 @@
 #define RECORDING 1
 #define FALSE 0
 #define TRUE 1
+
+
+
+
+
 
 const int DATA_SIZE = 3;
 float REST_THRES = 0.0;
@@ -71,76 +80,6 @@ int validPeak(float data, float comp_filt);
 
 #define QUEUE_SIZE(q) q.size
 //#define ENQUEUE(q,n)  q=q##&##n
-
-/*  
-void enqueue(struct light_queue * lq, float new_element){
-   
-  if (lq->size == 0){
-    
-    char new[100];
-
-    int d1 = new_element;            // Get the integer part (678).
-    float f2 = new_element - d1;     // Get fractional part (678.0123 - 678 = 0.0123).
-    int d2 = (int)(f2 * 10000);   // Turn into integer (123).
-
-    sprintf(new, "%d.%04d", d1,d2);
-
-    lq->head = new;
-    lq->tail = new;
-    lq->prev_tail = new;
-    lq->queue_as_string = new;
-  }
-  else{
-    char next[100];
-
-    int d1 = new_element;            // Get the integer part (678).
-    float f2 = new_element - d1;     // Get fractional part (678.0123 - 678 = 0.0123).
-    int d2 = (int)(f2 * 10000);   // Turn into integer (123).
-    
-    sprintf(next, "%d.%04d", d1,d2);
-    lq->prev_tail = lq->tail;
-    lq->tail = next;
-    lq->queue_as_string = strcat(lq->queue_as_string, next);
-
-  }
-  (lq->size)++;
-}
-*/
-/*
-void dequeue(struct light_queue * lq){
-
-  if(lq->size == 0){
-    printf("No more elements");
-    exit(-1);
-  }
-  
-  else{ //hacky way to take off the first element
-    
-    char * pch;
-    pch = strtok(lq->queue_as_string, "&");
-    lq->queue_as_string = "";
-    
-    while (pch != NULL)
-    {
-      pch = strtok (NULL, "&");
-      lq->queue_as_string = strcat(lq->queue_as_string, pch);
-    }
-
-  }
-  (lq->size)--;
-
-}
-*/
-////////////////////////////
-// arrshift
-//   shift all array elements over 
-//
-//
-//
-////////////////////////////
-
-
-
 
 
 ////////////////////////////
@@ -377,6 +316,35 @@ int16_t convert(uint8_t msb, uint8_t lsb){
   return bits;
 }
 
+
+//WIRELESS COMMUNICATION FUNCTIONS
+/*---------------------------------------------------------------------------*/
+//PROCESS(example_broadcast_process, "Broadcast example");
+//PROCESS(blink_process, "Blink process");
+//AUTOSTART_PROCESSES(&example_broadcast_process, &blink_process);
+/*---------------------------------------------------------------------------*/
+static void
+broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
+{
+  printf("broadcast message received from %d.%d: '%s'\n",
+         from->u8[0], from->u8[1], (char *)packetbuf_dataptr());
+}
+static const struct broadcast_callbacks broadcast_call = {broadcast_recv};
+static struct broadcast_conn broadcast;
+/*---------------------------------------------------------------------------*/
+static void
+recv_uc(struct unicast_conn *c, const rimeaddr_t *from)
+{
+  printf("unicast message of size %d received from %d.%d: '%s'\n",
+         packetbuf_datalen(), from->u8[0], from->u8[1], (char*)packetbuf_dataptr());
+}
+static const struct unicast_callbacks unicast_callbacks = {recv_uc};
+static struct unicast_conn uc;
+/*---------------------------------------------------------------------------*/
+
+
+
+
 /* We declare the process */
 PROCESS(mpu6050_process, "Situp process");
 
@@ -411,24 +379,6 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   static float comp_filt_prev,comp_part, comp_filt;
   static float origin;
   static int local_peak_count = 0;
-  /*
-  static int time_array[10];
-  static float comp_array[100];
-  static float local_min[100];
-  static float graph_time_array[100];
-  static float gyro_x_array[100];
-  static float gyro_x_peaks[100];
-  static float gyro_x_rests[100];
-  */
-  /*
-  static struct light_queue time_array;
-  static struct light_queue comp_array;
-  //static struct light_queue local_min;
-  //static struct light_queue graph_time_array;
-  //static struct light_queue gyro_x_array;
-  static struct light_queue gyro_x_peaks;
-  static struct light_queue gyro_x_rests;
-  */
 
   static int local_rest_count = 0;
   static int PEAK = 0;
@@ -436,23 +386,36 @@ PROCESS_THREAD(mpu6050_process, ev, data)
   static int situp_cnt = 0;
   static int max_readings = 2;
   static int result = 0;
-  //static int r_cnt = 0;
   static int gotOrigin = FALSE;  //FALSE stands for int value 0.
 
-
+  /* Clocks for various time tracking*/
   static clock_time_t situp_time, prev_time, average_time;
+ 
+  //broadcasting messages
+  static struct etimer et;
+  static rimeaddr_t addr;
+  static uint8_t leds_state = 0;
+
+  addr.u8[0] = 241; //hardcode for now
+  addr.u8[1] = 136;
 
 
   /************************/
 
   // any process must start wtih this
+  PROCESS_EXITHANDLER(broadcast_close(&broadcast);)
   PROCESS_BEGIN();
   SENSORS_ACTIVATE(button_sensor);
+  
+  broadcast_open(&broadcast, 128, &broadcast_call);
+  unicast_open(&uc, 146, &unicast_callbacks);
+
   
   // start the i2c module; must be called once before using
   i2c_enable();
   turn_sensor_on();
   clock_init();
+  leds_init();
   prev_time = clock_time();
   
   while (1) {
@@ -610,6 +573,17 @@ PROCESS_THREAD(mpu6050_process, ev, data)
       printf(" \n\nYou have completed: %i situps\n",situp_cnt);
       printf("This situp took %lu seconds to complete a situp. YAY!\n", ((unsigned long) (situp_time - prev_time)/CLOCK_SECOND));
       printf("Current situp average time: %lu", ((unsigned long) ((unsigned long)average_time)/((unsigned long)situp_cnt)/CLOCK_SECOND) );
+      
+      
+      packetbuf_copyfrom("Situp Complete", 13);
+      broadcast_send(&broadcast);
+      printf("broadcast message sent\n");
+
+
+      leds_off(0xFF);
+      leds_on(leds_state);
+      leds_state += 1;
+
       prev_time = situp_time;
     }
     
