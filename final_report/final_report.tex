@@ -120,17 +120,16 @@ include tests on classification accuracy.
 Currently, America's healthcare costs have been rising more 
 and more each year. One of the most influencing factors in this
 phenomenal increase is due to obesity. In 2008, obesity healthcare
-costs account for at least 10 of total medical expenditures \cite{jeffords:obesity}.
-This amounts to 147 million dollars a year. Currently, in addition to
-experiencing trouble with sticking to drug regiments, doctors also have
-trouble making their patients still to their exercise schedule.  In a
-case study involving 20 patients, on the first day all patients agreed
-that they would stick to their regiment, but after three months, only
-seven patients were still doing their exercise regiment.  In eight months,
-only five were still doing their regiment \cite{campbell:noncompliance}. This is
-the same for regular citizens joining exercise programs in America.  Current
-studies show that 50\% of Americans that join an exercise program, will drop
-out within the first six months \cite{kravitz:eMotivation}.
+costs account for at least 10\% of total medical expenditures which amounts to approximately 
+147 million dollars a year \cite{jeffords:obesity}. In addition to the lack of control over how 
+well a patient follows drug regiments, doctors cannot guarantee that their patients maintain a 
+regular exercise schedule. In a case study involving 20 patients, on the first day all patients agreed
+that they would maintain their regiment, but after three months, only
+seven patients had continued their exercise regiment. In eight months,
+only five were consistent with their exercise regiment \cite{campbell:noncompliance}. This case study
+reflects the same trend that is present in among the general populace joining exercise programs in America. 
+Current studies show that 50\% of Americans that join an exercise program, will drop
+out within the first six months \cite{kravitz:eMotivation}. 
 
 \begin{figure}
 \centering
@@ -141,89 +140,51 @@ out within the first six months \cite{kravitz:eMotivation}.
 
 \subsection{Why don't people exercise?}
 While exercise is the main solution to help reducing obesity, people still
-choose to not exercise despite the health benefits that it imposes.  Some
+choose to not exercise despite the health benefits.  Some
 researchers believe that this is due to the increase in fast-paced lifestyles.
-In many cases, people just simply state that they do not have the time to stick
-to an exercise schedule, either due to long work hours or other schedules (\textit{picking
+In many cases, people just simply state that they do not have the time to maintain a regular
+ exercise schedule, either due to long work hours or other schedules (\textit{picking
 up kids, attending city meetings, taking care of family, etc.}) that
-makes people generally unavailable.
+make people generally unavailable.
 
 Researchers claim that the general decrease in exercise in
 the US population is is mainly a consequence of technology
-replacing usual forms of exercising \cite{jeffords:obesity}. In earlier years, traversing long
+replacing usual forms of exercising \cite{jeffords:obesity}. Previously, traversing long
 distances were completed by either walking or riding a bicycle, whereas now such 
 distances are covered by either driving or use of public transportation
-(which generally involve an individual to be sitting). As technology has advanced,
-more and more activites that required physical activity are now being phased out.  Even
+(which generally involve an individual to be sitting). Following the advancement of technology,
+activities that involved physical activity are now being phased out.  Even
 the household vaccuuming can be replaced by purchasing a Roomba robot.
 In addition to fast-paced lifestyles and unavailable schedules, researchers attribute
 people's lack of motivation to workout to several different reasons as seen in figure
 \ref{fig:noexercise} . Looking at the figure, we can see that lack of motivation is 
-due to inability to obtain moral support from apartner or support group.  
+due to inability to obtain moral support from a partner or support group.  
 It has been proven that people are more inclined to stick to an exercise regiment
 if they have a friend or family member that can assist them \cite{plante:exercisewithanother}.
-By merely having an exercise partner, it improves the amount of stress relieved
-during a regular exercise routine.  Admittedly, we do not believe that uF!t is capable
-of solving every problem listed in the figure.  However, we believe that uF!t has the
-possibility to solve two problems: \textit{no exercise partner} and \textit{lack of time}.
+Following what is described in the article by \cite{plante:exercisewithanother} having an exercise partner
+ improves the amount of stress relieved during a regular exercise routine.  Admittedly, we do not 
+ believe that uF!t is capable of solving every problem listed in the figure.  However, we 
+ believe that uF!t has thepossibility to solve two problems: \textit{no exercise partner} 
+ and \textit{lack of time}.
 
+\section{OVERVIEW}
+Our paper will be organized into the following sections: Initially, we will introduce the components that comprise
+uF!T's system architecture, the current implementation of uF!T, an evaluation of the uF!T sensor, related work and future 
+plans for the uF!T.
+ 
 \section{SYSTEM ARCHITECTURE}
-Our system will consist of the following components: Workout 
-classifier, exercise counter, wireless data transfer protocol 
-and Social Media application.
-
-\subsection{Workout classifier}
-uF!T will interpret accelerometer and gryoscope data in order
-to determine what exercise is being performed. Our current 
-classifier distinguishes exercises according to sensor 
-measurement values along the x, y and z axes. Sensors measurements
-would include angular velocity around each axis and 
-acceleration along each axis and be stored in a 6-tuple. The
-k-means classification algorithm would be used to group sets 
-of sensor measurements into clusters where we assume each 
-cluster would represent an exercise.
-
-Therefore, successive measurements that obtain values that are
-similar in value to a cluster would be grouped with it. 
-Practically, the classifier considers a fixed number 
-(100 samples) of sensor measurements at a time.
-
-The following describes the k-means algorithm:
-
-\begin{enumerate}
-\item Place K points into the space represented by the objects that are being clustered. These points represent initial group centroids.
-\item Assign each object to the group that has the closest centroid.
-\item When all objects have been assigned, recalculate the positions of the K centroids.
-\item Repeat Steps 2 and 3 until the centroids no longer move. This produces a separation of the objects into groups from which the metric to be minimized can be calculated.
-\end{enumerate}
-
-After clusters are determined, we classify incoming data
-according to which cluster center they most resemble. We note
-that we have not classified the characteristics of many exercises
-besides a situp. Furthermore, it is possible to have an individual
-do an exercise that is currently not defined. In this case, this
-exercise would be classified as an unknown exercise and still be
-tracked and counted. For practical purposes it is likely for some
-exercises to not be defined given the limited space on the mote 
-that is available to store exercise classification information.
-Nevertheless, the user would be given the option of specifying a
-name for this exercise so that it could be tracked in the future.
+Our system consists of an program that counts situps. Once uF!T has detected that 
+a user has completed a situp it will communicates to a base 
+station wirelessly with a message describing how many situps have been complete.
+The following sections describe these componenets.
 
 \subsection{Exercise Counter}
-After an exercise has been classified, we would begin counting 
-noticable features of the exercises in order to keep track of the number 
-of repetitions that have been completed. For example, in our current
-iteration we have completed the situp detector.  When a user is doing
-a situp, their body oscillates between two varying angles: the rest
-and the peak.  We currently can count the amount of rest-peak pairs that
+We have specifically defined features for our counter to look for: the counter will 
+look for peaks and troughs by filtering sensor measurements through a complementary filter.
+In our current iteration, when a user is doing a situp, their body oscillates between two varying angles: the rest
+and the peak. We currently can count the amount of rest-peak pairs that
 have been completed, thus representing the amount of situps completed.
-We believe we can use this same strategy to detect other exercises, such
-as push-ups, which also have a similar oscillation, but it is represented
-vertically and not angular like a situp.  With exercises having this similar
-repeated motion, we believe that we will be able to count a wide range of
-calisthenics.
 
-\subsection{Peak detection}
 In order to recognize a peak in the measurement data, such as the angles
 found from our situp detector, we would like to set threshold values that
 would represent the minimum value to be considered a rest
@@ -250,6 +211,9 @@ We hope to gain this information by dynamically updating these
 threshold values and store these in a user profile on the social
 media application.
 
+\subsection{Wireless Communication}
+
+
 
 \begin{figure}
 \centering
@@ -258,34 +222,7 @@ media application.
 \end{figure}
 
 
-\subsection{Social Media Application}
-Our framework plans to have a base station connect to a server for
-storage of user profiles. Users would be able to login into a Facebook
-application in order to view and share their exercise history with 
-friends. A primary feature of the Facebook application would be the 
-game component of the application. Users would be rewarded for completing
-exercise goals and in turn use their rewards to their advantage in an
-online game. The game would involve a system where cumulative progress
-is visible (i.e. building a fortress with upgraded turrets to defend 
-against barbarian hordes). Researchers have stated that one of the causes
-for not exercising is that the routine is very boring.  By integrating a
-video game into our uF!t Facebook application, it would provide the user
-with an incentive to continue exercising through the form of constant
-entertainment.  Furthermore, the Facebook application would
-also serve to store user-specific information that would allow for 
-dynamic exercise classification. Each user would have posses their own
-profile which would be able to contain unique values, such as personal
-threshold values (More information on this in future works), the highest angle
-achieved during a situp, and the average speed of a situp (more information in evaluations).
-By allowing the Facebook application to store unique information about
-a uF!t user, it will allow the user to see the more technical details of
-their exercises.  These details can be shared with other uF!t users, so that
-they may provide critique on using the device.  Even further, they could share
-the data with healthcare experts if they are concerned about the way they do specific
-exercises.  In the case of the situp detector, if a healthcare expert sees that
-the average completion time for one situp is around five seconds, they may ask
-the uF!t user if they were fatigued while doing the situps, or if there was
-any pain experienced during the workout.
+
 
 \begin{figure}
 \centering
@@ -705,13 +642,10 @@ your routine has been proven to provide better health benefits, than
 a routine that is always the same.
 
 \section{Future Works}
-In our current design of uF!t, we unfortunately are unable to
-communicate wirelessly.  We chose this option, so that we could
-focus on getting accurate results from our accelerometer and gyrscope.
-However, we believe that wireless communication is the next important
-step in the design of our system.  With the addition of wireless
-support, it will provide the groundwork so that we can start Social media 
-integration.
+Currently, UF!T is limited in its capabilities to provide portable exercise tracking and counting
+However, in order to extend the number of features available to its users, we plan
+to add functionality using the temperature sensor, a workout classifier and dynamic
+peak detection.
 
 As stated earlier, the mpu6050 contains a temperature sensor.  In
 future designs of uF!t, we believe that we can incorporate the
@@ -726,7 +660,31 @@ as dehydration and hypothermia \cite{gonzalez:exerciseheat}.  This
 degree of security would be enticing for new people that are interested
 in excerciing.
 
-We note that we note that k-means is a naïve solution that
+\subsection{WORKOUT CLASSIFIER}
+uF!T will interpret accelerometer and gryoscope data in order
+to determine what exercise is being performed. Our current 
+classifier distinguishes exercises according to sensor 
+measurement values along the x, y and z axes. Sensors measurements
+would include angular velocity around each axis and 
+acceleration along each axis and be stored in a 6-tuple. The
+k-means classification algorithm would be used to group these measurements into 
+motion features (such as movements around the principle axis, i.e. yaw for gyroscope 
+and thrust for accelerometer movements) which would consequently be grouped into clusters which 
+assist our exercise classifier. Each exercise would be described by a series of cluster
+for example, a situp would consist of clusters describing the positive and negative pitch rotations
+based off positive gyroscope values. As an exercise is being conducted, we would provide
+templates for each exercise in order to serve as a comparison. Each template would
+provide the coordinates of the cluster centers that describe an exercise.
+
+We note that we have not classified the characteristics of many exercises
+besides a situp. Furthermore, it is possible to have an individual
+do an exercise that is currently not defined. In this case, this
+exercise would be classified as an unknown exercise and still be
+tracked and counted. For each unknown exercise, the user would be given 
+the option of specifying a name for this exercise so that it could be 
+tracked in the future.
+
+Furthermore, we note that k-means is a naïve solution that
 is heavily dependent on the initial placement of the cluster
 centers as terrible initial placements could introduce 
 inaccuracies that are not completely eliminated by moving the
@@ -734,6 +692,7 @@ center. We look to implement a more advanced dynamic version
 of k-means that is touted to be more accurate "K-Harmonic Means"
 \cite{zhang:KHMeans}.
 
+\subsection{DYNAMIC PEAK DETECTION}
 For dynamic peak detection would implement "general" peak 
 detection that would search for inflection points in the data
 
@@ -765,6 +724,35 @@ range can query the beacon with a transmission request. Consequently, the beacon
 send an ack and begin receiving data. Our wireless protocol will likely increase the 
 lifespan of the mote given that the radio is guaranteed to remain idle for the sum of 
 the configured idle times.
+
+\subsection{Social Media Application}
+Our framework plans to have a base station connect to a server for
+storage of user profiles. Users would be able to login into a Facebook
+application in order to view and share their exercise history with 
+friends. A primary feature of the Facebook application would be the 
+game component of the application. Users would be rewarded for completing
+exercise goals and in turn use their rewards to their advantage in an
+online game. The game would involve a system where cumulative progress
+is visible (i.e. building a fortress with upgraded turrets to defend 
+against barbarian hordes). Researchers have stated that one of the causes
+for not exercising is that the routine is very boring.  By integrating a
+video game into our uF!t Facebook application, it would provide the user
+with an incentive to continue exercising through the form of constant
+entertainment.  Furthermore, the Facebook application would
+also serve to store user-specific information that would allow for 
+dynamic exercise classification. Each user would have posses their own
+profile which would be able to contain unique values, such as personal
+threshold values (More information on this in future works), the highest angle
+achieved during a situp, and the average speed of a situp (more information in evaluations).
+By allowing the Facebook application to store unique information about
+a uF!t user, it will allow the user to see the more technical details of
+their exercises.  These details can be shared with other uF!t users, so that
+they may provide critique on using the device.  Even further, they could share
+the data with healthcare experts if they are concerned about the way they do specific
+exercises.  In the case of the situp detector, if a healthcare expert sees that
+the average completion time for one situp is around five seconds, they may ask
+the uF!t user if they were fatigued while doing the situps, or if there was
+any pain experienced during the workout.
 
 
 \section{Conclusions}
