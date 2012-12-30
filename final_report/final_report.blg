@@ -1,0 +1,42 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: final_report.aux
+The style file: abbrv.bst
+Database file #1: final_report.bib
+Warning--entry type for "sixtostart:zrun" isn't style-file defined
+--line 197 of file final_report.bib
+Name 1 in "R Campbell, M Evans, B Quilty, P Dieppe, and J L Donovan" has a comma at the end for entry campbell:noncompliance
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "R Campbell, M Evans, B Quilty, P Dieppe, and J L Donovan" for entry campbell:noncompliance
+while executing---line 1049 of file abbrv.bst
+Name 1 in "Thomas G. Plante, Laura Coscarelli, and Maire Ford" has a comma at the end for entry plante:exercisewithanother
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Jonny Farringdon, Andrew J. Moore, Nancy Tilbury, James Church and Pieter D. Biemond" for entry farringdon:sensorbadge
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Raghu K. Ganti, Praveen Jayachandran, Tarek F. Abdelzaher, John A. Stankovic" for entry ganti:satire
+while executing---line 1049 of file abbrv.bst
+Name 1 in "Jose Gonzalez-Alonso, Craig G. Crandall, and John M Johnson" has a comma at the end for entry gonzalez:exerciseheat
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Michael Buettner, Gary V. Yee, Eric Anderson, Richard Han" for entry buettner:xmac
+while executing---line 1049 of file abbrv.bst
+Warning--empty journal in colton:filter
+Warning--empty journal in jeffords:obesity
+Warning--empty year in jeffords:obesity
+Too many commas in name 1 of "Jonny Farringdon, Andrew J. Moore, Nancy Tilbury, James Church and Pieter D. Biemond" for entry farringdon:sensorbadge
+while executing---line 1090 of file abbrv.bst
+Warning--empty year in farringdon:sensorbadge
+Name 1 in "Jose Gonzalez-Alonso, Craig G. Crandall, and John M Johnson" has a comma at the end for entry gonzalez:exerciseheat
+while executing---line 1090 of file abbrv.bst
+Warning--empty journal in kravitz:eMotivation
+Warning--there's a month but no year in kravitz:eMotivation
+Too many commas in name 1 of "Michael Buettner, Gary V. Yee, Eric Anderson, Richard Han" for entry buettner:xmac
+while executing---line 1090 of file abbrv.bst
+Name 1 in "R Campbell, M Evans, B Quilty, P Dieppe, and J L Donovan" has a comma at the end for entry campbell:noncompliance
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "R Campbell, M Evans, B Quilty, P Dieppe, and J L Donovan" for entry campbell:noncompliance
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Raghu K. Ganti, Praveen Jayachandran, Tarek F. Abdelzaher, John A. Stankovic" for entry ganti:satire
+while executing---line 1090 of file abbrv.bst
+Name 1 in "Thomas G. Plante, Laura Coscarelli, and Maire Ford" has a comma at the end for entry plante:exercisewithanother
+while executing---line 1090 of file abbrv.bst
+Warning--empty journal in zhang:KHMeans
+Warning--empty year in zhang:KHMeans
+(There were 14 error messages)

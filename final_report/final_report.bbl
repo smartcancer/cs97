@@ -1,0 +1,66 @@
+\begin{thebibliography}{10}
+
+\bibitem{seeger:healthass}
+K.~V.~L. Christian~Seeger, Alejandro~Buchmann.
+\newblock myhealthassistant: A phone-based body senesor network that captures
+  the wearer's exercises throughout the day.
+\newblock {\em BodyNets}, November 2011.
+
+\bibitem{colton:filter}
+S.~Colton.
+\newblock The balance filter: A simple solution for integrating accelerometer
+  and gyroscope measurements for a balancing platform.
+\newblock 2007.
+
+\bibitem{jeffords:obesity}
+J.~M. Jeffords.
+\newblock Overall costs of obesity.
+
+\bibitem{farringdon:sensorbadge}
+N.~T. J.~C. Jonny~Farringdon, Andrew J.~Moore and P.~D. Biemond.
+\newblock Wearble sensor badge and sensor jacket for context awareness.
+\newblock {\em The Second International Conference on Social Eco-Informatics}.
+
+\bibitem{gonzalez:exerciseheat}
+C.~G.~C. Jose Gonzalez-Alonso and J.~M. Johnson.
+\newblock The cardiovascular challenge of exercising in the heat.
+\newblock {\em J Physiol}, pages 45--53, September 2007.
+
+\bibitem{kravitz:eMotivation}
+P.~Len~Kravitz.
+\newblock Exercise motivation: What starts and keeps people exercising?
+\newblock September.
+
+\bibitem{buettner:xmac}
+E.~A. R.~H. Michael~Buettner, Gary V.~Yee.
+\newblock X-mac: A short preamble mac protocol for duty-cycled wireless sensor
+  networks.
+\newblock {\em SenSys '06}, November 2006.
+
+\bibitem{campbell:noncompliance}
+B.~Q. P.~D. R~Campbell, M~Evans and J.~L. Donovan.
+\newblock Why don't patients do their exercises? understanding non-compliance
+  with physiotherapy in patients with osteoarthritis of the knee.
+\newblock {\em J Epidemiol}, pages 132--138, September 2000.
+
+\bibitem{ganti:satire}
+T.~F. A. J. A.~S. Raghu K.~Ganti, Praveen~Jayachandran.
+\newblock Satire: A software architecture for smart attire.
+\newblock {\em MobiSys '06}, June 2006.
+
+\bibitem{plante:exercisewithanother}
+L.~C. Thomas G.~Plante and M.~Ford.
+\newblock Does exercising with another enhance the stress-reducing benefits of
+  exercise?
+\newblock {\em Internation Journal of Stress Management}, 2001.
+
+\bibitem{sixtostart:zrun}
+S.~to~Start.
+\newblock Zombies, run!
+
+\bibitem{zhang:KHMeans}
+B.~Zhang.
+\newblock Generalized k-harmonic means- dynamic weighting of data in
+  unsupervised learning.
+
+\end{thebibliography}

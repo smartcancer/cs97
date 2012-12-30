@@ -100,20 +100,16 @@ studies show support groups are notable in that they have
 been known to be effective at keeping individuals adhere to a
 regular exercise routine. Furthermore, the modern evolution of
 social networking sites has allowed for support groups to form
-online.
-
-It should be noted that there are a multitude of engaging
-exercises that can be done with minimal gym equipment 
-(i.e. pushups, situps, yoga); however, it is often a hassle to
-mentally keep track of all these exercises. We present uF!T, as
-a framework that leverages the benefits of exercise support
-groups and provides tools to monitor and count exercises done
-inside and outside the gym. uF!T attempts to take advantage 
-of static position measurement accuracy in an accelerometer
-and the smoothness of gyrometer measurements in a complementary
-filter to reduce noisy measurements. Our evaluation of uF!t
-includes experiments on proper sensor placement and will 
-include tests on classification accuracy.
+online. In our current iteration of uF!t, we are able to track
+situps.  Before further improvement in the system, we completed
+an evaluation focused on the system's ability to count situps.
+After establishing the fact that uF!t is best placed on either
+the chest or the side of the chest, we were able to retrieve
+good results from tracking situps.  At the moment, uF!t is good
+ at tracking slower speed situps, with slower being defined as
+ completing 1 situp in 3 seconds or more. From our evaluations,
+ we believe that uF!t has great potential to become a system that
+ is more than just situps.
 \end{abstract}
 
 \section{Introduction}
@@ -121,10 +117,7 @@ Currently, America's healthcare costs have been rising more
 and more each year. One of the most influencing factors in this
 phenomenal increase is due to obesity. In 2008, obesity healthcare
 costs account for at least 10\% of total medical expenditures which amounts to approximately 
-147 million dollars a year \cite{jeffords:obesity}. In addition to the lack of control over how 
-well a patient follows drug regiments, doctors cannot guarantee that their patients maintain a 
-regular exercise schedule. In a case study involving 20 patients, on the first day all patients agreed
-that they would maintain their regiment, but after three months, only
+147 million dollars a year \cite{jeffords:obesity}. In addition to the lack of control over how well a patient follows drug regiments, doctors cannot guarantee that their patients maintain a regular exercise schedule. In a case study involving 20 patients, on the first  day all patients agreed that they would maintain their regiment, but after three months, only
 seven patients had continued their exercise regiment. In eight months,
 only five were consistent with their exercise regiment \cite{campbell:noncompliance}. This case study
 reflects the same trend that is present in among the general populace joining exercise programs in America. 
@@ -133,7 +126,7 @@ out within the first six months \cite{kravitz:eMotivation}.
 
 \begin{figure}
 \centering
-\includegraphics[width=3.0in,width=3in]{./figs/dontexercise.png}
+\includegraphics[width=3.0in,width=3in]{./figs/exercise.png}
 \caption{Some of the many reasons for not exercising.}
 \label{fig:noexercise}
 \end{figure}
@@ -154,18 +147,18 @@ distances were completed by either walking or riding a bicycle, whereas now such
 distances are covered by either driving or use of public transportation
 (which generally involve an individual to be sitting). Following the advancement of technology,
 activities that involved physical activity are now being phased out.  Even
-the household vaccuuming can be replaced by purchasing a Roomba robot.
+the household vacuuming can be replaced by purchasing a Roomba robot.
 In addition to fast-paced lifestyles and unavailable schedules, researchers attribute
 people's lack of motivation to workout to several different reasons as seen in figure
 \ref{fig:noexercise} . Looking at the figure, we can see that lack of motivation is 
 due to inability to obtain moral support from a partner or support group.  
 It has been proven that people are more inclined to stick to an exercise regiment
 if they have a friend or family member that can assist them \cite{plante:exercisewithanother}.
-Following what is described in the article by \cite{plante:exercisewithanother} having an exercise partner
+Following what is described in the article by Plante, having an exercise partner
  improves the amount of stress relieved during a regular exercise routine.  Admittedly, we do not 
  believe that uF!t is capable of solving every problem listed in the figure.  However, we 
- believe that uF!t has thepossibility to solve two problems: \textit{no exercise partner} 
- and \textit{lack of time}.
+ believe that uF!t has the possibility to solve two problems: \textit{no exercise partner} 
+ and \textit{lack of time}.  in following pages, we will find results about being able to correctly detect peaks from the accelerometer and gyroscope.  Additionally, we will test proper locations for the placement of uF!t to minimize the amount noise generated by a user's movement.  Lastly, we wish to measure the accuracy of our system by doing trial runs with random individuals.  By using random individuals, we will also be able to measure if our system is comfortable enough for users of various sizes.  Through an evaluation of the system's current ability to measure situps, we believe that uF!t already has the groundwork that will allow it to track a multitude of various calisthenics.
 
 \section{OVERVIEW}
 Our paper will be organized into the following sections: Initially, we will introduce the components that comprise
@@ -173,10 +166,11 @@ uF!T's system architecture, the current implementation of uF!T, an evaluation of
 plans for the uF!T.
  
 \section{SYSTEM ARCHITECTURE}
-Our system consists of an program that counts situps. Once uF!T has detected that 
-a user has completed a situp it will communicates to a base 
-station wirelessly with a message describing how many situps have been complete.
-The following sections describe these componenets.
+Our system consists of an program that counts situps. Upon the completion of
+a situp, if uF!t properly detected the situp, it will communicate to a base 
+station/gateway (laptop or desktop) wirelessly with a message describing how many situps have been completed so far.  Once the workout has been completed, we want to upload the
+data to a social media application like Facebook or Twitter; Figure \ref{fig:system} describes the system that we are currently trying to achieve.  Of course, the social media
+integration has not yet been implemented, you can find more information on this in the Future Works section.  In this section, however, you will find information about the components about what is currently working in uF!t.
 
 \subsection{Exercise Counter}
 We have specifically defined features for our counter to look for: the counter will 
@@ -217,11 +211,10 @@ media application.
 
 \begin{figure}
 \centering
-\includegraphics[width=2.0in,width=2in]{./figs/situpsfbtwit.png}
-\caption{The current casing for our uF!t device.}
+\includegraphics[width=2.0in,width=2in]{./figs/uf!t-system.png}
+\caption{An overview of the system we are implementing.}
+\label{fig:system}
 \end{figure}
-
-
 
 
 \begin{figure}
@@ -269,7 +262,7 @@ To ensure that we could track a user's body while doing a situp,
 this required more work than just using the accelerometer and 
 gyroscope raw data to do localization.  As such, we ran through
 some equations that either used the accelerometer or the gyroscope.
-However, after running some tests seperately on the accelerometer and
+However, after running some tests separately on the accelerometer and
 gyrscope, we decided that we would need to use the measurements received
 from both devices in order to calculate the angle of user's body.
 
@@ -286,10 +279,10 @@ trigonometry.
 Using the equation above allows us to calculate the tilt angle 
 for the accelerometer.  Remember that arctan, known as atan2
 in contiki, outputs between the range of \(-\pi\) and \(\pi\), so you
-must add \(\pi\) to the results of arctan to have the range convert-
-ed to 0 to 2\(\pi\).  Having no initial knowledge in the usage
-of accelerometers or gyroscopes, we believed that the accelero-
-meter would have served its purpose for calculating the wearer's
+must add \(\pi\) to the results of arctan to have the range converted
+ to 0 to 2\(\pi\).  Having no initial knowledge in the usage
+of accelerometers or gyroscopes, we believed that the accelerometer
+ would have served its purpose for calculating the wearer's
 body angle during a situp.  However, if we look at figure \ref{fig:accelResults}
 we can see that our initial assumption was clearly untrue.  The
 accelerometer is great at calculating angles for stationary 
@@ -325,7 +318,7 @@ Multiplying the gyro by sample period, gives us the angle calculated
 within one cycle, which can be accumulated in our total angle.  
 Successfully being able to calculate the angle using the gyro, 
 we were certain that our results would be promising.  Looking
-at figure \ref{fig:gyroResults}, however, the gyroscope's measurments are 
+at figure \ref{fig:gyroResults}, however, the gyroscope's measurements are 
 constantly increasing by a fixed amount as time goes on, this
 is called \textit{drift}.  From our gryoscope analysis, the
 gyro not only experiences drift (about \(5^\circ/s\)),
@@ -350,7 +343,12 @@ it is moving very quickly, it returns very noisy data.  In
 contrast, the gyroscope is really good at detecting rapid 
 movements, however its data drifts over time, making it 
 increasingly inaccurate the longer you monitor the gyroscope.
-This lead us to using the complimentary filter.
+
+Now the obvious solution is to try using a combination of the
+accelerometer and gyroscope data.  A lot of the research we found
+involving body movement detection utilized either the Kalman Filter or other variations of it (Extended Kalman Filter, Fast Kalman Filter, etc.).  However, in our research we were not able to find any articles
+about utilizing the Complimentary Filter to analyze data.  Since
+the Complimentary Filter is computationally cheaper than the Kalman Filter, we decided to begin our research here \cite{colton:filter}.
 
 \begin{equation}angle_x = (a)*(angle_x+gyro_x*dt)+(1-a)*(angle_{accel_x})\end{equation}
 
@@ -452,7 +450,7 @@ areas where the sensor could be placed on a user's body.
 As stated earlier, it is important to choose a good location for the 
 system since it may affect the overall quality of the data.  Additionally, we must consider whether
 or not if the placement of the sensor is comfortable for
-the user.  In our prelimenary tests, it seems that it was
+the user.  In our preliminary tests, it seems that it was
 acceptable to place the device on the following three
 places: \textit{the arm, center of chest, and the side 
 of the chest.} We assumed that the center of the chest
@@ -491,11 +489,11 @@ on the arm.}
 \subsection{Accuracy}
 Remembering the last section, we determined that it
 is important that we are able to detect the correct amount
-situps with indivudals of varying body types.  For our next
+situps with individuals of varying body types.  For our next
 tests, we used four random individuals to do situps while
 wearing our uF!t device.  Each user was properly informed
 about what our device is capable of, and they were given the
-choice to decline if neccessary.  Our test comprised of
+choice to decline if necessary.  Our test comprised of
 three different situp speeds: \textit{fast, normal,} and
 \textit{slow}.  Fast is equivalent to completing a situp every
 second, while normal is completing a situp every two seconds
@@ -504,7 +502,7 @@ objective of each testing speed was to complete ten situps.
 
 To ensure that each set of situps was completed in the same
 fashion, participants were given a 10 minute break to allow
-them to recouperate if they were feeling fatigued.  Determing
+them to recuperate if they were feeling fatigued.  Determining
 the accuracy of each setup involving the comparison between
 the amount of situps that uF!t detected and the amount situps
 counted.  As stated earlier, the stress of workout can impact
@@ -527,12 +525,12 @@ to keep up with the slowest situp speed.
 
 
 
-If we look at the table 1, it seems that our device is highly accurate
-when the user is utilizing a slow situp speed (average of .8).  Unfortunately,
+If we look at the table \ref{table:accuracy}, it seems that our device is highly accurate
+when the user is utilizing a slow situp speed (average of .7875).  Unfortunately,
 as the user completes sit-ups at a normal speed, the device's accuracy
 drops by a factor of 1.88 (average of .425).  This accuracy drops even
 further when the user is completing situps at a fast speed, dropping
-by a factor of 5.3 when compared to the slow situp speed.  
+by a factor of 5.3 when compared to the slow situp speed (average of .15).  
 
 
 
@@ -540,7 +538,7 @@ by a factor of 5.3 when compared to the slow situp speed.
 Considering that we intend uF!t to be used by different people, it is
 important to record our participants initial thoughts about our device.
 After the completion of the test, each participant was allowed to see
-the results of their situps and were asked a small questionaire with the
+the results of their situps and were asked a small questionnaire with the
 following questions:
 
 \begin{table*}[!htp]
@@ -552,7 +550,11 @@ Participants&Accuracy (Slow)&Accuracy(Normal) & Accuracy(Fast)\\ \hline
 2 & .9 & .7 & .1\\ \hline
 3 & .5 & .1 & .1\\ \hline
 4 & .8 & .5 & .2\\ \hline
-Average & .8 & .425 & .15 \\ \hline
+5 & .7 & .5 & .2\\ \hline
+6 & .9 & .4 & .1\\ \hline
+7 & .8 & .5 & .1\\ \hline
+8 & .9 & .3 & .2\\ \hline
+Average & .7875 & .425 & .15\\ \hline
 \end{tabular}
 \end{table*}
 
@@ -562,10 +564,10 @@ Average & .8 & .425 & .15 \\ \hline
 \item Any additional comments?
 \end{enumerate}
 
-Out of the four test subjects, two identified
-theirselves as casual exercises saying that they enjoyed that the
+Out of the eight test subjects, five identified
+their-selves as casual exercises saying that they enjoyed that the
 device was able to track their situps when they were completing a
-slow set.  However, the other two participants that classified as 
+slow set.  However, the other three participants that classified as 
 hardcore did not appreciate that the device was unable to detect
 a fast set of situps.  The hardcore exercises said that they needed
 to do a larger quantity of faster situps to reap any benefits.
@@ -576,7 +578,7 @@ a proper rest-peak pair was confirmed on the situp device. There were also
 comments about the device still being comfortable, despite it being
 worn by participants of vary sizes.  As we described in Proper Sensor Placement,
 it is important to gauge the comfortability of doing the situps with the device,
-since its placement can provide unneccessary noise into our data sets.
+since its placement can provide unnecessary noise into our data sets.
 
 
 \section{Related Works}
@@ -602,7 +604,7 @@ that is marketed to be used by people that are on the go.
 SATIRE is another system that rivals some of the functionalities
 that uF!t provides. In SATIRE, they create a body sensor network that is
 integrated into a simple winter coat \cite{ganti:satire}.  Their work is related to
-uF!t since the system they create involves determing the activity
+uF!t since the system they create involves determining the activity
 being performed by the wearer.  They use simple actions such as
 walking, sitting, climbing stairs, typing, and reading.  To monitor
 these actions they use an \textit{exponential weighted moving average}
@@ -618,8 +620,14 @@ one's health as well.  Our uF!t device, once fully completed, can be
 used for people and patients who wish to be healthier through doing
 simple calisthenics.  As stated before, uF!t will be able to track
 your progress by storing results from daily workouts, whereas SATIRE
-is not neccesarily an exercise device, but only a device that
+is not necessarily an exercise device, but only a device that
 monitors your current health and activity.
+
+Wireless Body Area Network (WBAN), is another device that has
+gait/motion detection.  However, WBAN, unlike the other research we found, is capable of measuring your "fitness level" while exercising.
+Beyond the accelerometer for gait detection, WBAN has several
+additional components such as: Temperature/Humidity monitor, Electrocardiogram sensor, motion sensors, and SpO2 (Oximeter).  Following a model similar to ours, WBAN can forward this information
+to a gateway, which in their case is a PDA.  From the PDA, the information is forwarded to various servers, which can either be a medical official's server, your home computer, or your emergency contact's computer.
 
 Many mobile application developers have sought to provide creative solutions that complement 
 a packed schedule and low interest in exercising. Mobile 
@@ -629,17 +637,19 @@ portable. Some notable examples of mobile devices are as follows: Nike fit (an i
 application that is available on most ipod devices) is available
 on many Ipod devices as an application that encourages users to
 run by logging the distance run, calories burned and time of an
-individual's runs. Another application is Zombierun which has 
+individual's runs. Another application is /textit{Zombies, Run!} which has 
 sought to encourage individuals to exercise by introduce a gaming
 aspect to the routine as well as the ability to share results via
-social media. The Zombierun application has shown to be successful
+social media. The /textit{Zombies, Run!} application has shown to be successful
 by popular account and has therefore involved encouraged many people
-to exercise more. Unfortunately, the Zombierun application is extremely
-limited in its variety exercises.  Currently, Zombierun is only capable
-of encouraging a user to run.  UF!t offers a vareity exercises, so that
+to exercise more \cite{sixtostart:zrun}. Zombies, Unfortunately, the /textit{Zombies, Run!} application is extremely
+limited in its variety exercises. Researchers believe that there is some correlation between
+exercising and social media applications.  Believing that there are plenty of benefits, such as increased motivation for exercise, but there also drawbacks, such as increased sedentary behavior from staying connected to the network instead of exercising /cite{vickey:fitnesstwitter}.  As seen with \textit{Everywhere Race!}, they also believe that you can promote better health through the use of
+famous social networking applications /cite{mulas:race}. In \textit{Everywhere Race!}, people were allowed to connect with other users in a virtual run.  This virtual run would allow multiple connected users to run a specified distance in different locations while still being able to compete in a virtual race with each other.  However, all of these fitness apps share one thing in common: they only measure running data; as explained, /textit{Zombies, Run!} and \textit{Everywhere Race!} is only capable of encouraging a user to run; furthermore, the researchers data did not involve applications that do more than just tracking running exercise data.  UF!t offers a variety exercises, so that
 a user will not have to stick to the same routine.  Being able to change
 your routine has been proven to provide better health benefits, than
 a routine that is always the same.
+
 
 \section{Future Works}
 Currently, UF!T is limited in its capabilities to provide portable exercise tracking and counting
@@ -756,11 +766,19 @@ any pain experienced during the workout.
 
 
 \section{Conclusions}
-We believe that we have provided the neccessry groundwork
-to start implementating the rest of the components as we described
+We believe that we have provided the necessary groundwork
+to start implementing the rest of the components as we described
 in the System Architecture system.  If we continue to work on uF!t,
 we think that it has great potential to incorporate numerous 
-exercises beyond the simple situp.
+exercises beyond the simple situp.  Given our evaluations, we notice
+that uF!t has considerable room for improvement.  Since situps are
+only reliably detected at a time of 3 seconds or more, we wish to
+run more tests to see if we can achieve faster response times.  This
+will allow our system to be more versatile for users with various
+degrees of expertise in doing situps.  Additionally, we yet to implement
+our social media application side, so we will begin integrating Facebook
+and Twitter with uF!t.  With these promising results, we believe we are
+capable of further improving uF!t.
 %\end{document}  % This is where a 'short' article might terminate
 
 %ACKNOWLEDGMENTS are optional
@@ -771,7 +789,7 @@ Also, we would like to thank Swarthmore's CS Department
 for providing the funding so that Professor Waterman
 could get sensor nodes that we can work with.
 
-Citations not mentioned in article yet \cite{seeger:healthass, park:dancers, zhang:KHMeans, vickey:fitnesstwitter, vickey:twitterstudy, mulas:race, farringdon:sensorbadge, kravitz:motivation, jovanov:wban,lin:dandelion,colton:filter,bausch:framework,jeffords:obesity,varkey:human,burchfield:accel,ganti:satire,zeng:micro}
+%Citations not mentioned in article yet \cite{seeger:healthass, park:dancers, zhang:KHMeans, vickey:fitnesstwitter, vickey:twitterstudy, mulas:race, farringdon:sensorbadge, kravitz:motivation, jovanov:wban,lin:dandelion,colton:filter,bausch:framework,jeffords:obesity,varkey:human,burchfield:accel,ganti:satire,zeng:micro}
 
 %
 % The following two commands are all you need in the
