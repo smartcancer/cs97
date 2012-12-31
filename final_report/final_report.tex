@@ -121,20 +121,20 @@ follows drug regiments, doctors cannot guarantee that their patients maintain a 
 In a case study involving 20 patients, on the first day all patients agreed that they would maintain their regiment, but after three months, only
 seven patients had continued their exercise regiment. In eight months,
 only five were consistent with their exercise regiment \cite{campbell:noncompliance}. This case study
-reflects the same trend that is present in among the general populace joining exercise programs in America. 
-Current studies show that 50\% of Americans that join an exercise program, will drop
-out within the first six months \cite{kravitz:eMotivation}. In order to help the reduction of obesity issues, 
+reflects the same trend that is present among the general populace joining exercise programs in America. 
+Current studies show that 50\% of Americans that join an exercise program will drop
+out within the first six months \cite{kravitz:eMotivation}. In order to help the reduction of obesity issues 
 medical devices have been created such as body wireless sensor networks that are used to either provide body posture correction/monitoring 
 or track daily activities. In many cases, body wireless sensor networks that are used to track an individual's 
-activities attempt to motivate users to lead more healthy lifestyles \cite{mulas:race},\cite{ganti:satire},\cite{seeger:healthass}.
-The uF!T framework acts as a motivational tool that provides convenient exercise tracking on-the-go. By taking 
-out the need to have a gym or time allotted for exercising an individual would be able to take advantage of 
-small pockets of time to exercise. Therefore, uF!T intends to assist an individual with a busy lifestyle maintain a healthy lifestyle.  Researchers have found that devices that monitor a person's vitals or exercise information are conducive to leading a healthy lifestyle \cite{acharya:selfmonitor}.  Currently, people
-are able to record their exercises by on paper or on a spreadsheet.  However, both of these methods are prone to human
+activities attempt to motivate users to lead more healthy lifestyles \cite{mulas:race}\cite{ganti:satire}\cite{seeger:healthass}.
+The uF!T framework acts as a motivational tool that provides convenient exercise tracking on-the-go. Currently, people
+are able to record their exercises by paper or on a spreadsheet.  However, both of these methods are prone to human
 error, since it is easy to forget the number of repetitions completed
 if not recorded within a reasonable period of time. This predicament is particularly relevant to individuals
 completing exercises on the go, where paper or laptop access is not as
-easy. With uF!t, we will be able to eliminate the
+easy.  By taking 
+out the need to have a gym or time allotted for exercising, an individual would be able to take advantage of 
+small pockets of time to exercise. Furthermore, researchers have found that such devices that monitor a person's vitals or exercise information are conducive to leading a healthy lifestyle \cite{acharya:selfmonitor}. Likewise, uF!T intends to assist an individual with a busy lifestyle maintain a healthy lifestyle. With uF!t, we will be able to eliminate the
  hassle of dedicating exercise results to memory and enable users to
   focus more on their workout at any time, thus maximizing the gains from a healthy exercise \cite{acharya:selfmonitor}.
 
@@ -150,26 +150,26 @@ While exercise is the main solution to help reducing obesity, people still
 choose to not exercise despite the health benefits. This reality may be counter-intuitive for a reason: some
 researchers believe that this is due to the increase in fast-paced lifestyles.
 In many cases, it is possible to imagine this scenario given the variety of schedules people have to juggle apart from trying to maintain a regular
- exercise schedule(\textit{long work hours, picking
+ exercise schedule (\textit{long work hours, picking
 up kids, attending city meetings, taking care of family, etc.}).
 
 A resounding claim among researchers is that the general decrease in exercise in
 the US population is is mainly a consequence of technology
 replacing usual forms of exercise \cite{jeffords:obesity}. Previously, traversing long
-distances were completed by either walking or riding a bicycle, whereas now such 
+distances were completed by either walking or riding a bicycle; whereas now, such 
 distances are covered by either driving or use of public transportation
 (which generally involve an individual to be sitting). Following the advancement of technology,
 activities that involved physical activity are now being phased out.  Even household activities such as household vacuuming is increasingly replaced by automatons like a Roomba robot.
 In addition to fast-paced lifestyles and unavailable schedules, researchers attribute
 people's lack of motivation to workout to several different reasons as seen in Figure
 \ref{fig:noexercise}. Looking at the figure, we can see that one reason for losing motivation to exercise is 
-due to inability to obtain moral support from a partner or support group.  
+due to the inability to obtain moral support from a partner or support group.  
 It has been proven that people are more inclined to stick to an exercise regiment
 if they have a friend or family member that can assist them \cite{plante:exercisewithanother}.
 Following what is described in the article by Plante, having an exercise partner
  improves the amount of stress relieved during a regular exercise routine.  Admittedly, we do not 
  believe that uF!t is capable of solving every problem listed in the figure.  However, we 
- believe that uF!t has the possibility to solve two problems: \textit{no exercise partner} 
+ believe that uF!t has the possibility of reaching the solution to two problems: \textit{no exercise partner} 
  and \textit{lack of time}.  In the following pages, we will discuss our results about being able to correctly detect peaks from the accelerometer and gyroscope.  Additionally, we will test proper locations for the placement of uF!t to minimize the amount of sensor measurement noise generated by a user's movement.  Lastly, we wish to measure how accurately our system can count situps by doing trial runs with random individuals.  The use of random individuals, we will also allow us to measure if our system is comfortable enough for users of various sizes.  Through an evaluation of the system's current ability to measure situps, we believe that uF!t already has the groundwork that will allow it to track a multitude of various calisthenics.
 
 
@@ -181,25 +181,22 @@ data to a social media application like Facebook or Twitter; Figure \ref{fig:sys
 integration has not yet been implemented, you can find more information on this in the Future Works section.  In this section, however, you will find information about the components about what is currently working in uF!t.
 
 \subsection{Exercise Counter}
-The uF!T exercise counter records the number of repetitions completed for an exercise by counting defined features of the exercise.
-We have specifically defined features for our counter to look for: the counter will 
+The uF!T exercise counter records the number of repetitions completed for an exercise by counting defined features of the exercise. We have specifically defined features for our counter to look for: the counter will 
 look for peaks and troughs by filtering sensor measurements through a complementary filter.
 In our current iteration, when a user is doing a situp, their body oscillates between two varying angles: the rest
 and the peak. Therefore, a rest-peak pair would represent a single repetition of a complete situp.
 
 In order to recognize a peak in the measurement data, such as the angles
-found from our situp detector, we set threshold values that
-would represent the minimum angle value to be considered a rest
-and the maximum angle value to be considered a peak.  Each peak in the measurement
-readings would consist of data points that are above the peak 
-threshold value. It is common to have multiple data points 
+found from our situp detector, we set threshold values (i.e. the minimum angle value to be considered a rest
+and the maximum angle value to be considered a peak).  Each peak in the measurement
+readings is likely to consist of data points that are above the peak 
+threshold value and it is common to have multiple data points 
 classify as a peak value. The number of successive peak values
 indicates confidence that a peak is correctly observed. Typically,
 higher frequencies of peak detections in successive measurements would indicate with stronger confidence
 that a peak is indeed there while lower frequencies (one or two 
 peak detections) might indicate some noise. In order to make our 
-system more robust to misclassification due to noise we propose 
-the following conditions:
+system more robust to misclassification due to noise the following conditions must be met before a peak is confirmed as a peak:
 
 \begin{enumerate}
 \item \textit{Peak Confidence}: In order to be classified as a peak there must be at least 3 consecutive peak classifications. Otherwise, the classification is assumed to be from noise.
@@ -215,9 +212,9 @@ media application.
 
 \subsection{Wireless Communication}
 
-Exercise counts are delivered wirelessly to a base station. Once a mote detects the completion of a situp, it will use a broadcast method called identified Best-effort local area broadcast (libraries provided by Contiki 2.6). Messages that are sent to the base station is received through another mote connected to the base station. We chose to implement wireless communication as mote-to-mote communication because of the simplicity of construction. The structure of wireless communication code on both motes are basically identical. 
+Exercise counts are delivered wirelessly to a base station. Once a mote detects the completion of a situp, it will use a broadcast method called identified Best-effort Local Area Broadcast (libraries provided by Contiki 2.6). Messages that are sent to the base station are received through another mote connected to the base station. We chose to implement wireless communication as mote-to-mote communication because of the simplicity of construction. The structure of wireless communication code on both motes are basically identical. 
 
-Overall, the Best-effort broadcast will periodically broadcast about a completed situp until it receives an acknowledgment from the receiving end. The receiving mote will only receive messages if the sender id matches a specified id. Included in each broadcast message is a header that identifies the sender and the receiver is hard-coded with the address of the sender such that only messages sent from the specific sender will be accepted.  Implicit in this form of wireless communication we have accounted for mote security and data reliability. The base station will not falsely count additional situps for other nearby motes that may also broadcast completed exercises. 
+Overall, the Best-effort broadcast will periodically broadcast about a completed situp until it receives an acknowledgment from the receiving end.  Included in each broadcast message is a header that identifies the sender and the receiver is hard-coded with the address of the sender such that only messages sent from the specific sender will be accepted.  Implicit in this form of wireless communication we have accounted for mote security and data reliability. The base station will not falsely count additional situps for other nearby motes that may also broadcast completed exercises. 
 
 \begin{figure}
 \centering
@@ -245,7 +242,7 @@ rocking carelessly.
 
 To secure the device around a user's body, we have attached a neoprene
 corset to the uF!t's casing (see Figure \ref{fig:devicecase}).  The elastic qualities of the neoprene
-corset allows us to secure the device around big, as well as small,
+corset allows us to secure the device around big as well as small
 bodies.  This versatility has allowed us to further reduce any noise
 produced from rocking the sensor and it has proven to be comfortable
 as seen in our evaluations.
@@ -254,9 +251,9 @@ as seen in our evaluations.
 Unlike a standard out-of-the-box Tmote Sky, we used Contiki 2.6, instead of
 using TinyOs.  We chose to make this decision since our team was much
 more familiar with C, which made it much easy for us to quickly
-understand native functions in Contiki 2.6.  Additionally, this allowed
+understand native functions in Contiki 2.6.  This allowed
 us to focus on understanding how to integrate the accelerometer and
-gyroscope's functionality into Contiki.
+gyroscope's functionality into Contiki. Furthermore, because of the limitations of Contiki's math library in the design our program we found lightweight approximations of some necessary math functions for our own use (the authors of that atan2 function that is used is cited in the code).
 
 \subsection{Hardware: mpu6050}
 We have connected the 3-axis Gyro/Accelerometer mpu6050.  The gyroscope
@@ -276,11 +273,11 @@ from both devices in order to calculate the angle of user's body.
 
 \subsection{Accelerometer}
 In order to track simple movements like a push-up or sit-up,
-it was easy to determine by focusing on variation in the 
+we focused on variation in the 
 accelerometer's z (for the push-up) and the accelerometer's
 y (for a pull-up).  However, calculating the angle
 of the user's body with respect to our sensor requires some
-trigonometry.
+trigonometry involving the accelerometer data.
 
 \begin{equation}angle_{accel_x} = \arctan(accel_x,accel_z) + \pi\end{equation}
 
@@ -290,7 +287,7 @@ must add \(\pi\) to the results of arctan to have the range converted
  to 0 to 2\(\pi\).  Having no initial knowledge in the usage
 of accelerometers or gyroscopes, we believed that the accelerometer
  would have served its purpose for calculating the wearer's
-body angle during a situp.  However, if we look at figure \ref{fig:accelResults}
+body angle during a situp.  However, if we look at Figure \ref{fig:accelResults}
 we can see that our initial assumption was clearly untrue.  The
 accelerometer is great at calculating angles for stationary 
 positions, but it is terrible at tracking the rapid movements 
@@ -299,7 +296,7 @@ of an actual situp and the data we recorded, it turns out that
 the accelerometer reports angles exceedingly lower than what is
 actually completed.  In our initial tests, we only did situps
 up to angle of \(60^\circ\), however when we look at figure \ref{fig:accelResults},
-we can see that the highest recorded peak is about \(40^\circ\).  Additionaly,
+we can see that the highest recorded peak is about \(40^\circ\).  Additionally,
 the data that we received was noisy, so this was unsuitable for
 accurately tracking a user's angle.
 
@@ -313,13 +310,13 @@ accurately tracking a user's angle.
 \subsection{Gyroscope}
 The gyroscope is able to calculate angular velocity in degrees 
 per second, which lead us to think that the gyroscope would
-provide more promising results (we would use a discretized model to update the current angle). Therefore, angle accuracy would be solely dependent on the fidelity of the gyroscope measurements. For the gyroscope, we used 
+provide more promising results (we would use a discretized time model to update the current angle). Therefore, angle accuracy would be solely dependent on the fidelity of the gyroscope measurements. For the gyroscope, we used 
 this simple equation to calculate the angle.
 
 \begin{equation}angle_{gyro_x} = angle_{gyro_x} + gyro_x*dt\end{equation}
 
 Gyro is the degrees per second (\(^\circ/s\)) recorded from the
-gyroscope, while delta t is the sample period calculated from 
+gyroscope, while \textit{dt} is the sample period calculated from 
 the sample speed.  
 Multiplying the gyro by sample period, gives us the angle calculated 
 within one cycle, which can be accumulated in our total angle.  
@@ -345,14 +342,14 @@ accelerometer results.}
 \subsection{Complimentary Filter}
 From our analysis, we can see that both accelerometers and 
 gyroscopes have pros and cons.  The accelerometer 
-is good at detecting static positions, however whenever
-it is moving very quickly, it returns very noisy data.  In 
+is good at detecting static positions; however, whenever
+the sensor is moving very quickly, it returns very noisy data.  In 
 contrast, the gyroscope is good at detecting rapid 
 movements, however its data drifts over time, making it 
 increasingly inaccurate the longer you monitor the gyroscope.
 
 The solution involves using a combination of the
-accelerometer and gyroscope data.  A lot of the research we found
+accelerometer and gyroscope data.  After researching sensor filtering techniques we found that some filters
 involving body movement detection utilized either the Kalman Filter or other variations of it (Extended Kalman Filter, Fast Kalman Filter, etc.).  However, in our research we were not able to find any articles
 about utilizing the Complimentary Filter to analyze data.  Since
 the Complimentary Filter is computationally cheaper than the Kalman Filter, we decided to begin our research here \cite{colton:filter}.
@@ -369,16 +366,15 @@ The time constant \(\tau\) may vary from user to user depending on
 the reliability of the gyroscope's data and the sample
 rate.  The time constant defines the boundary between
 trusting the gyroscope and trusting the accelerometer.
-In our time constant, we used a time constant of \(\tau\)=\textit{.5
+In our time constant, we used a time constant of \(\tau\)=\textit{0.5
 seconds}. We had chose this time constant due to our results
-from the gyroscope.  It is important to choose a time constant
+from the gyroscope (it is important to choose a time constant
 that will work with the amount of drift generated from the
-gyroscope.  This means that for any measurement that is
+gyroscope).  This means that for any measurement that is
 lower than half a second, the algorithm will weight the
 gyroscope's measurements more heavily.  However,
 for any measurements that take longer than half a second,
-the accelerometer will have more weight, allowing it to
-take precedence over the gyroscope.  Since the gyroscope drifts over time, under shorts periods of time (such as a quick rise during a situp) measurements are
+the accelerometer measurements will have more weight over those of the gyroscope.  Since the gyroscope drifts over time, under shorts periods of time (such as a quick rise during a situp) measurements are
 very reliable.  However, consider a user
 that has already risen and is waiting at the peak of their
 situp.  In this situation, the gyroscope will become
@@ -392,10 +388,9 @@ complementary filter in this style, we would be able to record situps at varying
 In order to estimate how well our uF!t system is working, it
 will require the evaluation of two things: Peak Detection algorithm
 and Sensor Placement. Evaluation of our Peak Detection algorithm is essential in the process of determining if uF!T is able to correctly
-detect a situp.  Poor recognition of a simple situp,
+detect a situp.  Poor recognition of a simple situp
 would introduce cascading errors for our system when we attempt distinguish a situp from other exercises. We chose to test Proper Sensor Placement in order to determine in what ways the mote would be adversely affected by the  sensor shifting. By placing uFit in "shifted" areas, we would simulate real-world scenarios in which the data may suffer from additional unwanted 
-noise, which would make it more difficult to detect good
-exercises.
+noise.
 
 \subsection{Peak Detection}
 There are two important terms that we use for our Peak
@@ -409,9 +404,9 @@ implementation, we have designated zones to represent "good"
 areas for peaks and "good" areas for rests.  These "good" areas
 are set by threshold values that have been determined based upon monitoring other people who were doing situps. An angle of \(50^\circ\) or higher represents the
 threshold value for peaks, while \(10^\circ\) or below
-represents the threshold value for rests. Statically defining threshold values is inflexible when detecting situps given that an individual is likely to vary their situp form.  However, we found threshold values provided
+represents the threshold value for rests. Statically defining threshold values is inflexible when detecting situps given that an individual is likely to vary their situp form.  However, initially choosing static threshold values provided
 us a quick and simple way to begin detecting situps without
-having to use anything that is computationally heavier.  Looking
+having to use anything that is more complex.  Looking
 at Figures \ref{fig:centerchest}, \ref{fig:sidechest}, and \ref{fig:sidearm}, 
 we already have results from the threshold values that we selected.
 The upper blue dots, represents detected peaks, while the lower green
@@ -444,21 +439,21 @@ system since it may affect the overall quality of the data.  Additionally, we mu
 or not the placement of the sensor is comfortable for
 the user.  In our preliminary tests, it seems that it was
 acceptable to place the device on the following three
-places: \textit{the arm, center of chest, and the side 
+places: \textit{the arm, center of the chest, and the side 
 of the chest.} We assumed that the center of the chest
 would provide us with the most accurate data, since it
 is centered at the body and it should not affect any of
 the data since the chest area is generally an even area
 for people of most sizes.
 
-Looking at the graphs depicted in Figures \ref{fig:centerchest}, \ref{fig:sidechest}, and \ref{fig:sidearm} , we see that
+Looking at the graphs depicted in Figures \ref{fig:centerchest}, \ref{fig:sidechest}, and \ref{fig:sidearm}, we see that
 our initial assumption was actually incorrect.  It seems
 that the sensor obtained the best results when it was
-placed on the side of the chest.  Of course, we expected
+placed on the side of the chest (Note how in the snapshot the data representing the motion is smoother than in the other two graphs). We currently do not have an explanation for this occurrence and it warrants further investigation. Of course, we expected
 that the arm would not be the best place since depending
 on the user, they may either do a situp with their arms
 placed on the side of their body, or they may do it with
-their arms crossed across their chest.
+their arms crossed across their chest. 
 
 These results were nice for our initial attempts, however,
 we believe that it lacks the diversity of different sized
@@ -484,8 +479,8 @@ is important that we are able to detect the correct amount
 situps with individuals of varying body types.  For our next
 tests, we used four random individuals to do situps while
 wearing our uF!t device.  Each user was properly informed
-about what our device is capable of, and they were given the
-choice to decline if necessary.  Our test comprised of
+about what our device is capable of and they were given the
+choice to decline.  Our test comprised of
 three different situp speeds: \textit{fast, normal,} and
 \textit{slow}.  Fast is equivalent to completing a situp every
 second, while normal is completing a situp every two seconds
