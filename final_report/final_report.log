@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.12.26)  31 DEC 2012 16:57
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.12.26)  31 DEC 2012 18:50
 entering extended mode
 **final_report.tex
 (C:\Users\Brandon\Documents\GitHub\cs97\final_report\final_report.tex
@@ -239,9 +239,7 @@ File: ./figs/exercise.png Graphic file (type png)
 Package pdftex.def Info: ./figs/exercise.png used on input line 143.
 (pdftex.def)             Requested size: 216.81pt x 136.92625pt.
 
-Underfull \vbox (badness 2401) has occurred while \output is active []
-
- [1{C:/Users/Brandon/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+[1{C:/Users/Brandon/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
  <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/exercise.png>]
@@ -249,31 +247,31 @@ Underfull \vbox (badness 2401) has occurred while \output is active []
 File: ./figs/uf!t-system.png Graphic file (type png)
 
 <use ./figs/uf!t-system.png>
-Package pdftex.def Info: ./figs/uf!t-system.png used on input line 224.
+Package pdftex.def Info: ./figs/uf!t-system.png used on input line 177.
 (pdftex.def)             Requested size: 144.54pt x 147.03345pt.
+ [2 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/uf!t-system.png>]
 
-<./figs/tmote-size.jpg, id=14, 2601.72pt x 1943.26pt>
+<./figs/tmote-size.jpg, id=18, 2601.72pt x 1943.26pt>
 File: ./figs/tmote-size.jpg Graphic file (type jpg)
 
 <use ./figs/tmote-size.jpg>
-Package pdftex.def Info: ./figs/tmote-size.jpg used on input line 232.
+Package pdftex.def Info: ./figs/tmote-size.jpg used on input line 244.
 (pdftex.def)             Requested size: 144.54pt x 107.93227pt.
- [2]
-<./figs/accel_test.png, id=18, 796.9775pt x 569.12625pt>
+
+<./figs/accel_test.png, id=19, 796.9775pt x 569.12625pt>
 File: ./figs/accel_test.png Graphic file (type png)
 
 <use ./figs/accel_test.png>
-Package pdftex.def Info: ./figs/accel_test.png used on input line 308.
+Package pdftex.def Info: ./figs/accel_test.png used on input line 275.
 (pdftex.def)             Requested size: 231.26378pt x 165.14659pt.
- [3 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/uf!t-system.png> 
-<C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/tmote-size.jpg> <C:/U
-sers/Brandon/Documents/GitHub/cs97/final_report/figs/accel_test.png (PNG copy)>
-]
+ [3 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/tmote-size.jpg> <
+C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/accel_test.png (PNG co
+py)>]
 <./figs/gyro_test.png, id=28, 796.9775pt x 569.12625pt>
 File: ./figs/gyro_test.png Graphic file (type png)
 
 <use ./figs/gyro_test.png>
-Package pdftex.def Info: ./figs/gyro_test.png used on input line 338.
+Package pdftex.def Info: ./figs/gyro_test.png used on input line 334.
 (pdftex.def)             Requested size: 216.81pt x 154.82114pt.
  [4 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/gyro_test.png (PN
 G copy)>]
@@ -281,20 +279,20 @@ G copy)>]
 File: ./figs/chestTestcenter.png Graphic file (type png)
 
 <use ./figs/chestTestcenter.png>
-Package pdftex.def Info: ./figs/chestTestcenter.png used on input line 425.
+Package pdftex.def Info: ./figs/chestTestcenter.png used on input line 419.
 (pdftex.def)             Requested size: 216.81pt x 154.82114pt.
 
 <./figs/chestTestside.png, id=33, 796.9775pt x 569.12625pt>
 File: ./figs/chestTestside.png Graphic file (type png)
 
 <use ./figs/chestTestside.png>
-Package pdftex.def Info: ./figs/chestTestside.png used on input line 433.
+Package pdftex.def Info: ./figs/chestTestside.png used on input line 427.
 (pdftex.def)             Requested size: 216.81pt x 154.82114pt.
 
 <./figs/armTest.png, id=34, 796.9775pt x 569.12625pt>
 File: ./figs/armTest.png Graphic file (type png)
  <use ./figs/armTest.png>
-Package pdftex.def Info: ./figs/armTest.png used on input line 475.
+Package pdftex.def Info: ./figs/armTest.png used on input line 469.
 (pdftex.def)             Requested size: 216.81pt x 154.82114pt.
 
 [5 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/chestTestcenter.pn
@@ -305,10 +303,10 @@ s/armTest.png (PNG copy)>]
 File: ./figs/tmote-worn.jpg Graphic file (type jpg)
 
 <use ./figs/tmote-worn.jpg>
-Package pdftex.def Info: ./figs/tmote-worn.jpg used on input line 554.
+Package pdftex.def Info: ./figs/tmote-worn.jpg used on input line 548.
 (pdftex.def)             Requested size: 144.54pt x 107.93227pt.
  [6 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/tmote-worn.jpg>]
-Overfull \hbox (4.2102pt too wide) in paragraph at lines 634--654
+Overfull \hbox (4.2102pt too wide) in paragraph at lines 628--648
 \T1/aer/m/n/9 with con-sid-er-able com-pu-ta-tional power and are very portable
 .
  []
@@ -317,13 +315,13 @@ Overfull \hbox (4.2102pt too wide) in paragraph at lines 634--654
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (10.52524pt too wide) in paragraph at lines 657--661
+Overfull \hbox (10.52524pt too wide) in paragraph at lines 651--655
 \T1/aer/m/n/9 Currently, UF!T is lim-ited in its ca-pa-bil-i-ties to pro-vide p
 ortable
  []
 
 
-Overfull \hbox (1.27621pt too wide) in paragraph at lines 675--687
+Overfull \hbox (1.27621pt too wide) in paragraph at lines 669--681
 \T1/aer/m/n/9 Sen-sors mea-sure-ments would in-clude an-gu-lar ve-loc-ity aroun
 d
  []
@@ -331,7 +329,11 @@ d
 [7] (C:\Users\Brandon\Documents\GitHub\cs97\final_report\final_report.bbl
 [8]) [9
 
-] (C:\Users\Brandon\Documents\GitHub\cs97\final_report\final_report.aux) ) 
+] (C:\Users\Brandon\Documents\GitHub\cs97\final_report\final_report.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  2483 strings out of 494045
  30282 string characters out of 3148380
@@ -340,20 +342,19 @@ Here is how much of TeX's memory you used:
  48451 words of font info for 65 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  41i,10n,26p,780b,248s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/P
-rogram Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmmi9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb
-><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Prog
-ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fo
-nts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/
-times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb
->
-Output written on final_report.pdf (9 pages, 1833990 bytes).
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmmi9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+sy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><
+C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
+e1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr
+i8a.pfb>
+Output written on final_report.pdf (9 pages, 1834466 bytes).
 PDF statistics:
  92 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
