@@ -12,9 +12,35 @@ S.~Colton.
   and gyroscope measurements for a balancing platform.
 \newblock 2007.
 
+\bibitem{bausch:framework}
+S.~B. David~Bauschlicher and H.~ElAarag.
+\newblock Framework for the integration of body sensor networks and social
+  networks to improve health awareness.
+\newblock pages 19--26, 421 N Woodland Blvd, Deland, FL 32723, 2011. Dept. of
+  Mathematics and Computer Science, Stetson University.
+
+\bibitem{jovanov:wban}
+C.~O. Emil~Jovanov, Aleksandar~Milenkovic and P.~C. de~Groen.
+\newblock A wireless body area network of intelligent motion sensors for
+  computer assisted physical rehabilitation.
+\newblock {\em Journal of NeuroEngineering and Rehabilitation}, March 2005.
+
+\bibitem{mulas:race}
+S.~C. Fabrizio~Mulas, Paolo~Pilloni.
+\newblock Everywhere race!: A social mobile platform for sport engagement and
+  motivation.
+\newblock {\em The Second International Conference on Social Eco-Informatics},
+  2012.
+
 \bibitem{jeffords:obesity}
 J.~M. Jeffords.
 \newblock Overall costs of obesity.
+
+\bibitem{varkey:human}
+T.~A.~W. John Paul~Varkey, Dario~Pompili.
+\newblock Human motion recognition using a wireless sensor-based wearable
+  system.
+\newblock {\em Pers Ubiquit Comput}, 2011.
 
 \bibitem{farringdon:sensorbadge}
 N.~T. J.~C. Jonny~Farringdon, Andrew J.~Moore and P.~D. Biemond.
@@ -48,6 +74,22 @@ T.~F. A. J. A.~S. Raghu K.~Ganti, Praveen~Jayachandran.
 \newblock Satire: A software architecture for smart attire.
 \newblock {\em MobiSys '06}, June 2006.
 
+\bibitem{acharya:selfmonitor}
+S.~S. M.~S. S.~Acharya, O.~Elci and L.~Burke.
+\newblock Using a personal digital assistant for self-monitoring influences
+  diet quality in comparison to a standard paper record among overweight/obese
+  adults.
+\newblock {\em J. Am Diet Association}, April 2011.
+
+\bibitem{vickey:twitterstudy}
+J.~G.~B. Theodore A.~Vickey.
+\newblock A study on twitter usage for fitness self-reporting via mobile apps.
+\newblock {\em AAAI Technical Report}, December 2005.
+
+\bibitem{vickey:fitnesstwitter}
+M.~Theodore A.~Vickey, Nancey Trevanian~Tsai and J.~G. Breslin.
+\newblock Mobile fitness apps and twitter- a systemic review.
+
 \bibitem{plante:exercisewithanother}
 L.~C. Thomas G.~Plante and M.~Ford.
 \newblock Does exercising with another enhance the stress-reducing benefits of
@@ -56,7 +98,7 @@ L.~C. Thomas G.~Plante and M.~Ford.
 
 \bibitem{sixtostart:zrun}
 S.~to~Start.
-\newblock Zombies, run!
+\newblock Zombies, run!, Feb. 2012.
 
 \bibitem{zhang:KHMeans}
 B.~Zhang.

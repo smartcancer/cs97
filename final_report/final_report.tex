@@ -124,13 +124,20 @@ seven patients had continued their exercise regiment. In eight months,
 only five were consistent with their exercise regiment \cite{campbell:noncompliance}. This case study
 reflects the same trend that is present in among the general populace joining exercise programs in America. 
 Current studies show that 50\% of Americans that join an exercise program, will drop
-out within the first six months \cite{kravitz:eMotivation}. In order aid in the reduction of obesity issues, 
-medical devices such as body wireless sensor networks that are used either to provide body posture correction/monitoring 
-or tracking daily activities. In many cases, body wireless sensor networks that are used to track an individual's 
-activities attempt to motivate users to lead more healthy lifestyles \cite{mulas:race},\cite{ganti:satire},\cite{seeger:healthass}. 
+out within the first six months \cite{kravitz:eMotivation}. In order to help the reduction of obesity issues, 
+medical devices have been created such as body wireless sensor networks that are used to either provide body posture correction/monitoring 
+or track daily activities. In many cases, body wireless sensor networks that are used to track an individual's 
+activities attempt to motivate users to lead more healthy lifestyles \cite{mulas:race},\cite{ganti:satire},\cite{seeger:healthass}.
 The uF!T framework acts as a motivational tool that provides convenient exercise tracking on-the-go. By taking 
-out the need to have a gym or time alloted for exercising an individual would be able to take advantage of 
-small pockets of time to exercise. Therefore, uF!T intends to assist an individual with a busy lifestyle maintain a healthy lifestyle.
+out the need to have a gym or time allotted for exercising an individual would be able to take advantage of 
+small pockets of time to exercise. Therefore, uF!T intends to assist an individual with a busy lifestyle maintain a healthy lifestyle.  Researchers have found that devices that monitors a person's vitals or exercise information is conducive to one's health \cite{acharya:selfmonitor}.  Currently, people
+are able to track their exercises by recording it on paper or logging it in a spreadsheet.  However, both of these methods are prone to human
+error, since you can easily forget the number of repetitions completed
+for each exercise in a workout.  This can be especially difficult when
+completing exercises on the go, where paper or laptop access is not as
+easy. With uF!t, we will be able to eliminate the
+ need of dedicating memory to exercise results, enabling user's to
+  focus more on their workout at any time, thus maximizing the gains from a healthy exercise \cite{acharya:selfmonitor}.
 
 \begin{figure}
 \centering
@@ -229,8 +236,8 @@ Overall, the Best-effort broadcast will periodically broadcast about a completed
 
 \begin{figure}
 \centering
-\includegraphics[width=2.0in,width=2in]{./figs/tmotesky.png}
-\caption{The current casing for our uF!t device.}
+\includegraphics[width=2.0in,width=2in]{./figs/tmote-size.jpg}
+\caption{The current casing for our uF!t device, size compared to a dime.}
 \label{fig:devicecase}
 \end{figure}
 
@@ -535,7 +542,7 @@ to keep up with the slowest situp speed.
 
 
 
-If we look at the table \ref{table:accuracy}, it seems that our device is highly accurate
+If we look at the table 1, it seems that our device is highly accurate
 when the user is utilizing a slow situp speed (average of .7875).  Unfortunately,
 as the user completes sit-ups at a normal speed, the device's accuracy
 drops by a factor of 1.88 (average of .425).  This accuracy drops even
@@ -567,6 +574,13 @@ Participants&Accuracy (Slow)&Accuracy(Normal) & Accuracy(Fast)\\ \hline
 Average & .7875 & .425 & .15\\ \hline
 \end{tabular}
 \end{table*}
+
+\begin{figure}
+\centering
+\includegraphics[width=2.0in,width=2in]{./figs/tmote-worn.jpg}
+\caption{Example of participant wearing uF!t device.}
+\label{fig:deviceworn}
+\end{figure}
 
 \begin{enumerate}
 \item Do you consider yourself a casual or hardcore exerciser?
@@ -631,7 +645,11 @@ used for people and patients who wish to be healthier through doing
 simple calisthenics.  As stated before, uF!t will be able to track
 your progress by storing results from daily workouts, whereas SATIRE
 is not necessarily an exercise device, but only a device that
-monitors your current health and activity.
+monitors your current health and activity. Similar to SATIRE, we have found other researchers who have attempted specific movement recognition.  The system provided by John Varkey et al, focused on classifying different movements, such as the following: standing, walking, smoking, jogging, and writing \cite{varkey:human}.  Unlike SATIRE, however, they used a machine learning approach by implementing
+a support vector machine (SVM), to recognize the different activities.
+Although their results are not useful to the current iteration of
+uF!t, we believe their research will be conducive to our efforts to
+recognize different calisthenic exercises.
 
 Wireless Body Area Network (WBAN), is another device that has
 gait/motion detection \cite{jovanov:wban}. However, WBAN, unlike the other research we found, is capable of measuring your "fitness level" while exercising.
@@ -654,7 +672,7 @@ social media. The \textit{Zombies, Run!} application has shown to be successful
 by popular account and has therefore involved encouraged many people
 to exercise more \cite{sixtostart:zrun}. Zombies, Unfortunately, the \textit{Zombies, Run!} application is extremely
 limited in its variety exercises. Researchers believe that there is some correlation between
-exercising and social media applications.  Believing that there are plenty of benefits, such as increased motivation for exercise, but there also drawbacks, such as increased sedentary behavior from staying connected to the network instead of exercising /cite{vickey:fitnesstwitter}.  As seen with \textit{Everywhere Race!}, they also believe that you can promote better health through the use of
+exercising and social media applications.  Believing that there are plenty of benefits, such as increased motivation for exercise, but there also drawbacks, such as increased sedentary behavior from staying connected to the network instead of exercising \cite{vickey:twitterstudy,vickey:fitnesstwitter}.  As seen with \textit{Everywhere Race!}, they also believe that you can promote better health through the use of
 famous social networking applications \cite{mulas:race, bausch:framework}. In \textit{Everywhere Race!}, people were allowed to connect with other users in a virtual run.  This virtual run would allow multiple connected users to run a specified distance in different locations while still being able to compete in a virtual race with each other.  However, all of these fitness apps share one thing in common: they only measure running data; as explained, \textit{Zombies, Run!} and \textit{Everywhere Race!} is only capable of encouraging a user to run; furthermore, the researchers data did not involve applications that do more than just tracking running exercise data.  UF!t offers a variety exercises, so that
 a user will not have to stick to the same routine.  Being able to change
 your routine has been proven to provide better health benefits, than
@@ -680,7 +698,7 @@ as dehydration and hypothermia \cite{gonzalez:exerciseheat}.  This
 degree of security would be enticing for new people that are interested
 in excerciing.
 
-\subsection{WORKOUT CLASSIFIER}
+\subsection{Workout Classifier}
 uF!T will interpret accelerometer and gryoscope data in order
 to determine what exercise is being performed. Our current 
 classifier distinguishes exercises according to sensor 
@@ -712,7 +730,9 @@ center. We look to implement a more advanced dynamic version
 of k-means that is touted to be more accurate "K-Harmonic Means"
 \cite{zhang:KHMeans}.
 
-\subsection{DYNAMIC PEAK DETECTION}
+
+
+\subsection{Dynamic Peak Detection}
 For dynamic peak detection would implement "general" peak 
 detection that would search for inflection points in the data
 

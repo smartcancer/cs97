@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.2.1)  30 DEC 2012 16:03
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.12.26)  30 DEC 2012 21:43
 entering extended mode
 **final_report.tex
-(C:\Users\Steven\Desktop\gitbrandon\final_report\final_report.tex
+(C:\Users\Brandon\Documents\GitHub\cs97\final_report\final_report.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -13,30 +13,38 @@ an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese,
 romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
 sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
 senglishmax, welsh, loaded.
-(C:\Users\Steven\Desktop\gitbrandon\final_report\acm_proc_article-sp.cls
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\epsfig.sty"
+(C:\Users\Brandon\Documents\GitHub\cs97\final_report\acm_proc_article-sp.cls
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\epsfig.sty"
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: dvips.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 91.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\dvips.def"
-File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count79
 ))
 \Gin@req@height=\dimen102
 \Gin@req@width=\dimen103
@@ -44,10 +52,10 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \epsfxsize=\dimen104
 \epsfysize=\dimen105
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2009/06/22 v3.00
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \@emptytoks=\toks15
 \symAMSa=\mathgroup4
@@ -55,33 +63,33 @@ Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
 Package: amstext 2000/06/29 v2.01
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen106
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count79
+\inf@bad=\count80
 LaTeX Info: Redefining \frac on input line 211.
-\uproot@=\count80
-\leftroot@=\count81
+\uproot@=\count81
+\leftroot@=\count82
 LaTeX Info: Redefining \overline on input line 307.
-\classnum@=\count82
-\DOTSCASE@=\count83
+\classnum@=\count83
+\DOTSCASE@=\count84
 LaTeX Info: Redefining \ldots on input line 379.
 LaTeX Info: Redefining \dots on input line 382.
 LaTeX Info: Redefining \cdots on input line 467.
@@ -90,15 +98,15 @@ LaTeX Info: Redefining \cdots on input line 467.
 \big@size=\dimen108
 LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
-\macc@depth=\count84
-\c@MaxMatrixCols=\count85
+\macc@depth=\count85
+\c@MaxMatrixCols=\count86
 \dotsspace@=\muskip10
-\c@parentequation=\count86
-\dspbrk@lvl=\count87
+\c@parentequation=\count87
+\dspbrk@lvl=\count88
 \tag@help=\toks17
-\row@=\count88
-\column@=\count89
-\maxfields@=\count90
+\row@=\count89
+\column@=\count90
+\maxfields@=\count91
 \andhelp@=\toks18
 \eqnshift@=\dimen109
 \alignsep@=\dimen110
@@ -122,68 +130,68 @@ Excerpts were taken from (Journal Style) 'esub2acm.cls'.
 \footheight=\dimen115
 \@maxsep=\dimen116
 \@dblmaxsep=\dimen117
-\aucount=\count91
-\originalaucount=\count92
+\aucount=\count92
+\originalaucount=\count93
 \auwidth=\dimen118
 \auskip=\dimen119
-\auskipcount=\count93
+\auskipcount=\count94
 \auskip=\dimen120
 \allauboxes=\dimen121
 \addauthors=\toks21
-\addauflag=\count94
+\addauflag=\count95
 \subtitletext=\toks22
-\savesection=\count95
-\sectioncntr=\count96
-\c@figure=\count97
-\c@table=\count98
+\savesection=\count96
+\sectioncntr=\count97
+\c@figure=\count98
+\c@table=\count99
 \titleboxnotes=\toks23
-\titleboxnoteflag=\count99
+\titleboxnoteflag=\count100
 Document Class: acm_proc_article-sp 2009/04/22 - V3.2SP - based on esub2acm.sty
  <23 April 96>
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latexsym.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\latexsym.sty"
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
 )
 \@acmtitlebox=\box28
-\titlenotecount=\count100
+\titlenotecount=\count101
 \tntoks=\toks24
 \tntokstwo=\toks25
 \tntoksthree=\toks26
 \tntoksfour=\toks27
 \tntoksfive=\toks28
-\catcount=\count101
+\catcount=\count102
 \conf=\toks29
 \confinfo=\toks30
-\c@part=\count102
-\c@section=\count103
-\c@subsection=\count104
-\c@subsubsection=\count105
-\c@paragraph=\count106
+\c@part=\count103
+\c@section=\count104
+\c@subsection=\count105
+\c@subsubsection=\count106
+\c@paragraph=\count107
 
 Using 'Abbrev' bibliography style
 LaTeX Info: Redefining \cite on input line 1238.
 \bibindent=\dimen122
-\colcntr=\count107
+\colcntr=\count108
 \saveb@x=\box29
 \copyrtyr=\toks31
 \acmcopyr=\toks32
 \boilerplate=\toks33
 \copyrightetc=\toks34
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.def"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ae\t1aer.fd"
+("C:\Program Files\MiKTeX 2.9\tex\latex\ae\t1aer.fd"
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 )))
-(C:\Users\Steven\Desktop\gitbrandon\final_report\final_report.aux)
+(C:\Users\Brandon\Documents\GitHub\cs97\final_report\final_report.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
@@ -196,169 +204,117 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Try loading font information for U+msa on input line 91.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+(C:\Users\Brandon\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count109
+\scratchdimen=\dimen123
+\scratchbox=\box30
+\nofMPsegments=\count110
+\nofMParguments=\count111
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count112
+\MPscratchDim=\dimen124
+\MPnumerator=\count113
+\makeMPintoPDFobject=\count114
+\everyMPtoPDFconversion=\toks36
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 91.
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 91.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 91.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ulasy.fd"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
+<./figs/exercise.png, id=1, 915.42pt x 578.16pt>
+File: ./figs/exercise.png Graphic file (type png)
+ <use ./figs/exercise.png>
+Package pdftex.def Info: ./figs/exercise.png used on input line 144.
+(pdftex.def)             Requested size: 216.81pt x 136.92625pt.
 
-LaTeX Warning: Citation `mulas:race' on page 1 undefined on input line 126.
-
-
-! LaTeX Error: Cannot determine size of graphic in ./figs/exercise.png (no Boun
-dingBox).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.130 ...dth=3.0in,width=3in]{./figs/exercise.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-File: ./figs/exercise.png Graphic file (type eps)
-<./figs/exercise.png> [1
+[1{C:/Users/Brandon/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
-]
-Overfull \hbox (1.76062pt too wide) in paragraph at lines 165--168
+ <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/exercise.png>]
+Overfull \hbox (1.76062pt too wide) in paragraph at lines 179--182
 \T1/aer/m/n/9 tially, we will in-tro-duce the com-po-nents that com-prise uF!T'
 s
  []
 
+<./figs/uf!t-system.png, id=12, 465.74pt x 473.77pt>
+File: ./figs/uf!t-system.png Graphic file (type png)
 
-! LaTeX Error: Cannot determine size of graphic in ./figs/uf!t-system.png (no B
-oundingBox).
+<use ./figs/uf!t-system.png>
+Package pdftex.def Info: ./figs/uf!t-system.png used on input line 231.
+(pdftex.def)             Requested size: 144.54pt x 147.03345pt.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.217 ...=2.0in,width=2in]{./figs/uf!t-system.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<./figs/tmote-size.jpg, id=14, 2601.72pt x 1943.26pt>
+File: ./figs/tmote-size.jpg Graphic file (type jpg)
 
-File: ./figs/uf!t-system.png Graphic file (type eps)
-<./figs/uf!t-system.png>
+<use ./figs/tmote-size.jpg>
+Package pdftex.def Info: ./figs/tmote-size.jpg used on input line 239.
+(pdftex.def)             Requested size: 144.54pt x 107.93227pt.
+ [2]
+<./figs/accel_test.png, id=18, 796.9775pt x 569.12625pt>
+File: ./figs/accel_test.png Graphic file (type png)
 
-! LaTeX Error: Cannot determine size of graphic in ./figs/tmotesky.png (no Boun
-dingBox).
+<use ./figs/accel_test.png>
+Package pdftex.def Info: ./figs/accel_test.png used on input line 318.
+(pdftex.def)             Requested size: 216.81pt x 154.82114pt.
+ [3 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/uf!t-system.png> 
+<C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/tmote-size.jpg> <C:/U
+sers/Brandon/Documents/GitHub/cs97/final_report/figs/accel_test.png (PNG copy)>
+]
+<./figs/gyro_test.png, id=28, 796.9775pt x 569.12625pt>
+File: ./figs/gyro_test.png Graphic file (type png)
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.225 ...dth=2.0in,width=2in]{./figs/tmotesky.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<use ./figs/gyro_test.png>
+Package pdftex.def Info: ./figs/gyro_test.png used on input line 348.
+(pdftex.def)             Requested size: 216.81pt x 154.82114pt.
 
-File: ./figs/tmotesky.png Graphic file (type eps)
-<./figs/tmotesky.png> [2] [3]
+Underfull \vbox (badness 1953) has occurred while \output is active []
 
-! LaTeX Error: Cannot determine size of graphic in ./figs/accel_test.png (no Bo
-undingBox).
+ [4 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/gyro_test.png (PN
+G copy)>]
+<./figs/chestTestcenter.png, id=32, 796.9775pt x 569.12625pt>
+File: ./figs/chestTestcenter.png Graphic file (type png)
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.304 ...h=3.0in,width=3in]{./figs/accel_test.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<use ./figs/chestTestcenter.png>
+Package pdftex.def Info: ./figs/chestTestcenter.png used on input line 450.
+(pdftex.def)             Requested size: 216.81pt x 154.82114pt.
 
-File: ./figs/accel_test.png Graphic file (type eps)
-<./figs/accel_test.png>
+<./figs/chestTestside.png, id=33, 796.9775pt x 569.12625pt>
+File: ./figs/chestTestside.png Graphic file (type png)
 
-! LaTeX Error: Cannot determine size of graphic in ./figs/gyro_test.png (no Bou
-ndingBox).
+<use ./figs/chestTestside.png>
+Package pdftex.def Info: ./figs/chestTestside.png used on input line 458.
+(pdftex.def)             Requested size: 216.81pt x 154.82114pt.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.334 ...th=3.0in,width=3in]{./figs/gyro_test.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<./figs/armTest.png, id=34, 796.9775pt x 569.12625pt>
+File: ./figs/armTest.png Graphic file (type png)
+ <use ./figs/armTest.png>
+Package pdftex.def Info: ./figs/armTest.png used on input line 500.
+(pdftex.def)             Requested size: 216.81pt x 154.82114pt.
 
-File: ./figs/gyro_test.png Graphic file (type eps)
-<./figs/gyro_test.png> [4]
+[5 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/chestTestcenter.pn
+g (PNG copy)> <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/chestTe
+stside.png (PNG copy)> <C:/Users/Brandon/Documents/GitHub/cs97/final_report/fig
+s/armTest.png (PNG copy)>]
+<./figs/tmote-worn.jpg, id=38, 2601.72pt x 1943.26pt>
+File: ./figs/tmote-worn.jpg Graphic file (type jpg)
 
-! LaTeX Error: Cannot determine size of graphic in ./figs/chestTestcenter.png (
-no BoundingBox).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.436 ...in,width=3in]{./figs/chestTestcenter.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-File: ./figs/chestTestcenter.png Graphic file (type eps)
-<./figs/chestTestcenter.png>
-
-! LaTeX Error: Cannot determine size of graphic in ./figs/chestTestside.png (no
- BoundingBox).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.444 ....0in,width=3in]{./figs/chestTestside.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-File: ./figs/chestTestside.png Graphic file (type eps)
-<./figs/chestTestside.png> [5]
-
-! LaTeX Error: Cannot determine size of graphic in ./figs/armTest.png (no Bound
-ingBox).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.486 ...idth=3.0in,width=3in]{./figs/armTest.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-File: ./figs/armTest.png Graphic file (type eps)
-<./figs/armTest.png>
-
-LaTeX Warning: Reference `table:accuracy' on page 6 undefined on input line 531
-.
-
-[6]
-
-LaTeX Warning: Citation `jovanov:wban' on page 7 undefined on input line 630.
-
-
-LaTeX Warning: Citation `mulas:race' on page 7 undefined on input line 651.
-
-
-LaTeX Warning: Citation `bausch:framework' on page 7 undefined on input line 65
-1.
-
-
-Overfull \hbox (4.2102pt too wide) in paragraph at lines 635--655
+<use ./figs/tmote-worn.jpg>
+Package pdftex.def Info: ./figs/tmote-worn.jpg used on input line 580.
+(pdftex.def)             Requested size: 144.54pt x 107.93227pt.
+ [6 <C:/Users/Brandon/Documents/GitHub/cs97/final_report/figs/tmote-worn.jpg>]
+Overfull \hbox (4.2102pt too wide) in paragraph at lines 660--680
 \T1/aer/m/n/9 with con-sid-er-able com-pu-ta-tional power and are very portable
 .
  []
@@ -367,29 +323,39 @@ Overfull \hbox (4.2102pt too wide) in paragraph at lines 635--655
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (10.52524pt too wide) in paragraph at lines 658--662
-[]\T1/aer/m/n/9 Currently, UF!T is lim-ited in its ca-pa-bil-i-ties to pro-vide
- portable
+Overfull \hbox (10.52524pt too wide) in paragraph at lines 683--687
+\T1/aer/m/n/9 Currently, UF!T is lim-ited in its ca-pa-bil-i-ties to pro-vide p
+ortable
  []
 
-[7] [8] (C:\Users\Steven\Desktop\gitbrandon\final_report\final_report.bbl)
-[9
+[7] (C:\Users\Brandon\Documents\GitHub\cs97\final_report\final_report.bbl
+[8]) [9
 
-] (C:\Users\Steven\Desktop\gitbrandon\final_report\final_report.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (C:\Users\Brandon\Documents\GitHub\cs97\final_report\final_report.aux) ) 
 Here is how much of TeX's memory you used:
- 1849 strings out of 494046
- 21340 string characters out of 3145990
- 82516 words of memory out of 3000000
- 5125 multiletter control sequences out of 15000+200000
- 39815 words of font info for 51 fonts, out of 3000000 for 9000
+ 2483 strings out of 494045
+ 30282 string characters out of 3148380
+ 90884 words of memory out of 3000000
+ 5729 multiletter control sequences out of 15000+200000
+ 48451 words of font info for 65 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 39i,10n,26p,1663b,262s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,10n,26p,751b,248s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/P
+rogram Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmmi9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/
+times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb
+>
+Output written on final_report.pdf (9 pages, 1832903 bytes).
+PDF statistics:
+ 92 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on final_report.dvi (9 pages, 68772 bytes).
