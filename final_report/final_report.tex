@@ -106,7 +106,7 @@ the system's ability to count situps. After establishing that uF!t
 is best placed on either the chest or the side of the chest, we 
 were able to retrieve good results from tracking situps.  At the 
 moment, uF!t is good at tracking slower speed situps, with slower rate
-defined as completing 1 situp in 3 seconds or more. From our evaluations, 
+defined as completing one situp in three seconds or more. From our evaluations, 
 we believe that uF!t has great potential to become a system that
 can contribute to health exercises including more than just situps.
 \end{abstract}
@@ -244,7 +244,7 @@ given more opportunities to be mutated by noises induced by the sensor
 rocking carelessly.
 
 To secure the device around a user's body, we have attached a neoprene
-corset to the uF!t's casing (see Figure 3).  The elastic qualities of the neoprene
+corset to the uF!t's casing (see Figure \ref{fig:devicecase}).  The elastic qualities of the neoprene
 corset allows us to secure the device around big, as well as small,
 bodies.  This versatility has allowed us to further reduce any noise
 produced from rocking the sensor and it has proven to be comfortable
@@ -361,15 +361,15 @@ the Complimentary Filter is computationally cheaper than the Kalman Filter, we d
 
 With the knowledge that we cannot rely on the gyroscope for 
 long periods of time, it is important to calculate a good time
-constant.  The time constant \tau helps determine the coefficients (\textit{a} and 1-\textit{a}) used in the filter.
+constant.  The time constant \(\tau\) helps determine the coefficients (\textit{a} and 1-\textit{a}) used in the filter.
 
 \begin{equation}\tau = \frac{a*dt}{1-a}\end{equation}
 
-The time constant \tau may vary from user to user depending on
+The time constant \(\tau\) may vary from user to user depending on
 the reliability of the gyroscope's data and the sample
 rate.  The time constant defines the boundary between
 trusting the gyroscope and trusting the accelerometer.
-In our time constant, we used a time constant of \tau=\textit{.5
+In our time constant, we used a time constant of \(\tau\)=\textit{.5
 seconds}. We had chose this time constant due to our results
 from the gyroscope.  It is important to choose a time constant
 that will work with the amount of drift generated from the
